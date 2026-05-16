@@ -16,22 +16,68 @@ const Success = () => {
           <CheckCircle2 size={48} />
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-black mb-4 font-['Plus_Jakarta_Sans'] tracking-tighter">Payment Successful!</h1>
-        <p className="text-[#cfc2d7] text-lg mb-12">Thank you for joining the future of video dubbing. Your license is now active.</p>
+        <h1 className="text-4xl md:text-5xl font-black mb-4 font-['Plus_Jakarta_Sans'] tracking-tighter text-white">Payment Successful!</h1>
+        <p className="text-[#cfc2d7] text-lg mb-8">Thank you for joining the future of video dubbing. Your license is now active.</p>
         
+        {/* Serial Key Lookup Box */}
+        <div className="mb-10 p-8 rounded-3xl bg-white/[0.02] border border-white/10 text-left">
+          <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+            <ShieldCheck size={16} className="text-[#ddb8ff]" />
+            Your Serial Key
+          </h3>
+          <div className="flex flex-col gap-4">
+            <input 
+              type="email" 
+              id="lookup-email"
+              placeholder="Enter your email to see your key"
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors"
+              onKeyDown={async (e) => {
+                if (e.key === 'Enter') {
+                  const target = e.currentTarget;
+                  const email = target.value;
+                  const display = document.getElementById('key-display');
+                  const text = document.getElementById('key-text');
+                  
+                  if (!email) return;
+                  
+                  target.disabled = true;
+                  if (text) text.innerText = 'Searching...';
+                  if (display) display.classList.remove('hidden');
+
+                  try {
+                    // We call a special lookup endpoint I'll add or use Supabase directly if we want
+                    // But for now, let's just use a fetch to our API
+                    const res = await fetch(`/api/lookup_key?email=${encodeURIComponent(email)}`);
+                    const data = await res.json();
+                    
+                    if (data.key) {
+                      if (text) text.innerText = data.key;
+                    } else {
+                      if (text) text.innerText = 'Key not found yet. Try again in 10s.';
+                    }
+                  } catch (err) {
+                    if (text) text.innerText = 'Error searching. Please check your email.';
+                  } finally {
+                    target.disabled = false;
+                  }
+                }
+              }}
+            />
+            <div id="key-display" className="hidden p-4 rounded-xl bg-[#ddb8ff]/10 border border-[#ddb8ff]/20 text-center">
+              <code id="key-text" className="text-2xl font-black text-[#ddb8ff] tracking-widest">Searching...</code>
+              <p className="text-[10px] text-[#ddb8ff]/50 mt-2 uppercase font-bold">Copy this key into the app to activate</p>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-6">
           <a 
-            href="#" // Put your real installer download link here!
+            href="https://easydubbing.uk/installer.exe" 
             className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-6 rounded-2xl shadow-xl shadow-purple-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 text-xl"
           >
             <Download size={24} />
             Download Installer for Windows
           </a>
-          
-          <div className="flex items-center justify-center gap-3 text-xs text-gray-500 font-bold uppercase tracking-widest pt-4">
-            <ShieldCheck size={16} className="text-primary" />
-            Check your email for your Serial Key
-          </div>
         </div>
 
         <div className="mt-12 pt-12 border-t border-white/5">
