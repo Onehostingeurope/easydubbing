@@ -24,6 +24,7 @@ const Home = () => {
         </a>
         <div className="hidden md:flex gap-4 md:gap-8 items-center text-xs md:text-sm">
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">{t('nav.features')}</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#security">{t('nav.security') || 'Security'}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">{t('nav.howItWorks')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">{t('nav.pricing')}</a>
           <a className="text-primary font-black hover:text-white transition-colors" href="/app">{t('nav.activate')}</a>
@@ -103,6 +104,51 @@ const Home = () => {
                 <p className="text-[#cfc2d7] leading-relaxed">{f.desc}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Security & Trust Section */}
+        <section id="security" className="px-6 md:px-12 max-w-[1280px] mx-auto py-32 border-t border-white/5">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
+                <span className="material-symbols-outlined text-green-400 text-3xl">verified_user</span>
+              </div>
+              <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">Safe & Verified Installation</h2>
+              <p className="text-[#cfc2d7] leading-relaxed">
+                Easy Dubbing is developed by <b>OneHostingEurope</b>. As an independent AI studio, our software might trigger a Windows "SmartScreen" warning during the first installation. 
+                <br/><br/>
+                This is normal for new professional software. Our code is 100% clean, virus-free, and focused solely on your video translation performance.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                  <span className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">1</span>
+                  <p className="text-sm text-[#cfc2d7]">If the blue window appears, click <b>"More Info"</b>.</p>
+                </div>
+                <div className="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                  <span className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">2</span>
+                  <p className="text-sm text-[#cfc2d7]">Click <b>"Run Anyway"</b> to start your Pro translation experience.</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-90" />
+              <div className="bg-white/[0.03] backdrop-blur-md p-8 rounded-[40px] border border-white/10 shadow-2xl">
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a] flex items-center justify-center p-8">
+                   <div className="text-center space-y-4">
+                      <span className="material-symbols-outlined text-6xl text-blue-400">info</span>
+                      <p className="text-xs text-white/40 uppercase tracking-widest font-bold">SmartScreen Preview</p>
+                      <div className="h-2 w-32 bg-white/10 mx-auto rounded-full" />
+                      <div className="h-2 w-24 bg-white/10 mx-auto rounded-full" />
+                   </div>
+                </div>
+                <div className="mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#cfc2d7]/40">
+                  <span>Verified Clean</span>
+                  <span>SSL Encrypted</span>
+                  <span>FIPS Compliant</span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

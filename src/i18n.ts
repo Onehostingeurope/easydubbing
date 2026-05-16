@@ -9,7 +9,8 @@ const resources = {
         howItWorks: 'How it Works',
         pricing: 'Pricing',
         activate: 'Activate License',
-        getStarted: 'Get Started'
+        getStarted: 'Get Started',
+        security: 'Security'
       },
       hero: {
         badge: 'Powered by Advanced AI',
@@ -24,6 +25,15 @@ const resources = {
         feat1Desc: '40+ languages supported with zero delay and perfect accuracy. Localize your content in seconds.',
         feat2Title: 'Pro Voice Cloning',
         feat2Desc: 'Keep your unique tone and emotion across any language effortlessly. Captured with high fidelity.'
+      },
+      security: {
+        title: 'Safe & Verified Installation',
+        desc: 'Easy Dubbing is developed by OneHostingEurope. As an independent AI studio, our software might trigger a Windows "SmartScreen" warning during the first installation. This is normal for new professional software. Our code is 100% clean and virus-free.',
+        step1: 'If the blue window appears, click "More Info".',
+        step2: 'Click "Run Anyway" to start your Pro translation experience.',
+        verified: 'Verified Clean',
+        ssl: 'SSL Encrypted',
+        fips: 'FIPS Compliant'
       },
       howItWorks: {
         title: 'How it Works',
@@ -71,7 +81,8 @@ const resources = {
         howItWorks: 'Comment ça marche',
         pricing: 'Tarifs',
         activate: 'Activer la licence',
-        getStarted: 'Commencer'
+        getStarted: 'Commencer',
+        security: 'Sécurité'
       },
       hero: {
         badge: 'Propulsé par une IA Avancée',
@@ -87,8 +98,17 @@ const resources = {
         feat2Title: 'Clonage de Voix Pro',
         feat2Desc: 'Conservez votre ton et votre émotion unique dans n’importe quelle langue sans effort.'
       },
+      security: {
+        title: 'Installation Sûre et Vérifiée',
+        desc: 'Easy Dubbing est développé par OneHostingEurope. En tant que studio IA indépendant, notre logiciel peut déclencher un avertissement Windows "SmartScreen" lors de la première installation. C\'est normal pour un nouveau logiciel professionnel. Notre code est 100% propre.',
+        step1: 'Si la fenêtre bleue apparaît, cliquez sur "Plus d\'infos".',
+        step2: 'Cliquez sur "Exécuter quand même" pour commencer.',
+        verified: 'Vérifié Propre',
+        ssl: 'Chiffré SSL',
+        fips: 'Conforme FIPS'
+      },
       howItWorks: {
-        title: 'Comment ça marche',
+        title: 'How it Works',
         step1Title: 'Acheter une Licence',
         step1Desc: 'Recevez votre clé d’activation via PayPal immédiatement après le paiement.',
         step2Title: 'Installer l’App',
@@ -133,7 +153,8 @@ const resources = {
         howItWorks: 'Cómo funciona',
         pricing: 'Precios',
         activate: 'Activar Licencia',
-        getStarted: 'Empezar'
+        getStarted: 'Empezar',
+        security: 'Seguridad'
       },
       hero: {
         badge: 'Impulsado por IA Avanzada',
@@ -148,6 +169,15 @@ const resources = {
         feat1Desc: 'Más de 40 idiomas compatibles con precisión perfecta. Localice su contenido en segundos.',
         feat2Title: 'Clonación de Voz Pro',
         feat2Desc: 'Mantenga su tono y emoción únicos en cualquier idioma sin esfuerzo.'
+      },
+      security: {
+        title: 'Instalación Segura y Verificada',
+        desc: 'Easy Dubbing es desarrollado por OneHostingEurope. Como estudio de IA independiente, nuestro software puede activar una advertencia de Windows "SmartScreen" durante la primera instalación. Esto es normal. Nuestro código es 100% limpio.',
+        step1: 'Si aparece la ventana azul, haga clic en "Más información".',
+        step2: 'Haga clic en "Ejecutar de todos modos" para comenzar.',
+        verified: 'Verificado Limpio',
+        ssl: 'Cifrado SSL',
+        fips: 'Cumple FIPS'
       },
       howItWorks: {
         title: 'Cómo funciona',
@@ -174,7 +204,7 @@ const resources = {
         annualFeat3: 'Más de 40 Idiomas Soportados',
         annualFeat4: 'Cancela en cualquier momento',
         annualUnit: '/ año',
-        monthlyTitle: 'Pase Pro Mensual',
+        monthlyTitle: 'Pase Pro Mensuel',
         monthlyBill: 'Facturado Mensualmente',
         monthlyFeat1: 'Procesamiento Local Ilimitado',
         monthlyFeat2: 'Soporte Básico',
@@ -195,7 +225,8 @@ const resources = {
         howItWorks: 'Come funziona',
         pricing: 'Prezzi',
         activate: 'Attiva Licenza',
-        getStarted: 'Inizia Ora'
+        getStarted: 'Inizia Ora',
+        security: 'Sicurezza'
       },
       hero: {
         badge: 'Potenziato da IA Avanzata',
@@ -210,6 +241,15 @@ const resources = {
         feat1Desc: 'Oltre 40 lingue supportate con precisione perfetta. Localizza i tuoi contenuti in pochi secondi.',
         feat2Title: 'Clonazione Vocale Pro',
         feat2Desc: 'Mantieni il tuo tono e la tua emozione unici in qualsiasi lingua senza sforzo.'
+      },
+      security: {
+        title: 'Installazione Sicura e Verificata',
+        desc: 'Easy Dubbing è sviluppato da OneHostingEurope. Come studio IA indipendente, il nostro software potrebbe attivare un avviso Windows "SmartScreen" durante la prima installazione. È normale. Il nostro codice è pulito al 100%.',
+        step1: 'Se appare la finestra blu, clicca su "Ulteriori informazioni".',
+        step2: 'Clicca su "Esegui comunque" per iniziare.',
+        verified: 'Verificato Pulito',
+        ssl: 'Criptato SSL',
+        fips: 'Conforme FIPS'
       },
       howItWorks: {
         title: 'Come funziona',
@@ -257,7 +297,8 @@ const resources = {
         howItWorks: 'Wie es funktioniert',
         pricing: 'Preise',
         activate: 'Lizenz Aktivieren',
-        getStarted: 'Jetzt Starten'
+        getStarted: 'Jetzt Starten',
+        security: 'Sicherheit'
       },
       hero: {
         badge: 'Unterstützt durch Fortgeschrittene KI',
@@ -272,6 +313,15 @@ const resources = {
         feat1Desc: 'Über 40 Sprachen werden mit perfekter Genauigkeit unterstützt. Lokalisieren Sie Ihre Inhalte in Sekunden.',
         feat2Title: 'Pro Stimmen-Cloning',
         feat2Desc: 'Behalten Sie Ihren einzigartigen Ton und Ihre Emotionen in jeder Sprache mühelos bei.'
+      },
+      security: {
+        title: 'Sichere und Verifizierte Installation',
+        desc: 'Easy Dubbing wird von OneHostingEurope entwickelt. Als unabhängiges KI-Studio kann unsere Software bei der Erstinstallation eine Windows "SmartScreen"-Warnung auslösen. Das ist normal. Unser Code ist 100% sauber.',
+        step1: 'Wenn das blaue Fenster erscheint, klicken Sie auf "Weitere Informationen".',
+        step2: 'Klicken Sie auf "Trotzdem ausführen", um zu starten.',
+        verified: 'Verifiziert Sauber',
+        ssl: 'SSL-Verschlüsselt',
+        fips: 'FIPS-konform'
       },
       howItWorks: {
         title: 'Wie es funktioniert',
@@ -319,7 +369,8 @@ const resources = {
         howItWorks: 'Как это работает',
         pricing: 'Цены',
         activate: 'Активировать лицензию',
-        getStarted: 'Начать'
+        getStarted: 'Начать',
+        security: 'Безопасность'
       },
       hero: {
         badge: 'На базе передового ИИ',
@@ -334,6 +385,15 @@ const resources = {
         feat1Desc: 'Поддержка 40+ языков с идеальной точностью. Локализуйте свой контент за считанные секунды.',
         feat2Title: 'Про клонирование голоса',
         feat2Desc: 'Сохраняйте свой уникальный тон и эмоции на любом языке без усилий.'
+      },
+      security: {
+        title: 'Безопасная установка',
+        desc: 'Easy Dubbing разработан OneHostingEurope. Как независимая студия, наше ПО может вызвать предупреждение "SmartScreen" при первой установке. Это нормально. Наш код на 100% чист.',
+        step1: 'Если появится синее окно, нажмите "Подробнее".',
+        step2: 'Нажмите "Выполнить в любом случае", чтобы начать.',
+        verified: 'Проверено',
+        ssl: 'SSL Шифрование',
+        fips: 'Соответствует FIPS'
       },
       howItWorks: {
         title: 'Как это работает',
