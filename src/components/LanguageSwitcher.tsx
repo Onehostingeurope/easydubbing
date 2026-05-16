@@ -4,12 +4,12 @@ import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const languages = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
-  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
-  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
-  { code: 'ru', label: 'Русский', flag: '🇷🇺' }
+  { code: 'en', label: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
+  { code: 'fr', label: 'Français', flag: 'https://flagcdn.com/w40/fr.png' },
+  { code: 'es', label: 'Español', flag: 'https://flagcdn.com/w40/es.png' },
+  { code: 'it', label: 'Italiano', flag: 'https://flagcdn.com/w40/it.png' },
+  { code: 'de', label: 'Deutsch', flag: 'https://flagcdn.com/w40/de.png' },
+  { code: 'ru', label: 'Русский', flag: 'https://flagcdn.com/w40/ru.png' }
 ];
 
 const LanguageSwitcher = () => {
@@ -24,7 +24,7 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-sm font-bold"
       >
-        <span>{currentLanguage.flag}</span>
+        <img src={currentLanguage.flag} alt={currentLanguage.label} className="w-5 h-auto rounded-sm shadow-sm" />
         <span className="hidden md:block uppercase tracking-widest text-[10px]">{currentLanguage.code}</span>
         <ChevronDown size={14} className={`transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
@@ -52,7 +52,7 @@ const LanguageSwitcher = () => {
                     : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
                   }`}
                 >
-                  <span className="text-lg">{lang.flag}</span>
+                  <img src={lang.flag} alt={lang.label} className="w-5 h-auto rounded-sm" />
                   <span className="text-sm font-bold">{lang.label}</span>
                 </button>
               ))}
