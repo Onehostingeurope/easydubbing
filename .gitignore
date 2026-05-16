@@ -1,0 +1,49 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Production
+dist
+build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# SoniTranslate Large Files
+SoniTranslate/outputs/*
+SoniTranslate/temp/*
+SoniTranslate/audio/*
+SoniTranslate/checkpoints/*
+SoniTranslate/models/*
+SoniTranslate/**/*.wav
+SoniTranslate/**/*.mp3
+SoniTranslate/**/*.mp4
+SoniTranslate/**/*.srt
+SoniTranslate/**/*.json
+!SoniTranslate/app_rvc.py
+!SoniTranslate/soni_translate/*.py
+
+# Windows scripts
+*.bat
+*.ps1
+*.lnk
