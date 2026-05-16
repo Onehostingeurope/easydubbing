@@ -19,24 +19,40 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = req.body || {};
-    const customer_email = body.payer_email || body.email || body.receiver_email;
+    const txn_type = body.txn_type;
     const payment_status = body.payment_status;
+    const customer_email = body.payer_email || body.email || body.receiver_email;
+    const transaction_id = body.txn_id || body.subscr_id || 'paypal-' + Date.now();
 
-    if (payment_status === 'Completed' || payment_status === 'Pending') {
+    // Trigger on standard payment OR subscription signup/payment
+    const isSuccess = (payment_status === 'Completed' || payment_status === 'Pending' || txn_type === 'subscr_signup');
+
+    if (isSuccess && customer_email) {
+      // 1. Check if this transaction already exists to prevent duplicate keys
+      const { data: existing } = await supabase
+        .from('licenses')
+        .select('license_key')
+        .eq('transaction_id', transaction_id)
+        .single();
+
+      if (existing) {
+        return res.status(200).send('ALREADY_PROCESSED');
+      }
+
       const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
-      // Save to Supabase
+      // 2. Save to Supabase
       const { error: dbError } = await supabase
         .from('licenses')
         .insert([{ 
           email: customer_email, 
           license_key: new_key, 
-          transaction_id: body.txn_id || 'paypal-' + Date.now() 
+          transaction_id: transaction_id 
         }]);
 
       if (dbError) throw new Error('Database Error: ' + dbError.message);
 
-      // 4. Send Email (Non-blocking)
+      // 3. Send Email (Non-blocking)
       try {
         await resend.emails.send({
           from: 'Easy Dubbing <onboarding@resend.dev>',
