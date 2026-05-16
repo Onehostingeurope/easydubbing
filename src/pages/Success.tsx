@@ -105,7 +105,7 @@ const Success = () => {
 
         <div className="space-y-6">
           <a 
-            href="https://easydubbing.uk/installer.exe" 
+            href="https://plqlagrioxdicdourqyl.supabase.co/storage/v1/object/public/Download/Easy_Dubbing_Setup.exe" 
             className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-6 rounded-2xl shadow-[0_0_40px_rgba(173,198,255,0.3)] hover:shadow-[0_0_50px_rgba(173,198,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-xl"
           >
             <Download size={24} />
