@@ -147,10 +147,10 @@ const Home = () => {
             <div className="bg-white/[0.01] p-2 md:p-4 flex flex-col justify-center border-l border-white/10 overflow-hidden">
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-4 mb-2">
-                  <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€49</span>
-                  <span className="text-white font-['Plus_Jakarta_Sans'] text-[64px] font-black leading-none">€1.00</span>
+                  <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€149</span>
+                  <span className="text-white font-['Plus_Jakarta_Sans'] text-[64px] font-black leading-none">€69</span>
                 </div>
-                <p className="text-xs text-primary tracking-widest font-bold uppercase">🧪 LIVE TEST MODE ACTIVE</p>
+                <p className="text-xs text-primary tracking-widest font-bold uppercase">🚀 LIMITED TIME LAUNCH OFFER</p>
               </div>
               
               <div className="flex justify-center">
