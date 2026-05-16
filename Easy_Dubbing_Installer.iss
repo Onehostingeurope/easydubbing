@@ -19,15 +19,20 @@ var
   LicensePage: TInputQueryWizardPage;
   ComputerID: String;
 
-// Function to get a Unique Computer ID based on the Motherboard/CPU
 function GetComputerID(): String;
 var
-  HWID: String;
+  SList: TStringList;
 begin
-  if LoadStringFromFile(ExpandConstant('{tmp}\hwid.txt'), HWID) then begin
-    Result := Trim(HWID);
-  end else begin
-    Result := 'DUB-' + IntToStr(Random(999999));
+  SList := TStringList.Create;
+  try
+    try
+      SList.LoadFromFile(ExpandConstant('{tmp}\hwid.txt'));
+      Result := Trim(SList.Text);
+    except
+      Result := 'DUB-' + IntToStr(Random(999999));
+    end;
+  finally
+    SList.Free;
   end;
 end;
 
@@ -35,7 +40,7 @@ procedure InitializeWizard;
 var
   RCode: Integer;
 begin
-  // Generate the HWID file right at the start
+  // Generate the HWID file
   Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + ExpandConstant('{tmp}\hwid.txt') + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode);
   
   ComputerID := GetComputerID();
