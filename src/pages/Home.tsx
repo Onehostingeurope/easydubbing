@@ -154,19 +154,19 @@ const Home = () => {
               </div>
               
               <div className="flex justify-center">
-                <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" className="flex flex-col items-center gap-4 w-full max-w-[320px]">
+                <style>{`
+                  .pp-7CA9SG6NMTY3J{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}
+                  .pp-7CA9SG6NMTY3J:hover{background-color:#ffda66;transform:scale(1.02);transition:all 0.2s;}
+                `}</style>
+                <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem'}}>
                   <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
                   <input type="hidden" name="return" value="https://easydubbing.uk/success" />
                   <input type="hidden" name="cancel_return" value="https://easydubbing.uk/" />
-                  <input 
-                    type="submit" 
-                    value="BUY PRO LICENSE" 
-                    className="w-full py-5 px-8 rounded-2xl bg-[#FFC439] text-[#2c2e2f] font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-yellow-500/20"
-                  />
-                  <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-8 opacity-80" />
-                  <section className="text-[10px] uppercase tracking-widest font-bold opacity-40 flex items-center gap-2">
-                    Secured by 
-                    <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" className="h-3 grayscale brightness-200 invert" />
+                  
+                  <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Now" />
+                  <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
+                  <section style={{fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)'}}> 
+                    Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style={{height:'0.875rem', verticalAlign:'middle', filter: 'brightness(0) invert(1) opacity(0.5)'}}/>
                   </section>
                 </form>
               </div>
