@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Download, CheckCircle2, ShieldCheck, Video } from 'lucide-react';
+import { Download, ShieldCheck, Video } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
-const Success = () => {
+const Activate = () => {
   const { t } = useTranslation();
 
   return (
@@ -39,12 +39,12 @@ const Success = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-2xl w-full bg-white/[0.03] backdrop-blur-3xl p-12 md:p-16 rounded-[48px] border border-white/10 shadow-2xl relative text-center"
         >
-        <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8 text-green-500 border border-green-500/20 shadow-lg shadow-green-500/10">
-          <CheckCircle2 size={48} />
+        <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#ddb8ff] border border-[#ddb8ff]/20 shadow-lg shadow-purple-500/10">
+          <ShieldCheck size={48} />
         </div>
         
-        <h1 className="text-4xl md:text-5xl font-black mb-4 font-['Plus_Jakarta_Sans'] tracking-tighter text-white">Payment Successful!</h1>
-        <p className="text-[#cfc2d7] text-lg mb-8">Thank you for joining the future of video dubbing. Your license is now active.</p>
+        <h1 className="text-4xl md:text-5xl font-black mb-4 font-['Plus_Jakarta_Sans'] tracking-tighter text-white">License Activation</h1>
+        <p className="text-[#cfc2d7] text-lg mb-8">Enter your email below to retrieve your license key and download the software.</p>
         
         {/* Serial Key Lookup Box */}
         <div className="mb-10 p-8 rounded-3xl bg-white/[0.02] border border-white/10 text-left">
@@ -139,7 +139,7 @@ const Success = () => {
             Download Installer for Windows
           </a>
         </div>
-
+        
         <div className="mt-12 h-8" />
       </motion.div>
       </div>
@@ -147,4 +147,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default Activate;

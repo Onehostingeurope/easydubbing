@@ -27,7 +27,7 @@ const Home = () => {
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#security">{t('nav.security') || 'Security'}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">{t('nav.howItWorks')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">{t('nav.pricing')}</a>
-          <a className="text-primary font-black hover:text-white transition-colors" href="#how-it-works">{t('nav.activate')}</a>
+          <a className="text-primary font-black hover:text-white transition-colors" href="/activate">{t('nav.activate')}</a>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSwitcher />
