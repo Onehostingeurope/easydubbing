@@ -58,7 +58,6 @@ const Home = () => {
               </span>
               <h1 className="font-['Plus_Jakarta_Sans'] text-[56px] md:text-[80px] leading-[1.1] font-extrabold tracking-tighter">
                 Translate Videos <br/>
-                <span className="text-primary italic font-black">With Your Own Voice.</span>
               </h1>
               <p className="text-lg text-[#cfc2d7] max-w-lg leading-relaxed">
                 The world's most powerful AI Video Dubbing Studio. Professional voice cloning and 40+ languages in one click.
