@@ -48,10 +48,14 @@ begin
   // Create a custom license page
   LicensePage := CreateInputQueryPage(wpWelcome,
     'Software Activation', 'Please enter your license details.',
-    'Your unique Computer ID is: ' + ComputerID + #13#10 + 'Please use this ID to get your Activation Code if you haven''t already.');
+    'To activate, please provide your email and the license key you received.');
   
+  LicensePage.Add('Your Computer ID (Copy this):', False);
   LicensePage.Add('Email Address:', False);
   LicensePage.Add('License Key:', False);
+  
+  // Set the Computer ID automatically so they can copy it
+  LicensePage.Values[0] := ComputerID;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
@@ -61,8 +65,8 @@ var
 begin
   Result := True;
   if CurPageID = LicensePage.ID then begin
-    UserEmail := LicensePage.Values[0];
-    UserKey := LicensePage.Values[1];
+    UserEmail := LicensePage.Values[1];
+    UserKey := LicensePage.Values[2];
     
     if (UserEmail = '') or (UserKey = '') then begin
       MsgBox('Please enter both your email and license key.', mbError, MB_OK);
