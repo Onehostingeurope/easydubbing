@@ -167,22 +167,14 @@ const Home = () => {
                 <p className="text-xs text-[#cfc2d7] tracking-widest font-bold uppercase opacity-60">ONE-TIME PAYMENT • EUR</p>
               </div>
               
-              <div className="space-y-4">
-                <div id="paypal-container-landing" className="min-h-[50px] overflow-hidden rounded-2xl"></div>
-                <button className="w-full py-5 bg-[#001c64] hover:bg-[#00154d] text-white font-bold rounded-2xl flex items-center justify-center gap-3 transition-colors shadow-lg shadow-blue-900/20">
-                  <span className="material-symbols-outlined">credit_card</span>
-                  Debit or Credit Card
-                </button>
+              <div className="space-y-6">
+                <div id="paypal-container-landing" className="min-h-[150px] flex justify-center items-center overflow-hidden rounded-2xl bg-white/5 p-4 border border-white/10"></div>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
-                <div className="flex items-center gap-6 grayscale opacity-40">
-                  <img alt="Visa" className="h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYe682_f3zsPViPBBPWiaq0QFkjffwg-BULEbzalWPvhRbx2-W8t2YzbMD5FGM9rQdukYzJkVrf1JOQudufZemvzJ7FR-1Hg5bsvTNa6bwU2yMqDzUhBTNen3pLtFN6_I786GxhL6g1CwhT8LQ0m-Nr8G19HLd2TQ01lwpXGVgyMMYvTh4osgzxxC_T_GIqZoOyfXGwh-9r7eGVyvSQtFUi89CWMvTDbkJvupetrngZukinPVUCMFE7NcExibnLzHfB4KRXPqtsBzn"/>
-                  <img alt="Mastercard" className="h-7" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm8DFXWQdS5rsO4-JzocHAOudw_ezlY-vTp46ikOg1xt63u0FrhFmqw_NqngfpTwTgfiimnlhIwISkUBJLAf3-q6xQnzcpX8q3QHglGBWTwNYpqlvF8w9Iz_j-fFVduBapQHwIf7IAS9K7-mTOY7B3b_cBkCpv0Vg2Y5yM46ber8He5lRKXGMKay1EIcazB91Z4RYkTyT93weLutfcl1jo9QfaUZZZjWKK69QPpj3ak6S6vyhk0nRnPnpeAcSbj_sRlUzYKBr6AnJu"/>
-                </div>
                 <div className="flex items-center gap-2 text-[10px] text-[#cfc2d7] opacity-40 font-bold uppercase tracking-widest">
                   <span className="material-symbols-outlined text-[14px]">lock</span>
-                  Secure Hardware Activation
+                  Secure Hardware Activation via PayPal
                 </div>
               </div>
             </div>
