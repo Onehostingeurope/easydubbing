@@ -168,7 +168,7 @@ const Home = () => {
               </div>
               
               <div className="space-y-6">
-                <div id="paypal-container-WY4L7ZTRG39EE" className="min-h-[150px] flex justify-center items-center overflow-hidden rounded-2xl bg-white/5 p-4 border border-white/10"></div>
+                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-h-[160px] flex justify-center items-center rounded-2xl bg-white/[0.03] p-8 border border-white/10 shadow-inner"></div>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
