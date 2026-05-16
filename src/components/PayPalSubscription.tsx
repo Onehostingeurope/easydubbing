@@ -16,6 +16,39 @@ const PayPalSubscription = ({ planId, clientId }: PayPalSubscriptionProps) => {
     const scriptId = 'paypal-sdk-script';
     const containerId = `paypal-button-container-${planId}`;
 
+    const renderButton = () => {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // If container already has content, don't render again
+      if (container.children.length > 0) return;
+
+      if (window.paypal && window.paypal.Buttons) {
+        window.paypal.Buttons({
+          style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'subscribe'
+          },
+          createSubscription: function(_data: any, actions: any) {
+            return actions.subscription.create({
+              'plan_id': planId
+            });
+          },
+          onApprove: function(data: any) {
+            window.location.href = `/success?subscriptionID=${data.subscriptionID}`;
+          },
+          onError: function(err: any) {
+            console.error('PayPal Error:', err);
+          }
+        }).render(`#${containerId}`);
+      } else {
+        // Retry in 100ms if not ready
+        setTimeout(renderButton, 100);
+      }
+    };
+
     const loadScript = () => {
       if (document.getElementById(scriptId)) {
         renderButton();
@@ -31,36 +64,23 @@ const PayPalSubscription = ({ planId, clientId }: PayPalSubscriptionProps) => {
       document.body.appendChild(script);
     };
 
-    const renderButton = () => {
-      const container = document.getElementById(containerId);
-      if (window.paypal && container && container.innerHTML === '') {
-        window.paypal.Buttons({
-          style: {
-            shape: 'rect',
-            color: 'gold',
-            layout: 'vertical',
-            label: 'subscribe'
-          },
-          createSubscription: function(_data: any, actions: any) {
-            return actions.subscription.create({
-              'plan_id': planId
-            });
-          },
-          onApprove: function(data: any) {
-            window.location.href = `/success?subscriptionID=${data.subscriptionID}`;
-          }
-        }).render(`#${containerId}`);
-      }
-    };
-
     loadScript();
 
     return () => {
-      // Keep script but maybe cleanup buttons if needed
+      // No cleanup needed for the script as it's shared
     };
   }, [planId, clientId]);
 
-  return <div id={`paypal-button-container-${planId}`} className="w-full min-h-[50px]"></div>;
+  return (
+    <div 
+      id={`paypal-button-container-${planId}`} 
+      className="w-full min-h-[150px] flex items-center justify-center bg-white/5 rounded-lg border border-white/5"
+    >
+      <div className="animate-pulse text-xs text-primary/40 font-bold uppercase tracking-widest">
+        Loading Checkout...
+      </div>
+    </div>
+  );
 };
 
 export default PayPalSubscription;
