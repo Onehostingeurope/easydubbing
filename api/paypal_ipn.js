@@ -30,11 +30,19 @@ export default async function handler(req, res) {
       if (!error) emailStatus = true;
     } catch (e) {}
 
+    let count = 0;
+    try {
+      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+      const { count: c } = await supabase.from('licenses').select('*', { count: 'exact', head: true });
+      count = c || 0;
+    } catch (e) {}
+
     return res.status(200).json({ 
       status: 'alive', 
       database: dbStatus, 
       email: emailStatus,
-      dbError: dbMsg || 'none'
+      dbError: dbMsg || 'none',
+      licensesCount: count
     });
   }
 
