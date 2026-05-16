@@ -42,15 +42,15 @@ const Success = () => {
                 id="reveal-btn"
                 className="bg-[#ddb8ff] text-[#2c0051] font-bold px-6 rounded-xl hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
                 onClick={async () => {
-                  const target = document.getElementById('lookup-email');
-                  const email = target.value;
+                  const target = document.getElementById('lookup-email') as HTMLInputElement;
+                  const email = target?.value;
                   const display = document.getElementById('key-display');
                   const text = document.getElementById('key-text');
                   
                   if (!email) return;
                   
                   const startLookup = async () => {
-                    target.disabled = true;
+                    if (target) target.disabled = true;
                     if (text) text.innerText = 'Searching...';
                     if (display) display.classList.remove('hidden');
 
@@ -64,7 +64,7 @@ const Success = () => {
                         
                         if (data.key) {
                           if (text) text.innerText = data.key;
-                          target.disabled = false;
+                          if (target) target.disabled = false;
                           return true;
                         }
                       } catch (err) {
@@ -81,7 +81,7 @@ const Success = () => {
                         setTimeout(poll, 3000);
                       } else if (!found) {
                         if (text) text.innerText = 'Not found yet. Try again in 10s.';
-                        target.disabled = false;
+                        if (target) target.disabled = false;
                       }
                     };
 
