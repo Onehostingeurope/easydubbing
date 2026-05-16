@@ -14,6 +14,20 @@ export default async function handler(req, res) {
   );
   const resend = new Resend(process.env.RESEND_API_KEY);
 
+  // 1. Verify the IPN with PayPal
+  const params = new URLSearchParams(req.body);
+  params.set('cmd', '_notify-validate');
+  
+  // Use Sandbox if the IPN says it is sandbox, otherwise use Live
+  const paypalUrl = req.body.test_ipn === '1' 
+    ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr' 
+    : 'https://ipnpb.paypal.com/cgi-bin/webscr';
+
+  const verifyResponse = await fetch(paypalUrl, {
+    method: 'POST',
+    body: params,
+  });
+
   // 1. Get Payment Data from PayPal
   const body = req.body;
   const payment_status = body.payment_status;
