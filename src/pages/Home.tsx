@@ -31,13 +31,13 @@ const Home = () => {
           </div>
           <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-primary">Easy Dubbing</span>
         </div>
-        <div className="hidden md:flex gap-8 items-center text-sm">
-          <a className="text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="#features">Features</a>
-          <a className="text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
-          <a className="text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="#pricing">Pricing</a>
+        <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">Features</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">Pricing</a>
+          <a className="text-primary font-black hover:text-white transition-colors" href="/app">Open Studio</a>
         </div>
         <div className="flex items-center gap-4">
-          <a className="hidden sm:block text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="/app">Open Studio</a>
           <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="#pricing">
             Get Started
           </a>
