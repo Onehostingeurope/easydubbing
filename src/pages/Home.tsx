@@ -158,8 +158,8 @@ const Home = () => {
               </ul>
             </div>
             
-            <div className="bg-white/[0.02] p-8 md:p-10 flex flex-col justify-center border-l border-white/10">
-              <div className="text-center mb-12">
+            <div className="bg-white/[0.01] p-2 md:p-4 flex flex-col justify-center border-l border-white/10 overflow-hidden">
+              <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-4 mb-2">
                   <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€49</span>
                   <span className="text-white font-['Plus_Jakarta_Sans'] text-[64px] font-black leading-none">€1.00</span>
@@ -167,8 +167,8 @@ const Home = () => {
                 <p className="text-xs text-primary tracking-widest font-bold uppercase">🧪 LIVE TEST MODE ACTIVE</p>
               </div>
               
-              <div className="space-y-6">
-                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-w-[320px] min-h-[160px] flex justify-center items-center rounded-2xl bg-white/[0.03] p-4 border border-white/10 shadow-inner"></div>
+              <div className="w-full max-w-[420px] mx-auto">
+                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-h-[160px] flex justify-center items-center"></div>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
