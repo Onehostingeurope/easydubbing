@@ -158,7 +158,7 @@ const Home = () => {
               </ul>
             </div>
             
-            <div className="bg-white/[0.02] p-12 md:p-16 flex flex-col justify-center border-l border-white/10">
+            <div className="bg-white/[0.02] p-8 md:p-10 flex flex-col justify-center border-l border-white/10">
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-4 mb-2">
                   <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€49</span>
@@ -168,7 +168,7 @@ const Home = () => {
               </div>
               
               <div className="space-y-6">
-                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-h-[160px] flex justify-center items-center rounded-2xl bg-white/[0.03] p-8 border border-white/10 shadow-inner"></div>
+                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-w-[320px] min-h-[160px] flex justify-center items-center rounded-2xl bg-white/[0.03] p-4 border border-white/10 shadow-inner"></div>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
