@@ -37,6 +37,7 @@ const Home = () => {
           <a className="text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="#pricing">Pricing</a>
         </div>
         <div className="flex items-center gap-4">
+          <a className="hidden sm:block text-[#cfc2d7] font-medium hover:text-primary transition-colors" href="/app">Open Studio</a>
           <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="#pricing">
             Get Started
           </a>
