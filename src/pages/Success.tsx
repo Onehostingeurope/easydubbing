@@ -20,7 +20,6 @@ const Success = () => {
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
-          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">{t('nav.activate')}</a>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSwitcher />
@@ -140,12 +139,7 @@ const Success = () => {
           </a>
         </div>
 
-        <div className="mt-12">
-          <a href="/app" className="inline-flex items-center gap-2 text-white/30 hover:text-[#ddb8ff] transition-colors font-bold group text-sm uppercase tracking-widest">
-            Go to Activation Studio
-            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </div>
+        <div className="mt-12 h-8" />
       </motion.div>
       </div>
     </div>
