@@ -13,6 +13,9 @@ function App() {
   const [progressText, setProgressText] = useState('Initializing...');
   const [credits, setCredits] = useState<number>(5); // Default 5 credits for the 9€ plan
 
+  // Use the public URL if provided, otherwise fallback to local
+  const API_URL = import.meta.env.VITE_API_URL || API_URL;
+
   const handleProcess = async () => {
     if (credits <= 0) {
       alert("You have run out of credits! Please purchase more for 2€/video.");
