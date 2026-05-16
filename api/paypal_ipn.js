@@ -34,12 +34,7 @@ export default async function handler(req, res) {
       status: 'alive', 
       database: dbStatus, 
       email: emailStatus,
-      dbError: dbMsg || 'none',
-      previews: {
-        url: process.env.SUPABASE_URL ? process.env.SUPABASE_URL.substring(0, 10) + '...' : 'MISSING',
-        dbKey: process.env.SUPABASE_SERVICE_ROLE_KEY ? process.env.SUPABASE_SERVICE_ROLE_KEY.substring(0, 5) + '...' : 'MISSING',
-        emailKey: process.env.RESEND_API_KEY ? process.env.RESEND_API_KEY.substring(0, 5) + '...' : 'MISSING'
-      }
+      dbError: dbMsg || 'none'
     });
   }
 
