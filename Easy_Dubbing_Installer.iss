@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=Easy Dubbing
-AppVersion=1.0
+AppVersion=1.0.0
 DefaultDirName={autopf}\Easy Dubbing
 DefaultGroupName=Easy Dubbing
 UninstallDisplayIcon={app}\Easy_Dubbing.lnk
@@ -23,12 +23,19 @@ var
 function GetComputerID(): String;
 var
   ResultCode: Integer;
+  IDFile: String;
   ID: String;
 begin
-  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID"', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  // For this demo, we use a professional placeholder ID logic
-  ComputerID := 'DUB-' + IntToStr(Random(9999)) + '-' + IntToStr(Random(9999));
-  Result := ComputerID;
+  IDFile := ExpandConstant('{tmp}\hwid.txt');
+  // Use PowerShell to get the real unique Motherboard UUID
+  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + IDFile + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  
+  if LoadStringFromFile(IDFile, ID) then begin
+    Result := Trim(ID);
+  end else begin
+    // Fallback if PS fails
+    Result := 'DUB-OFFLINE-' + IntToStr(Random(999999));
+  end;
 end;
 
 procedure InitializeWizard;
