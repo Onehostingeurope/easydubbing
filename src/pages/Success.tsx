@@ -26,14 +26,23 @@ const Success = () => {
             Your Serial Key
           </h3>
           <div className="flex flex-col gap-4">
-            <input 
-              type="email" 
-              id="lookup-email"
-              placeholder="Enter your email to see your key"
-              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors"
-              onKeyDown={async (e) => {
-                if (e.key === 'Enter') {
-                  const target = e.currentTarget;
+            <div className="flex gap-2">
+              <input 
+                type="email" 
+                id="lookup-email"
+                placeholder="Enter your email"
+                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    document.getElementById('reveal-btn')?.click();
+                  }
+                }}
+              />
+              <button 
+                id="reveal-btn"
+                className="bg-[#ddb8ff] text-[#2c0051] font-bold px-6 rounded-xl hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
+                onClick={async () => {
+                  const target = document.getElementById('lookup-email');
                   const email = target.value;
                   const display = document.getElementById('key-display');
                   const text = document.getElementById('key-text');
@@ -68,10 +77,10 @@ const Success = () => {
                       const found = await performLookup();
                       if (!found && attempts < maxAttempts) {
                         attempts++;
-                        if (text) text.innerText = `Still searching... (${attempts}/${maxAttempts})`;
-                        setTimeout(poll, 3000); // Try every 3 seconds
+                        if (text) text.innerText = `Searching... (${attempts}/${maxAttempts})`;
+                        setTimeout(poll, 3000);
                       } else if (!found) {
-                        if (text) text.innerText = 'Key not found yet. Please check your email or wait a moment.';
+                        if (text) text.innerText = 'Not found yet. Try again in 10s.';
                         target.disabled = false;
                       }
                     };
@@ -80,12 +89,16 @@ const Success = () => {
                   };
 
                   startLookup();
-                }
-              }}
-            />
-            <div id="key-display" className="hidden p-4 rounded-xl bg-[#ddb8ff]/10 border border-[#ddb8ff]/20 text-center">
-              <code id="key-text" className="text-2xl font-black text-[#ddb8ff] tracking-widest">Searching...</code>
-              <p className="text-[10px] text-[#ddb8ff]/50 mt-2 uppercase font-bold">Copy this key into the app to activate</p>
+                }}
+              >
+                Reveal My Key
+              </button>
+            </div>
+            <p className="text-[10px] text-white/30 uppercase font-bold tracking-widest text-center">Enter email and click the button or press Enter</p>
+            
+            <div id="key-display" className="hidden p-6 rounded-xl bg-[#ddb8ff]/10 border border-[#ddb8ff]/20 text-center animate-in fade-in zoom-in duration-500">
+              <code id="key-text" className="text-3xl font-black text-[#ddb8ff] tracking-widest">Searching...</code>
+              <p className="text-[10px] text-[#ddb8ff]/50 mt-3 uppercase font-bold">Copy this key into the app to activate</p>
             </div>
           </div>
         </div>
