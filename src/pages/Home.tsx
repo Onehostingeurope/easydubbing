@@ -25,12 +25,12 @@ const Home = () => {
 
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 max-w-[1280px] mx-auto h-16 bg-white/[0.02] backdrop-blur-xl border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center">
+        <a href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
             <span className="material-symbols-outlined text-white text-xl">video_library</span>
           </div>
           <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-primary">Easy Dubbing</span>
-        </div>
+        </a>
         <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">Features</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
