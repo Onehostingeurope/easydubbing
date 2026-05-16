@@ -4,10 +4,33 @@ import { Resend } from 'resend';
 export default async function handler(req, res) {
   // 1. Heartbeat check
   if (req.method === 'GET') {
+    let dbStatus = false;
+    let emailStatus = false;
+    let dbMsg = '';
+
+    try {
+      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+      const { error } = await supabase.from('licenses').select('count', { count: 'exact', head: true });
+      if (!error) dbStatus = true;
+      else {
+        // Try singular 'license' if plural fails
+        const { error: error2 } = await supabase.from('license').select('count', { count: 'exact', head: true });
+        if (!error2) dbStatus = true;
+        else dbMsg = error.message;
+      }
+    } catch (e) { dbMsg = e.message; }
+
+    try {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const { data, error } = await resend.domains.list();
+      if (!error) emailStatus = true;
+    } catch (e) {}
+
     return res.status(200).json({ 
       status: 'alive', 
-      database: !!process.env.SUPABASE_URL,
-      email: !!process.env.RESEND_API_KEY
+      database: dbStatus, 
+      email: emailStatus,
+      dbError: dbMsg || 'none'
     });
   }
 
