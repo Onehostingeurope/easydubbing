@@ -2,13 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 
 export default async function handler(req, res) {
-  // 1. Heartbeat check
-    return res.status(200).json({ 
-      status: 'alive'
-    });
-  }
-
-  // 2. Security Check
+  // 1. Security Check
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
@@ -24,8 +18,19 @@ export default async function handler(req, res) {
     const customer_email = body.payer_email || body.email || body.receiver_email;
     const transaction_id = body.txn_id || body.subscr_id || 'paypal-' + Date.now();
 
-    // Trigger on standard payment OR subscription signup/payment
-    const isSuccess = (payment_status === 'Completed' || payment_status === 'Pending' || txn_type === 'subscr_signup');
+    // Log the request for debugging in Vercel logs
+    console.log('IPN Received:', { txn_type, payment_status, customer_email, transaction_id });
+
+    // Trigger on:
+    // 1. Standard Checkout (payment_status === 'Completed')
+    // 2. Subscription Signup (txn_type === 'subscr_signup')
+    // 3. Subscription Payment (txn_type === 'subscr_payment')
+    const isSuccess = (
+      payment_status === 'Completed' || 
+      payment_status === 'Pending' || 
+      txn_type === 'subscr_signup' || 
+      txn_type === 'subscr_payment'
+    );
 
     if (isSuccess && customer_email) {
       // 1. Check if this transaction already exists to prevent duplicate keys
@@ -36,10 +41,13 @@ export default async function handler(req, res) {
         .single();
 
       if (existing) {
+        console.log('Transaction already processed:', transaction_id);
         return res.status(200).send('ALREADY_PROCESSED');
       }
 
-      const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      // Generate a professional 14-character key: EASY-XXXX-XXXX
+      const randomString = () => Math.random().toString(36).substr(2, 4).toUpperCase();
+      const new_key = `EASY-${randomString()}-${randomString()}`;
 
       // 2. Save to Supabase
       const { error: dbError } = await supabase
@@ -50,26 +58,37 @@ export default async function handler(req, res) {
           transaction_id: transaction_id 
         }]);
 
-      if (dbError) throw new Error('Database Error: ' + dbError.message);
+      if (dbError) {
+        console.error('Supabase Error:', dbError);
+        throw new Error('Database Error: ' + dbError.message);
+      }
 
-      // 3. Send Email (Non-blocking)
+      console.log('License Created Successfully:', { customer_email, new_key });
+
+      // 3. Send Email via Resend
       try {
         await resend.emails.send({
           from: 'Easy Dubbing <onboarding@resend.dev>',
           to: customer_email,
           subject: '🚀 Your Easy Dubbing Pro License Key!',
           html: `
-            <div style="font-family: sans-serif; padding: 20px; background: #050505; color: white; border-radius: 20px;">
-              <h1 style="color: #ddb8ff;">Thank you!</h1>
-              <p>Your license key is ready:</p>
-              <div style="background: #111; padding: 20px; border-radius: 10px; border: 1px solid #333; text-align: center;">
-                <code style="font-size: 24px; color: #ddb8ff; font-weight: bold;">${new_key}</code>
+            <div style="font-family: sans-serif; padding: 40px; background: #050505; color: white; border-radius: 24px; max-width: 600px; margin: 0 auto; border: 1px solid #333;">
+              <h1 style="color: #ddb8ff; margin-bottom: 24px;">Thank you for your purchase!</h1>
+              <p style="font-size: 16px; color: #cfc2d7; line-height: 1.6;">Your professional license key for <b>Easy Dubbing</b> is ready for activation.</p>
+              <div style="background: #111; padding: 30px; border-radius: 16px; border: 1px solid #ddb8ff33; text-align: center; margin: 32px 0;">
+                <code style="font-size: 28px; color: #ddb8ff; font-weight: bold; letter-spacing: 2px;">${new_key}</code>
               </div>
-              <p>Enter this key and your email (<b>${customer_email}</b>) in the app to activate.</p>
+              <p style="font-size: 14px; color: #cfc2d7;">Enter this key and your email (<b>${customer_email}</b>) in the app to activate your Pro features.</p>
+              <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #333; font-size: 12px; color: #666; text-align: center;">
+                © 2026 OneHostingEurope. All rights reserved.
+              </div>
             </div>
           `
         });
-      } catch (e) {}
+        console.log('Email sent to:', customer_email);
+      } catch (emailError) {
+        console.error('Email Delivery Error:', emailError);
+      }
 
       return res.status(200).send('VERIFIED');
     }
@@ -77,6 +96,6 @@ export default async function handler(req, res) {
     return res.status(200).send('OK');
   } catch (err) {
     console.error('IPN Fatal Error:', err.message);
-    return res.status(200).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 }
