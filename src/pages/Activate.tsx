@@ -32,11 +32,11 @@ const Activate = () => {
           </div>
 
           {/* Actions - Right Column */}
-          <div className="w-[200px] flex items-center justify-end gap-4">
+          <div className="w-[280px] flex items-center justify-end gap-4">
             <div className="hidden sm:block">
               <LanguageSwitcher />
             </div>
-            <a className="hidden md:block px-6 py-2.5 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 active:scale-95 transition-all shadow-lg shadow-purple-500/20" href="/#pricing">
+            <a className="hidden md:block px-6 py-2.5 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 active:scale-95 transition-all shadow-lg shadow-purple-500/20 whitespace-nowrap" href="/#pricing">
               {t('nav.getStarted')}
             </a>
             
