@@ -106,17 +106,17 @@ const Success = () => {
         <div className="space-y-6">
           <a 
             href="https://easydubbing.uk/installer.exe" 
-            className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-6 rounded-2xl shadow-xl shadow-purple-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 text-xl"
+            className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-6 rounded-2xl shadow-[0_0_40px_rgba(173,198,255,0.3)] hover:shadow-[0_0_50px_rgba(173,198,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-xl"
           >
             <Download size={24} />
             Download Installer for Windows
           </a>
         </div>
 
-        <div className="mt-12 pt-12 border-t border-white/5">
-          <a href="/app" className="inline-flex items-center gap-2 text-primary hover:text-white transition-colors font-bold group">
+        <div className="mt-12">
+          <a href="/app" className="inline-flex items-center gap-2 text-white/30 hover:text-[#ddb8ff] transition-colors font-bold group text-sm uppercase tracking-widest">
             Go to Activation Studio
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </div>
       </motion.div>
