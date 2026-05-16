@@ -22,19 +22,21 @@ var
 // Function to get a Unique Computer ID based on the Motherboard/CPU
 function GetComputerID(): String;
 var
-  ResultCode: Integer;
-  IDFile: String;
-  ID: String;
+  RCode: Integer;
+  TempPath: String;
+  HWID: String;
 begin
-  IDFile := ExpandConstant('{tmp}\hwid.txt');
+  TempPath := ExpandConstant('{tmp}\hwid.txt');
   // Use PowerShell to get the real unique Motherboard UUID
-  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + IDFile + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  
-  if LoadStringFromFile(IDFile, ID) then begin
-    Result := Trim(ID);
+  if Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + TempPath + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode) then
+  begin
+    if LoadStringFromFile(TempPath, HWID) then begin
+      Result := Trim(HWID);
+    end else begin
+      Result := 'DUB-' + IntToStr(Random(888888));
+    end;
   end else begin
-    // Fallback if PS fails
-    Result := 'DUB-OFFLINE-' + IntToStr(Random(999999));
+    Result := 'DUB-' + IntToStr(Random(999999));
   end;
 end;
 
