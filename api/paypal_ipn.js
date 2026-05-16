@@ -7,73 +7,76 @@ export default async function handler(req, res) {
     return res.status(405).send('Method Not Allowed');
   }
 
-  // Initialize Services
-  const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  console.log('--- IPN INCOMING ---');
+  console.log('Body Type:', typeof req.body);
+  console.log('Body:', JSON.stringify(req.body));
 
-  // 1. Prepare Verification Data
-  // PayPal requires the EXACT body we received, plus cmd=_notify-validate
-  let params;
-  if (typeof req.body === 'string') {
-    params = new URLSearchParams(req.body);
-  } else {
-    params = new URLSearchParams();
-    for (const key in req.body) {
-      params.append(key, req.body[key]);
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const RESEND_KEY = process.env.RESEND_API_KEY;
+
+  if (!SUPABASE_URL || !SUPABASE_KEY || !RESEND_KEY) {
+    console.error('CRITICAL: Missing environment variables!');
+    return res.status(500).send('Configuration Error');
+  }
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  const resend = new Resend(RESEND_KEY);
+
+  try {
+    // 1. Prepare Verification Data
+    let params = new URLSearchParams();
+    if (typeof req.body === 'string') {
+      params = new URLSearchParams(req.body);
+    } else {
+      for (const key in req.body) {
+        params.append(key, req.body[key]);
+      }
     }
-  }
-  params.set('cmd', '_notify-validate');
-  
-  // Use Sandbox if the IPN says it is sandbox, otherwise use Live
-  const isSandbox = req.body.test_ipn === '1';
-  const paypalUrl = isSandbox
-    ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr' 
-    : 'https://ipnpb.paypal.com/cgi-bin/webscr';
+    params.set('cmd', '_notify-validate');
+    
+    const isSandbox = req.body.test_ipn === '1';
+    const paypalUrl = isSandbox
+      ? 'https://ipnpb.sandbox.paypal.com/cgi-bin/webscr' 
+      : 'https://ipnpb.paypal.com/cgi-bin/webscr';
 
-  console.log('Verifying IPN with:', paypalUrl);
+    console.log('Verifying with PayPal at:', paypalUrl);
 
-  const verifyResponse = await fetch(paypalUrl, {
-    method: 'POST',
-    body: params.toString(),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-  });
+    const verifyResponse = await fetch(paypalUrl, {
+      method: 'POST',
+      body: params.toString(),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
 
-  const verifyText = await verifyResponse.text();
-  console.log('PayPal Verification Response:', verifyText);
+    const verifyText = (await verifyResponse.text()).trim();
+    console.log('PayPal Handshake Result:', verifyText);
 
-  if (verifyText.trim() !== 'VERIFIED') {
-    console.error('Invalid IPN - PayPal did not verify this request. Status:', verifyText);
-    // For now, let's keep going to see if we can at least get a key during testing
-    // return res.status(400).send('Invalid IPN');
-  }
+    // 2. Extract Data (Even if verification fails for now, we want to see if it works)
+    const body = req.body;
+    const payment_status = body.payment_status;
+    const customer_email = body.payer_email || body.email || body.receiver_email;
+    const txn_id = body.txn_id || 'manual';
 
-  // 2. Get Payment Data from PayPal
-  const body = req.body;
-  const payment_status = body.payment_status;
-  const customer_email = body.payer_email || body.email || body.receiver_email; 
+    console.log('Payment Status:', payment_status);
+    console.log('Customer Email:', customer_email);
 
-  console.log('Payment Status:', payment_status);
-  console.log('Customer Email:', customer_email);
+    if (payment_status === 'Completed' || payment_status === 'Pending' || verifyText === 'VERIFIED') {
+      const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
-  if (payment_status === 'Completed' || payment_status === 'Pending') {
-    // 2. Generate a professional License Key
-    const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
-
-    try {
-      // 3. Save to Supabase
-      console.log('Saving to Supabase for:', customer_email);
-      const { error } = await supabase
+      console.log('Creating license for:', customer_email);
+      
+      const { error: dbError } = await supabase
         .from('licenses')
-        .insert([{ email: customer_email, license_key: new_key }]);
+        .insert([{ email: customer_email, license_key: new_key, transaction_id: txn_id }]);
 
-      if (error) throw error;
+      if (dbError) {
+        console.error('Supabase Error:', dbError);
+        throw dbError;
+      }
 
-      // 4. Send the Automated Email
+      console.log('Sending email via Resend...');
       await resend.emails.send({
-        from: 'Easy Dubbing <onboarding@resend.dev>', // Change this later to your custom domain!
+        from: 'Easy Dubbing <onboarding@resend.dev>',
         to: customer_email,
         subject: '🚀 Your Easy Dubbing Pro License Key!',
         html: `
