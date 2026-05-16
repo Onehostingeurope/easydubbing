@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import PayPalSubscription from '../components/PayPalSubscription';
 
 const Home = () => {
   const { t } = useTranslation();
