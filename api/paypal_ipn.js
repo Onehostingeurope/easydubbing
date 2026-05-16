@@ -28,10 +28,21 @@ export default async function handler(req, res) {
     body: params,
   });
 
-  // 1. Get Payment Data from PayPal
+  const verifyText = await verifyResponse.text();
+  console.log('PayPal Verification Response:', verifyText);
+
+  if (verifyText !== 'VERIFIED') {
+    console.error('Invalid IPN - PayPal did not verify this request.');
+    return res.status(400).send('Invalid IPN');
+  }
+
+  // 2. Get Payment Data from PayPal
   const body = req.body;
   const payment_status = body.payment_status;
-  const customer_email = body.payer_email;
+  const customer_email = body.payer_email || body.email; // Handle both possible fields
+
+  console.log('Payment Status:', payment_status);
+  console.log('Customer Email:', customer_email);
 
   if (payment_status === 'Completed') {
     // 2. Generate a professional License Key
