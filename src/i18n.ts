@@ -31,7 +31,13 @@ const resources = {
         annualFeat2: 'Priority Email Support',
         annualFeat3: '40+ Languages Supported',
         annualFeat4: 'Cancel Anytime',
-        annualCta: 'Subscribe Now'
+        annualCta: 'Subscribe Now',
+        monthlyTitle: 'Monthly Pro Pass',
+        monthlyBill: 'Billed Monthly',
+        monthlyFeat1: 'Standard Cloud Processing',
+        monthlyFeat2: 'Basic Support',
+        monthlyFeat3: '40+ Languages Supported',
+        monthlyFeat4: 'Cancel Anytime'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope'
@@ -67,7 +73,13 @@ const resources = {
         annualFeat2: 'Support Email Prioritaire',
         annualFeat3: 'Plus de 40 Langues Supportées',
         annualFeat4: 'Annulez à tout moment',
-        annualCta: "S'abonner Maintenant"
+        annualCta: "S'abonner Maintenant",
+        monthlyTitle: 'Pass Pro Mensuel',
+        monthlyBill: 'Facturé Mensuellement',
+        monthlyFeat1: 'Traitement Cloud Standard',
+        monthlyFeat2: 'Support de Base',
+        monthlyFeat3: 'Plus de 40 Langues Supportées',
+        monthlyFeat4: 'Annulez à tout moment'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tous droits réservés. Développé par OneHostingEurope'
@@ -103,7 +115,13 @@ const resources = {
         annualFeat2: 'Soporte por Correo Prioritario',
         annualFeat3: 'Más de 40 Idiomas Soportados',
         annualFeat4: 'Cancela en cualquier momento',
-        annualCta: 'Suscribirse Ahora'
+        annualCta: 'Suscribirse Ahora',
+        monthlyTitle: 'Pase Pro Mensual',
+        monthlyBill: 'Facturado Mensualmente',
+        monthlyFeat1: 'Procesamiento en la Nube Estándar',
+        monthlyFeat2: 'Soporte Básico',
+        monthlyFeat3: 'Más de 40 Idiomas Soportados',
+        monthlyFeat4: 'Cancela en cualquier momento'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Todos los derechos reservados. Desarrollado por OneHostingEurope'
@@ -139,7 +157,13 @@ const resources = {
         annualFeat2: 'Supporto Email Prioritario',
         annualFeat3: 'Oltre 40 Lingue Supportate',
         annualFeat4: 'Annulla in qualsiasi momento',
-        annualCta: 'Iscriviti Ora'
+        annualCta: 'Iscriviti Ora',
+        monthlyTitle: 'Pass Pro Mensile',
+        monthlyBill: 'Fatturato Mensilmente',
+        monthlyFeat1: 'Elaborazione Cloud Standard',
+        monthlyFeat2: 'Supporto di Base',
+        monthlyFeat3: 'Oltre 40 Lingue Supportate',
+        monthlyFeat4: 'Annulla in qualsiasi momento'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tutti i diritti riservati. Sviluppato da OneHostingEurope'
@@ -175,7 +199,13 @@ const resources = {
         annualFeat2: 'Prioritärer E-Mail-Support',
         annualFeat3: 'Über 40 Sprachen unterstützt',
         annualFeat4: 'Jederzeit kündbar',
-        annualCta: 'Jetzt Abonnieren'
+        annualCta: 'Jetzt Abonnieren',
+        monthlyTitle: 'Monats-Pro-Pass',
+        monthlyBill: 'Monatliche Abrechnung',
+        monthlyFeat1: 'Standard-Cloud-Verarbeitung',
+        monthlyFeat2: 'Basis-Support',
+        monthlyFeat3: 'Über 40 Sprachen unterstützt',
+        monthlyFeat4: 'Jederzeit kündbar'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Alle Rechte vorbehalten. Entwickelt von OneHostingEurope'
@@ -211,7 +241,13 @@ const resources = {
         annualFeat2: 'Приоритетная поддержка по email',
         annualFeat3: 'Поддержка 40+ языков',
         annualFeat4: 'Отмена в любое время',
-        annualCta: 'Подписаться сейчас'
+        annualCta: 'Подписаться сейчас',
+        monthlyTitle: 'Месячный Pro-пакет',
+        monthlyBill: 'Оплата раз в месяц',
+        monthlyFeat1: 'Стандартная облачная обработка',
+        monthlyFeat2: 'Базовая поддержка',
+        monthlyFeat3: 'Поддержка 40+ языков',
+        monthlyFeat4: 'Отмена в любое время'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Все права защищены. Разработано OneHostingEurope'
