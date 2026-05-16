@@ -24,19 +24,21 @@ function GetComputerID(): String;
 var
   RCode: Integer;
   TempPath: String;
-  HWID: String;
+  SList: TStrings;
 begin
   TempPath := ExpandConstant('{tmp}\hwid.txt');
-  // Use PowerShell to get the real unique Motherboard UUID
-  if Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + TempPath + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode) then
-  begin
-    if LoadStringFromFile(TempPath, HWID) then begin
-      Result := Trim(HWID);
-    end else begin
-      Result := 'DUB-' + IntToStr(Random(888888));
+  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + TempPath + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode);
+  
+  SList := TStringList.Create;
+  try
+    try
+      SList.LoadFromFile(TempPath);
+      Result := Trim(SList.Text);
+    except
+      Result := 'DUB-' + IntToStr(Random(999999));
     end;
-  end else begin
-    Result := 'DUB-' + IntToStr(Random(999999));
+  finally
+    SList.Free;
   end;
 end;
 
