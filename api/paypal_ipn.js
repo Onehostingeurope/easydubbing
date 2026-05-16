@@ -3,6 +3,10 @@ import { Resend } from 'resend';
 
 // Vercel Serverless Function to handle PayPal Payments & Email Keys
 export default async function handler(req, res) {
+  if (req.method === 'GET') {
+    return res.status(200).json({ status: 'alive', message: 'Paypal IPN endpoint is ready for POST' });
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).send('Method Not Allowed');
   }
