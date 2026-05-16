@@ -60,7 +60,7 @@ const Home = () => {
                 <span className="text-primary italic font-black">With Your Own Voice.</span>
               </h1>
               <p className="text-lg text-[#cfc2d7] max-w-lg leading-relaxed">
-                The world's most powerful AI Video Dubbing Studio. Professional lip-sync, voice cloning, and 40+ languages in one click.
+                The world's most powerful AI Video Dubbing Studio. Professional voice cloning and 40+ languages in one click.
               </p>
               <div className="flex flex-wrap items-center gap-6 pt-4">
                 <a href="#pricing" className="px-10 py-5 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black text-lg shadow-xl shadow-purple-500/20 flex items-center gap-2 hover:scale-110 transition-transform">
@@ -98,11 +98,10 @@ const Home = () => {
             <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">Unmatched AI Technology</h2>
             <p className="text-[#cfc2d7] max-w-2xl">Built for creators, filmmakers, and global brands to dissolve language barriers instantly.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {[
               { icon: 'translate', title: 'Instant Translation', desc: '40+ languages supported with zero delay and perfect accuracy. Localize your content in seconds.', color: 'bg-blue-500/20 text-blue-400' },
               { icon: 'record_voice_over', title: 'Pro Voice Cloning', desc: 'Keep your unique tone and emotion across any language effortlessly. Captured with high fidelity.', color: 'bg-purple-500/20 text-purple-400' },
-              { icon: 'face_retouching_natural', title: 'Global Lip-Sync', desc: 'Advanced AI synchronization for a natural viewing experience. Perfect phonetic matching.', color: 'bg-emerald-500/20 text-emerald-400' },
             ].map((f, i) => (
               <div key={i} className="bg-white/[0.03] backdrop-blur-md p-10 rounded-[40px] border border-white/5 hover:border-primary/30 transition-all group">
                 <div className={`w-14 h-14 rounded-2xl ${f.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
@@ -149,7 +148,6 @@ const Home = () => {
                   "Unlimited Local Processing",
                   "Hardware-Locked Security",
                   "High-Fidelity Voice Cloning",
-                  "Lip-Sync & Emotion Preservation",
                   "Lifetime Free Updates"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-[#cfc2d7] font-medium">
