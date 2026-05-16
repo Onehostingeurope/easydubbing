@@ -22,28 +22,22 @@ var
 // Function to get a Unique Computer ID based on the Motherboard/CPU
 function GetComputerID(): String;
 var
-  RCode: Integer;
-  TempPath: String;
-  SList: TStrings;
+  HWID: String;
 begin
-  TempPath := ExpandConstant('{tmp}\hwid.txt');
-  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + TempPath + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode);
-  
-  SList := TStringList.Create;
-  try
-    try
-      SList.LoadFromFile(TempPath);
-      Result := Trim(SList.Text);
-    except
-      Result := 'DUB-' + IntToStr(Random(999999));
-    end;
-  finally
-    SList.Free;
+  if LoadStringFromFile(ExpandConstant('{tmp}\hwid.txt'), HWID) then begin
+    Result := Trim(HWID);
+  end else begin
+    Result := 'DUB-' + IntToStr(Random(999999));
   end;
 end;
 
 procedure InitializeWizard;
+var
+  RCode: Integer;
 begin
+  // Generate the HWID file right at the start
+  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + ExpandConstant('{tmp}\hwid.txt') + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode);
+  
   ComputerID := GetComputerID();
   
   // Create a custom license page
