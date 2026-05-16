@@ -151,7 +151,7 @@ const Home = () => {
                 </ul>
                 <div className="text-center mb-10">
                   <div className="flex items-baseline justify-center gap-1">
-                    <span className="text-white font-['Plus_Jakarta_Sans'] text-4xl font-black">€29</span>
+                    <span className="text-white font-['Plus_Jakarta_Sans'] text-4xl font-black">€69</span>
                     <span className="text-[#cfc2d7] opacity-50 font-bold">/ mo</span>
                   </div>
                 </div>
