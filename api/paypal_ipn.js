@@ -3,46 +3,8 @@ import { Resend } from 'resend';
 
 export default async function handler(req, res) {
   // 1. Heartbeat check
-  if (req.method === 'GET') {
-    let dbStatus = false;
-    let emailStatus = false;
-    let dbMsg = '';
-
-    try {
-      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-      
-      // 1. Check plural
-      const q1 = await supabase.from('licenses').select('count', { count: 'exact', head: true });
-      if (!q1.error) dbStatus = true;
-      
-      // 2. Check singular
-      const q2 = await supabase.from('license').select('count', { count: 'exact', head: true });
-      if (!q2.error) dbStatus = true;
-
-      if (!dbStatus) {
-        dbMsg = q1.error?.message || q2.error?.message || 'Table not found';
-      }
-    } catch (e) { dbMsg = e.message; }
-
-    try {
-      const resend = new Resend(process.env.RESEND_API_KEY);
-      const { data, error } = await resend.domains.list();
-      if (!error) emailStatus = true;
-    } catch (e) {}
-
-    let count = 0;
-    try {
-      const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-      const { count: c } = await supabase.from('licenses').select('*', { count: 'exact', head: true });
-      count = c || 0;
-    } catch (e) {}
-
     return res.status(200).json({ 
-      status: 'alive', 
-      database: dbStatus, 
-      email: emailStatus,
-      dbError: dbMsg || 'none',
-      licensesCount: count
+      status: 'alive'
     });
   }
 
@@ -57,45 +19,20 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = req.body || {};
-    
-    // 3. SUPER DEBUG LOG (Record everything)
-    await supabase.from('debug_logs').insert([{ 
-      payload: {
-        body: body,
-        headers: req.headers,
-        method: req.method,
-        query: req.query,
-        rawType: typeof body
-      }
-    }]);
-
     const customer_email = body.payer_email || body.email || body.receiver_email;
     const payment_status = body.payment_status;
-
-    console.log('IPN Received for:', customer_email, 'Status:', payment_status);
 
     if (payment_status === 'Completed' || payment_status === 'Pending') {
       const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
-      // Save to Supabase (Try both 'licenses' and 'license')
-      let { error: dbError } = await supabase
+      // Save to Supabase
+      const { error: dbError } = await supabase
         .from('licenses')
         .insert([{ 
           email: customer_email, 
           license_key: new_key, 
-          transaction_id: body.txn_id || 'test-' + Date.now() 
+          transaction_id: body.txn_id || 'paypal-' + Date.now() 
         }]);
-
-      if (dbError && dbError.message.includes('not found')) {
-        const retry = await supabase
-          .from('license')
-          .insert([{ 
-            email: customer_email, 
-            license_key: new_key, 
-            transaction_id: body.txn_id || 'test-' + Date.now() 
-          }]);
-        dbError = retry.error;
-      }
 
       if (dbError) throw new Error('Database Error: ' + dbError.message);
 
@@ -116,9 +53,7 @@ export default async function handler(req, res) {
             </div>
           `
         });
-      } catch (emailErr) {
-        console.error('Email Delivery Failed (Optional):', emailErr.message);
-      }
+      } catch (e) {}
 
       return res.status(200).send('VERIFIED');
     }
