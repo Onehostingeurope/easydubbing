@@ -190,8 +190,7 @@ const Home = () => {
                 </ul>
                 <div className="text-center mb-10">
                   <div className="flex items-center justify-center gap-4 mb-2">
-                    <span className="text-[#cfc2d7] line-through text-xl opacity-50">€149</span>
-                    <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
+                    <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€169</span>
                   </div>
                   <p className="text-[10px] text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
                 </div>
