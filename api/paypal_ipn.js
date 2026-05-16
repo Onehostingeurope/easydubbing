@@ -10,13 +10,17 @@ export default async function handler(req, res) {
 
     try {
       const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-      const { error } = await supabase.from('licenses').select('count', { count: 'exact', head: true });
-      if (!error) dbStatus = true;
-      else {
-        // Try singular 'license' if plural fails
-        const { error: error2 } = await supabase.from('license').select('count', { count: 'exact', head: true });
-        if (!error2) dbStatus = true;
-        else dbMsg = error.message;
+      
+      // 1. Check plural
+      const q1 = await supabase.from('licenses').select('count', { count: 'exact', head: true });
+      if (!q1.error) dbStatus = true;
+      
+      // 2. Check singular
+      const q2 = await supabase.from('license').select('count', { count: 'exact', head: true });
+      if (!q2.error) dbStatus = true;
+
+      if (!dbStatus) {
+        dbMsg = q1.error?.message || q2.error?.message || 'Table not found';
       }
     } catch (e) { dbMsg = e.message; }
 
