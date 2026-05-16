@@ -35,7 +35,7 @@ const Home = () => {
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">Features</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
           <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">Pricing</a>
-          <a className="text-primary font-black hover:text-white transition-colors" href="/app">Open Studio</a>
+          <a className="text-primary font-black hover:text-white transition-colors" href="/app">Activate License</a>
         </div>
         <div className="flex items-center gap-4">
           <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="#pricing">
