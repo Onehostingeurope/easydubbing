@@ -341,8 +341,6 @@ const AppGUI = () => {
               </div>
             </div>
           </div>
-            </div>
-          </div>
         </div>
 
         <footer className="h-12 border-t border-white/5 px-8 flex items-center justify-between text-[10px] text-gray-700 uppercase tracking-widest font-bold bg-[#080808]">
