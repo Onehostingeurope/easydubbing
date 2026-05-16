@@ -6,8 +6,8 @@ const Home = () => {
     const initPayPal = () => {
       if ((window as any).paypal) {
         (window as any).paypal.HostedButtons({
-          hostedButtonId: "WY4L7ZTRG39EE",
-        }).render("#paypal-container-WY4L7ZTRG39EE");
+          hostedButtonId: "7CA9SG6NMTY3J",
+        }).render("#paypal-container-7CA9SG6NMTY3J");
       } else {
         setTimeout(initPayPal, 500);
       }
@@ -168,7 +168,7 @@ const Home = () => {
               </div>
               
               <div className="w-full max-w-[420px] mx-auto">
-                <div id="paypal-container-WY4L7ZTRG39EE" className="w-full min-h-[160px] flex justify-center items-center"></div>
+                <div id="paypal-container-7CA9SG6NMTY3J" className="w-full min-h-[160px] flex justify-center items-center"></div>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
