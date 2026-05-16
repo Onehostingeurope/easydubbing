@@ -20,6 +20,7 @@ const Success = () => {
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
           <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
+          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/#how-it-works">{t('nav.activate')}</a>
         </div>
         <div className="flex items-center gap-2 md:gap-4">
           <LanguageSwitcher />
