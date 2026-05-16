@@ -195,12 +195,10 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex justify-center max-w-[280px] mx-auto">
-                  <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem', width: '100%'}}>
-                    <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
-                    <input type="hidden" name="return" value="https://easydubbing.uk/success" />
-                    <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Annual" />
-                    <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-6 opacity-50" />
-                  </form>
+                  <PayPalSubscription 
+                    planId="P-5DH919456T471100PNIEMRCY"
+                    clientId="BAAnPQuQ8X0GMmcd0WY6kAGkXnOpmVcADNVyaSCXvckeuwda1i9Xuic7hHlX6WEjIlIgseGvESoFSb7lrY"
+                  />
                 </div>
               </div>
             </div>
