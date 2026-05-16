@@ -8,7 +8,13 @@ export default async function handler(req, res) {
 
   const { email, key, hwid } = req.body;
 
-  // Initialize Supabase (Using environment variables set in Vercel)
+  // Check if Environment Variables are missing
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    console.error('CRITICAL ERROR: Supabase Environment Variables are missing in Vercel!');
+    return res.status(500).send('Server Configuration Error: Missing Keys');
+  }
+
+  // Initialize Supabase
   const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY
