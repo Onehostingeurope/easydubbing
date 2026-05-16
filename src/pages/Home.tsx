@@ -155,6 +155,7 @@ const Home = () => {
               
               <div className="flex justify-center">
                 <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" className="flex flex-col items-center gap-4 w-full max-w-[320px]">
+                  <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
                   <input 
                     type="submit" 
                     value="BUY PRO LICENSE" 
