@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Video, Globe, Zap, Download, RefreshCw, 
   Settings, HelpCircle, AlertCircle, CheckCircle2,
-  ChevronRight, Mic, Layout, Sparkles
+  ChevronRight, Mic, Layout, Sparkles, Play
 } from 'lucide-react';
 
 const AppGUI = () => {
@@ -18,6 +18,7 @@ const AppGUI = () => {
   const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:7860';
 
   const handleProcess = async () => {
+    console.log('Connecting to API:', API_URL);
     setIsProcessing(true);
     setProgress(10);
     setProgressText('Connecting to AI Engine...');
