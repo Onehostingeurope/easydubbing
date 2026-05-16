@@ -49,6 +49,10 @@ export default async function handler(req, res) {
     const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = req.body || {};
+    
+    // 3. DEBUG LOG (Black Box)
+    await supabase.from('debug_logs').insert([{ payload: body }]);
+
     const customer_email = body.payer_email || body.email || body.receiver_email;
     const payment_status = body.payment_status;
 
