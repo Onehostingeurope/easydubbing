@@ -181,10 +181,7 @@ const Home = () => {
           </div>
           
           <div className="mt-16 text-center">
-            <a className="inline-flex items-center gap-3 text-primary hover:text-white transition-colors font-bold group" href="#">
-              <span className="material-symbols-outlined group-hover:scale-125 transition-transform">download</span>
-              Download Installer for Windows
-            </a>
+            <p className="text-[#cfc2d7] opacity-40 text-xs uppercase tracking-widest font-bold">Trusted by 10,000+ Global Creators</p>
           </div>
         </section>
       </main>

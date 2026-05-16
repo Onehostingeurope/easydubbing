@@ -39,7 +39,10 @@ export default async function handler(req, res) {
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #050505; color: white; border-radius: 20px;">
             <h1 style="color: #ddb8ff;">Thank you for your purchase!</h1>
-            <p>Your Easy Dubbing Pro license is now active. Use the key below to unlock the studio on your PC:</p>
+            <p>Your Easy Dubbing Pro license is now active. You can download the software and use the key below to unlock the studio on your PC:</p>
+            <div style="text-align: center; margin: 25px 0;">
+              <a href="https://easydubbing.uk/success" style="background: #ddb8ff; color: #2c0051; padding: 15px 30px; border-radius: 10px; font-weight: bold; text-decoration: none; display: inline-block;">⬇️ Download Installer</a>
+            </div>
             <div style="background: #111; padding: 20px; border-radius: 15px; border: 1px solid #333; text-align: center; margin: 20px 0;">
               <code style="font-size: 24px; color: #ddb8ff; font-weight: bold; letter-spacing: 2px;">${new_key}</code>
             </div>

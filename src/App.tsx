@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AppGUI from './pages/AppGUI';
 import Pricing from './pages/Pricing';
+import Success from './pages/Success';
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
 
         {/* Pricing Details */}
         <Route path="/pricing" element={<Pricing />} />
+
+        {/* Success Page */}
+        <Route path="/success" element={<Success />} />
       </Routes>
     </Router>
   );
