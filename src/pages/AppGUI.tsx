@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { 
   Video, Globe, Zap, Download, RefreshCw, 
   Settings, HelpCircle, AlertCircle, CheckCircle2,
-  ChevronRight, Mic, Layout, Sparkles, Play, Lock, ShieldCheck
+  ChevronRight, Mic, Layout, Play, Lock, ShieldCheck
 } from 'lucide-react';
 
 const AppGUI = () => {
