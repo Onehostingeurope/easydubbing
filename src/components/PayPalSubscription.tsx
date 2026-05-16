@@ -89,7 +89,7 @@ const PayPalSubscription = ({ planId, clientId }: PayPalSubscriptionProps) => {
             });
           },
           onApprove: function(data: any) {
-            window.location.href = `/success?subscriptionID=${data.subscriptionID}`;
+            window.location.href = `https://www.easydubbing.uk/success?subscriptionID=${data.subscriptionID}`;
           },
           onError: function(err: any) {
             console.error('PayPal Error:', err);

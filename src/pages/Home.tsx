@@ -245,8 +245,8 @@ const Home = () => {
                   <div className="flex justify-center max-w-[280px] mx-auto min-h-[150px] flex-col justify-center">
                     <style>{`.pp-7CA9SG6NMTY3J{text-align:center;border:none;border-radius:0.5rem;min-width:100%;padding:0 2rem;height:3rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer; transition: transform 0.2s;}.pp-7CA9SG6NMTY3J:hover{background-color:#ffda66; transform: scale(1.02);}`}</style>
                     <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem', width: '100%'}}>
-                      <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
-                      <input type="hidden" name="return" value="https://easydubbing.uk/success" />
+                      <input type="hidden" name="notify_url" value="https://www.easydubbing.uk/api/paypal_ipn" />
+                      <input type="hidden" name="return" value="https://www.easydubbing.uk/success" />
                       <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Lifetime Pro" />
                       <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-6 opacity-70" />
                     </form>
