@@ -15,16 +15,23 @@ const resources = {
         badge: 'Powered by Advanced AI',
         title: 'Translate Videos',
         desc: "The world's most powerful AI Video Dubbing Studio. Professional voice cloning and 40+ languages in one click.",
-        cta: 'Get Pro Annual'
+        cta: 'Get Lifetime Pro'
       },
       pricing: {
-        offer: 'Special Launch Offer',
-        title: 'Annual Pro License',
+        offer: 'Limited Time Offer',
+        title: 'Lifetime Pro License',
         feat1: 'Unlimited Local Processing',
         feat2: 'Hardware-Locked Security',
         feat3: 'High-Fidelity Voice Cloning',
-        feat4: 'Premium Support Included',
-        launch: 'ANNUAL SUBSCRIPTION - €69/YEAR'
+        feat4: 'Lifetime Free Updates',
+        launch: 'LIMITED TIME LAUNCH OFFER',
+        annualTitle: 'Annual Pro Pass',
+        annualBill: 'Billed Yearly',
+        annualFeat1: 'Standard Cloud Processing',
+        annualFeat2: 'Priority Email Support',
+        annualFeat3: '40+ Languages Supported',
+        annualFeat4: 'Cancel Anytime',
+        annualCta: 'Subscribe Now'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope'
@@ -44,16 +51,23 @@ const resources = {
         badge: 'Propulsé par une IA Avancée',
         title: 'Traduisez vos Vidéos',
         desc: "Le studio de doublage IA le plus puissant au monde. Clonage de voix professionnel et plus de 40 langues en un clic.",
-        cta: 'Obtenir Pro Annuel'
+        cta: 'Obtenir Pro à Vie'
       },
       pricing: {
-        offer: 'Offre Spéciale de Lancement',
-        title: 'Licence Pro Annuelle',
+        offer: 'Offre Limitée',
+        title: 'Licence Pro à Vie',
         feat1: 'Traitement Local Illimité',
         feat2: 'Sécurité Verrouillée par Matériel',
         feat3: 'Clonage de Voix Haute Fidélité',
-        feat4: 'Support Premium Inclus',
-        launch: 'ABONNEMENT ANNUEL - 69€/AN'
+        feat4: 'Mises à Jour Gratuites à Vie',
+        launch: 'OFFRE DE LANCEMENT LIMITÉE',
+        annualTitle: 'Pass Pro Annuel',
+        annualBill: 'Facturé Annuellement',
+        annualFeat1: 'Traitement Cloud Standard',
+        annualFeat2: 'Support Email Prioritaire',
+        annualFeat3: 'Plus de 40 Langues Supportées',
+        annualFeat4: 'Annulez à tout moment',
+        annualCta: "S'abonner Maintenant"
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tous droits réservés. Développé par OneHostingEurope'
@@ -73,16 +87,23 @@ const resources = {
         badge: 'Impulsado por IA Avanzada',
         title: 'Traduce tus Videos',
         desc: "El estudio de doblaje por IA más potente del mundo. Clonación de voz profesional y más de 40 idiomas en un clic.",
-        cta: 'Obtener Pro Anual'
+        cta: 'Obtener Pro de por Vida'
       },
       pricing: {
-        offer: 'Oferta Especial de Lanzamiento',
-        title: 'Licencia Pro Anual',
+        offer: 'Oferta por Tiempo Limitado',
+        title: 'Licencia Pro de por Vida',
         feat1: 'Procesamiento Local Ilimitado',
         feat2: 'Seguridad Bloqueada por Hardware',
         feat3: 'Clonación de Voz de Alta Fidelidad',
-        feat4: 'Soporte Premium Incluido',
-        launch: 'SUSCRIPCIÓN ANUAL - 69€/AÑO'
+        feat4: 'Actualizaciones Gratuitas de por Vida',
+        launch: 'OFERTA DE LANZAMIENTO LIMITADA',
+        annualTitle: 'Pase Pro Anual',
+        annualBill: 'Facturado Anualmente',
+        annualFeat1: 'Procesamiento en la Nube Estándar',
+        annualFeat2: 'Soporte por Correo Prioritario',
+        annualFeat3: 'Más de 40 Idiomas Soportados',
+        annualFeat4: 'Cancela en cualquier momento',
+        annualCta: 'Suscribirse Ahora'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Todos los derechos reservados. Desarrollado por OneHostingEurope'
@@ -102,16 +123,23 @@ const resources = {
         badge: 'Potenziato da IA Avanzata',
         title: 'Traduci i tuoi Video',
         desc: "Lo studio di doppiaggio IA più potente al mondo. Clonazione vocale professionale e oltre 40 lingue in un clic.",
-        cta: 'Ottieni Pro Annuale'
+        cta: 'Ottieni Pro a Vita'
       },
       pricing: {
-        offer: 'Offerta Speciale di Lancio',
-        title: 'Licenza Pro Annuale',
+        offer: 'Offerta a Tempo Limitato',
+        title: 'Licenza Pro a Vita',
         feat1: 'Elaborazione Locale Illimitata',
         feat2: 'Sicurezza Bloccata dall\'Hardware',
         feat3: 'Clonazione Vocale ad Alta Fedeltà',
-        feat4: 'Supporto Premium Incluso',
-        launch: 'ABBONAMENTO ANNUALE - 69€/ANNO'
+        feat4: 'Aggiornamenti Gratuiti a Vita',
+        launch: 'OFFERTA DI LANCIO LIMITATA',
+        annualTitle: 'Pass Pro Annuale',
+        annualBill: 'Fatturato Annualmente',
+        annualFeat1: 'Elaborazione Cloud Standard',
+        annualFeat2: 'Supporto Email Prioritario',
+        annualFeat3: 'Oltre 40 Lingue Supportate',
+        annualFeat4: 'Annulla in qualsiasi momento',
+        annualCta: 'Iscriviti Ora'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tutti i diritti riservati. Sviluppato da OneHostingEurope'
@@ -131,16 +159,23 @@ const resources = {
         badge: 'Unterstützt durch Fortgeschrittene KI',
         title: 'Videos Übersetzen',
         desc: "Das weltweit leistungsstärkste KI-Video-Synchronstudio. Professionelles Stimmencloning und über 40 Sprachen mit einem Klick.",
-        cta: 'Pro Jahreslizenz Sichern'
+        cta: 'Lifetime Pro Sichern'
       },
       pricing: {
-        offer: 'Spezielles Einführungsangebot',
-        title: 'Pro Jahreslizenz',
+        offer: 'Befristetes Angebot',
+        title: 'Lifetime Pro Lizenz',
         feat1: 'Unbegrenzte Lokale Verarbeitung',
         feat2: 'Hardware-gebundene Sicherheit',
         feat3: 'High-Fidelity Stimmencloning',
-        feat4: 'Premium-Support Inklusive',
-        launch: 'JAHRESABO - 69€/JAHR'
+        feat4: 'Kostenlose Lifetime-Updates',
+        launch: 'LIMITIERTES EINFÜHRUNGSANGEBOT',
+        annualTitle: 'Jahres-Pro-Pass',
+        annualBill: 'Jährliche Abrechnung',
+        annualFeat1: 'Standard-Cloud-Verarbeitung',
+        annualFeat2: 'Prioritärer E-Mail-Support',
+        annualFeat3: 'Über 40 Sprachen unterstützt',
+        annualFeat4: 'Jederzeit kündbar',
+        annualCta: 'Jetzt Abonnieren'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Alle Rechte vorbehalten. Entwickelt von OneHostingEurope'
@@ -159,17 +194,24 @@ const resources = {
       hero: {
         badge: 'На базе передового ИИ',
         title: 'Переводите видео',
-        desc: "Самая мощная в мире студия ИИ-дубляжа видео. Профессиональное клонирование голоса и 40+ языков в один клик.",
-        cta: 'Получить годовой Pro'
+        desc: " Самая мощная в мире студия ИИ-дубляжа видео. Профессиональное клонирование голоса и 40+ языков в один клик.",
+        cta: 'Получить пожизненный Pro'
       },
       pricing: {
-        offer: 'Специальное предложение',
-        title: 'Годовая лицензия Pro',
+        offer: 'Ограниченное предложение',
+        title: 'Пожизненная лицензия Pro',
         feat1: 'Безлимитная локальная обработка',
         feat2: 'Аппаратная защита',
         feat3: 'Высокоточное клонирование голоса',
-        feat4: 'Премиум поддержка включена',
-        launch: 'ГОДОВАЯ ПОДПИСКА - 69€/ГОД'
+        feat4: 'Пожизненные бесплатные обновления',
+        launch: 'ОГРАНИЧЕННОЕ ПРЕДЛОЖЕНИЕ К ЗАПУСКУ',
+        annualTitle: 'Годовой Pro-пакет',
+        annualBill: 'Оплата раз в год',
+        annualFeat1: 'Стандартная облачная обработка',
+        annualFeat2: 'Приоритетная поддержка по email',
+        annualFeat3: 'Поддержка 40+ языков',
+        annualFeat4: 'Отмена в любое время',
+        annualCta: 'Подписаться сейчас'
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Все права защищены. Разработано OneHostingEurope'

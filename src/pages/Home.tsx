@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import PayPalSubscription from '../components/PayPalSubscription';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -130,56 +131,82 @@ const Home = () => {
 
         {/* Pricing Section */}
         <section id="pricing" className="px-6 md:px-12 max-w-[1280px] mx-auto py-32">
-          <div className="max-w-5xl mx-auto bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-white/10 grid md:grid-cols-2 shadow-2xl shadow-purple-500/5">
-            <div className="p-12 md:p-16">
-              <span className="text-primary text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.offer')}</span>
-              <h2 className="font-['Plus_Jakarta_Sans'] text-5xl font-black mt-4 mb-10 leading-tight">{t('pricing.title')}</h2>
-              <ul className="space-y-6">
-                {[
-                  t('pricing.feat1'),
-                  t('pricing.feat2'),
-                  t('pricing.feat3'),
-                  t('pricing.feat4')
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-4 text-[#cfc2d7] font-medium">
-                    <span className="material-symbols-outlined text-primary text-[24px]">check_circle</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="bg-white/[0.01] p-2 md:p-4 flex flex-col justify-center border-l border-white/10 overflow-hidden">
-              <div className="text-center mb-8">
-                <div className="flex items-center justify-center gap-4 mb-2">
-                  <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€149</span>
-                  <span className="text-white font-['Plus_Jakarta_Sans'] text-[64px] font-black leading-none">€69</span>
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Annual Pass */}
+            <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-white/10 flex flex-col shadow-2xl transition-all hover:border-white/20">
+              <div className="p-10 md:p-14 flex-1">
+                <span className="text-[#adc6ff] text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.annualBill')}</span>
+                <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-black mt-4 mb-8 leading-tight">{t('pricing.annualTitle')}</h2>
+                <ul className="space-y-4 mb-12">
+                  {[
+                    t('pricing.annualFeat1'),
+                    t('pricing.annualFeat2'),
+                    t('pricing.annualFeat3'),
+                    t('pricing.annualFeat4')
+                  ].map((feat, i) => (
+                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-sm font-medium">
+                      <span className="material-symbols-outlined text-[#adc6ff] text-[20px]">check_circle</span>
+                      {feat}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-center mb-10">
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€49</span>
+                    <span className="text-[#cfc2d7] opacity-50 font-bold">/ year</span>
+                  </div>
                 </div>
-                <p className="text-xs text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
+                <div className="max-w-[280px] mx-auto">
+                  <PayPalSubscription 
+                    planId="P-6D005183RT833605ANIEMFOA"
+                    clientId="BAAnPQuQ8X0GMmcd0WY6kAGkXnOpmVcADNVyaSCXvckeuwda1i9Xuic7hHlX6WEjIlIgseGvESoFSb7lrY"
+                  />
+                </div>
               </div>
-              
-              <div className="flex justify-center">
-                <style>{`
-                  .pp-7CA9SG6NMTY3J{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}
-                  .pp-7CA9SG6NMTY3J:hover{background-color:#ffda66;transform:scale(1.02);transition:all 0.2s;}
-                `}</style>
-                <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem'}}>
-                  <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
-                  <input type="hidden" name="return" value="https://easydubbing.uk/success" />
-                  <input type="hidden" name="cancel_return" value="https://easydubbing.uk/" />
-                  
-                  <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Now" />
-                  <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" />
-                  <section style={{fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)'}}> 
-                    Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style={{height:'0.875rem', verticalAlign:'middle', filter: 'brightness(0) invert(1) opacity(0.5)'}}/>
-                  </section>
-                </form>
+            </div>
+
+            {/* Lifetime Pro */}
+            <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-primary/30 flex flex-col shadow-2xl relative transition-all hover:border-primary/50">
+              <div className="absolute top-6 right-8">
+                <span className="px-4 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                  Best Value
+                </span>
               </div>
-              
-              <div className="mt-8 flex flex-col items-center gap-4">
-                <div className="flex items-center gap-2 text-[10px] text-[#cfc2d7] opacity-40 font-bold uppercase tracking-widest">
-                  <span className="material-symbols-outlined text-[14px]">lock</span>
-                  Secure Hardware Activation via PayPal
+              <div className="p-10 md:p-14 flex-1">
+                <span className="text-primary text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.offer')}</span>
+                <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-black mt-4 mb-8 leading-tight">{t('pricing.title')}</h2>
+                <ul className="space-y-4 mb-12">
+                  {[
+                    t('pricing.feat1'),
+                    t('pricing.feat2'),
+                    t('pricing.feat3'),
+                    t('pricing.feat4')
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-sm font-medium">
+                      <span className="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-center mb-10">
+                  <div className="flex items-center justify-center gap-4 mb-2">
+                    <span className="text-[#cfc2d7] line-through text-xl opacity-50">€149</span>
+                    <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
+                  </div>
+                  <p className="text-[10px] text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
+                </div>
+                
+                <div className="flex justify-center max-w-[280px] mx-auto">
+                  <style>{`
+                    .pp-7CA9SG6NMTY3J{text-align:center;border:none;border-radius:0.25rem;min-width:100%;padding:0 2rem;height:3rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer; transition: transform 0.2s;}
+                    .pp-7CA9SG6NMTY3J:hover{background-color:#ffda66; transform: scale(1.02);}
+                  `}</style>
+                  <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem', width: '100%'}}>
+                    <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
+                    <input type="hidden" name="return" value="https://easydubbing.uk/success" />
+                    <input className="pp-7CA9SG6NMTY3J" type="submit" value="Get Lifetime Pro" />
+                    <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-6" />
+                  </form>
                 </div>
               </div>
             </div>
