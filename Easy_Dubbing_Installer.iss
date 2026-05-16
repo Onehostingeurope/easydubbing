@@ -18,6 +18,14 @@ PrivilegesRequired=admin
 var
   LicensePage: TInputQueryWizardPage;
   ComputerID: String;
+  LinkLabel: TNewStaticText;
+
+procedure LinkClick(Sender: TObject);
+var
+  ErrorCode: Integer;
+begin
+  ShellExec('open', 'https://www.easydubbing.uk/app', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+end;
 
 function GetComputerID(): String;
 var
@@ -56,6 +64,17 @@ begin
   
   // Set the Computer ID automatically so they can copy it
   LicensePage.Values[0] := ComputerID;
+
+  // Add the clickable link
+  LinkLabel := TNewStaticText.Create(LicensePage);
+  LinkLabel.Parent := LicensePage.Surface;
+  LinkLabel.Caption := 'Don''t have a key? Click here to Activate or Buy Online';
+  LinkLabel.Cursor := crHand;
+  LinkLabel.Font.Color := clBlue;
+  LinkLabel.Font.Style := [fsUnderline];
+  LinkLabel.Left := 0;
+  LinkLabel.Top := LicensePage.SurfaceHeight - 30;
+  LinkLabel.OnClick := @LinkClick;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
