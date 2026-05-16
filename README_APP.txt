@@ -1,10 +1,10 @@
-🚀 SoniTranslate AI Dubbing - Windows App
+🚀 Easy Dubbing AI Dubbing - Windows App
 
 Your AI Dubbing Studio is now ready to use as a standalone application!
 
 HOW TO USE:
 1. Go to your Windows Desktop.
-2. Double-click the "SoniTranslate AI" icon.
+2. Double-click the "Easy Dubbing AI" icon.
 3. Wait about 5-10 seconds.
 4. Your dashboard will open automatically in your browser.
 

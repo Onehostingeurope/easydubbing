@@ -12,7 +12,6 @@ function App() {
   const [fileName, setFileName] = useState('');
   const [progressText, setProgressText] = useState('Initializing...');
   const [credits, setCredits] = useState<number>(5); // Default 5 credits for the 9€ plan
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(true);
 
   const handleProcess = async () => {
     if (credits <= 0) {
@@ -459,12 +458,15 @@ function App() {
                       <p style={{ color: 'var(--text-secondary)' }}>{fileName || "Video output"}</p>
                     </div>
                     
-                    <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 px-4 py-2 bg-purple-500/10 border border-purple-500/20 rounded-full">
-                <span className="text-purple-400 text-sm font-medium">Credits:</span>
-                <span className="text-white text-sm font-bold">{credits} left</span>
+                    <div className="flex items-center space-x-12">
+            <div className="flex items-center space-x-3 group cursor-pointer">
+              <div className="bg-gradient-to-br from-purple-600 to-blue-600 p-2 rounded-xl shadow-lg shadow-purple-500/20 group-hover:scale-110 transition-all">
+                <Video className="text-white" size={24} />
               </div>
-              <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg shadow-purple-500/25">
+              <span className="text-2xl font-black tracking-tighter text-white">
+                EASY<span className="text-purple-500">DUBBING</span>
+              </span>
+            </div>  <button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full font-medium transition-all shadow-lg shadow-purple-500/25">
                 Dashboard
               </button>
             </div>
