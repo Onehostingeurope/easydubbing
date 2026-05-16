@@ -40,26 +40,46 @@ const Success = () => {
                   
                   if (!email) return;
                   
-                  target.disabled = true;
-                  if (text) text.innerText = 'Searching...';
-                  if (display) display.classList.remove('hidden');
+                  const startLookup = async () => {
+                    target.disabled = true;
+                    if (text) text.innerText = 'Searching...';
+                    if (display) display.classList.remove('hidden');
 
-                  try {
-                    // We call a special lookup endpoint I'll add or use Supabase directly if we want
-                    // But for now, let's just use a fetch to our API
-                    const res = await fetch(`/api/lookup_key?email=${encodeURIComponent(email)}`);
-                    const data = await res.json();
+                    let attempts = 0;
+                    const maxAttempts = 10;
                     
-                    if (data.key) {
-                      if (text) text.innerText = data.key;
-                    } else {
-                      if (text) text.innerText = 'Key not found yet. Try again in 10s.';
-                    }
-                  } catch (err) {
-                    if (text) text.innerText = 'Error searching. Please check your email.';
-                  } finally {
-                    target.disabled = false;
-                  }
+                    const performLookup = async () => {
+                      try {
+                        const res = await fetch(`/api/lookup_key?email=${encodeURIComponent(email)}`);
+                        const data = await res.json();
+                        
+                        if (data.key) {
+                          if (text) text.innerText = data.key;
+                          target.disabled = false;
+                          return true;
+                        }
+                      } catch (err) {
+                        console.error('Lookup failed', err);
+                      }
+                      return false;
+                    };
+
+                    const poll = async () => {
+                      const found = await performLookup();
+                      if (!found && attempts < maxAttempts) {
+                        attempts++;
+                        if (text) text.innerText = `Still searching... (${attempts}/${maxAttempts})`;
+                        setTimeout(poll, 3000); // Try every 3 seconds
+                      } else if (!found) {
+                        if (text) text.innerText = 'Key not found yet. Please check your email or wait a moment.';
+                        target.disabled = false;
+                      }
+                    };
+
+                    poll();
+                  };
+
+                  startLookup();
                 }
               }}
             />
