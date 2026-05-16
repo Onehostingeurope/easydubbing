@@ -8,16 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* The beautiful Marketing Landing Page for easydubbing.uk */}
         <Route path="/" element={<Home />} />
-        
-        {/* The actual AI Dubbing Tool Interface */}
         <Route path="/app" element={<AppGUI />} />
-
-        {/* Pricing Details */}
-        <Route path="/pricing" element={<Pricing />} />
-
-        {/* Success Page */}
         <Route path="/success" element={<Success />} />
       </Routes>
     </Router>
