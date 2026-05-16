@@ -2,19 +2,6 @@ import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const Home = () => {
-  useEffect(() => {
-    const initPayPal = () => {
-      if ((window as any).paypal) {
-        (window as any).paypal.HostedButtons({
-          hostedButtonId: "7CA9SG6NMTY3J",
-        }).render("#paypal-container-7CA9SG6NMTY3J");
-      } else {
-        setTimeout(initPayPal, 500);
-      }
-    };
-    initPayPal();
-  }, []);
-
   return (
     <div className="bg-[#050505] text-[#e5e2e1] font-['Inter'] selection:bg-purple-500/30 overflow-x-hidden">
       {/* Dynamic Background Glows */}
@@ -167,8 +154,19 @@ const Home = () => {
                 <p className="text-xs text-primary tracking-widest font-bold uppercase">🧪 LIVE TEST MODE ACTIVE</p>
               </div>
               
-              <div className="w-full max-w-[420px] mx-auto">
-                <div id="paypal-container-7CA9SG6NMTY3J" className="w-full min-h-[160px] flex justify-center items-center"></div>
+              <div className="flex justify-center">
+                <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" className="flex flex-col items-center gap-4 w-full max-w-[320px]">
+                  <input 
+                    type="submit" 
+                    value="BUY PRO LICENSE" 
+                    className="w-full py-5 px-8 rounded-2xl bg-[#FFC439] text-[#2c2e2f] font-black text-xl cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-2xl shadow-yellow-500/20"
+                  />
+                  <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-8 opacity-80" />
+                  <section className="text-[10px] uppercase tracking-widest font-bold opacity-40 flex items-center gap-2">
+                    Secured by 
+                    <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" className="h-3 grayscale brightness-200 invert" />
+                  </section>
+                </form>
               </div>
               
               <div className="mt-8 flex flex-col items-center gap-4">
