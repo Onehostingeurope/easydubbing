@@ -151,7 +151,8 @@ const AppGUI = () => {
           <p className="mt-8 text-center text-[10px] text-gray-600 font-bold uppercase tracking-widest">
             Don't have a key? <a href="https://easydubbing.uk#pricing" target="_blank" className="text-primary hover:underline">Get Lifetime Access</a>
           </p>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     );
   }
@@ -340,6 +341,8 @@ const AppGUI = () => {
               </div>
             </div>
           </div>
+            </div>
+          </div>
         </div>
 
         <footer className="h-12 border-t border-white/5 px-8 flex items-center justify-between text-[10px] text-gray-700 uppercase tracking-widest font-bold bg-[#080808]">
@@ -347,6 +350,7 @@ const AppGUI = () => {
            <span>Developed by OneHostingEurope LTD</span>
         </footer>
       </main>
+      </div>
     </div>
   );
 };
