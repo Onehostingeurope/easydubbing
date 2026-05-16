@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Video, Globe, Zap, Download, RefreshCw, 
   Settings, HelpCircle, AlertCircle, CheckCircle2,
-  ChevronRight, Mic, Layout, Sparkles, Play
+  ChevronRight, Mic, Layout, Sparkles, Play, Lock, ShieldCheck
 } from 'lucide-react';
 
 const AppGUI = () => {
+  const [isActivated, setIsActivated] = useState(false);
+  const [licenseKey, setLicenseKey] = useState('');
+  const [email, setEmail] = useState('');
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [error, setError] = useState('');
+
   const [url, setUrl] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -16,6 +22,40 @@ const AppGUI = () => {
   const [progressText, setProgressText] = useState('Initializing...');
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:7860';
+  const VERIFY_URL = 'https://onehostingeurope.com/verify/';
+
+  useEffect(() => {
+    const savedKey = localStorage.getItem('license_key');
+    if (savedKey) setIsActivated(true);
+  }, []);
+
+  const handleActivate = async () => {
+    setIsVerifying(true);
+    setError('');
+    
+    try {
+      // Hardware ID generation (placeholder for web version, real in desktop)
+      const hwid = 'HW-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+      
+      const response = await fetch(VERIFY_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `email=${encodeURIComponent(email)}&key=${encodeURIComponent(licenseKey)}&hwid=${hwid}`
+      });
+
+      if (response.ok) {
+        localStorage.setItem('license_key', licenseKey);
+        setIsActivated(true);
+      } else {
+        const text = await response.text();
+        setError(text || 'Invalid License Key or Email');
+      }
+    } catch (err) {
+      setError('Connection Error: Could not reach activation server.');
+    } finally {
+      setIsVerifying(false);
+    }
+  };
 
   const handleProcess = async () => {
     console.log('Connecting to API:', API_URL);
@@ -23,13 +63,76 @@ const AppGUI = () => {
     setProgress(10);
     setProgressText('Connecting to AI Engine...');
     
-    // Logic for Gradio connection would go here
     setTimeout(() => {
       setProgress(100);
       setIsProcessing(false);
       setDownloadUrl('#');
     }, 5000);
   };
+
+  if (!isActivated) {
+    return (
+      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center font-sans px-6 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-purple-900/20 to-blue-900/20 -z-10" />
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl p-10 rounded-[48px] border border-white/10 shadow-2xl relative"
+        >
+          <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-purple-500/20">
+            <Lock size={32} />
+          </div>
+          <h2 className="text-3xl font-black text-center mb-2 font-['Plus_Jakarta_Sans']">Activate Studio</h2>
+          <p className="text-center text-[#cfc2d7] text-sm mb-10">Enter your Pro license to unlock AI Dubbing.</p>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 px-4">Email Address</label>
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="email@example.com"
+                className="w-full bg-black border border-white/5 rounded-2xl px-6 py-4 focus:border-purple-500 focus:outline-none transition-all placeholder:text-gray-800"
+              />
+            </div>
+            <div>
+              <label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 px-4">License Key</label>
+              <input 
+                type="text" 
+                value={licenseKey}
+                onChange={(e) => setLicenseKey(e.target.value)}
+                placeholder="OHE-XXXX-XXXX-XXXX"
+                className="w-full bg-black border border-white/5 rounded-2xl px-6 py-4 focus:border-purple-500 focus:outline-none transition-all placeholder:text-gray-800"
+              />
+            </div>
+            
+            {error && (
+              <motion.p 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }}
+                className="text-red-400 text-xs text-center font-bold px-4 pt-2"
+              >
+                {error}
+              </motion.p>
+            )}
+
+            <button 
+              onClick={handleActivate}
+              disabled={isVerifying || !licenseKey || !email}
+              className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-5 rounded-2xl shadow-lg shadow-purple-500/10 hover:scale-[1.02] transition-all disabled:opacity-50 disabled:scale-100 mt-6"
+            >
+              {isVerifying ? 'Verifying...' : 'Activate Now'}
+            </button>
+          </div>
+          
+          <p className="mt-8 text-center text-[10px] text-gray-600 font-bold uppercase tracking-widest">
+            Don't have a key? <a href="https://easydubbing.uk#pricing" target="_blank" className="text-primary hover:underline">Get Lifetime Access</a>
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white flex font-sans">
@@ -66,10 +169,10 @@ const AppGUI = () => {
 
         <div className="p-4 bg-purple-600/5 rounded-2xl border border-purple-500/10 hidden md:block">
           <div className="flex items-center gap-2 text-purple-400 mb-2">
-            <Sparkles size={16} />
-            <span className="text-xs font-bold uppercase tracking-widest">Pro Activated</span>
+            <ShieldCheck size={16} />
+            <span className="text-xs font-bold uppercase tracking-widest text-green-400">Pro Activated</span>
           </div>
-          <p className="text-[10px] text-gray-500">Unlimited Lifetime Access</p>
+          <p className="text-[10px] text-gray-500">Hardware Locked: ACTIVE</p>
         </div>
       </nav>
 
@@ -83,14 +186,14 @@ const AppGUI = () => {
           </div>
           <div className="flex items-center gap-4">
             <button className="text-gray-400 hover:text-white transition-colors"><HelpCircle size={20} /></button>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-xs font-bold">CA</div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-xs font-bold uppercase">{email.substring(0, 2)}</div>
           </div>
         </header>
 
         <div className="flex-1 overflow-y-auto p-8">
           <div className="max-w-4xl mx-auto">
             <div className="mb-12">
-              <h1 className="text-4xl font-bold mb-2">AI Translation Studio</h1>
+              <h1 className="text-4xl font-bold mb-2 font-['Plus_Jakarta_Sans']">AI Translation Studio</h1>
               <p className="text-gray-500">Professional video dubbing with zero effort.</p>
             </div>
 
