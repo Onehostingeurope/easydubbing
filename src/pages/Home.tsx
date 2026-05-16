@@ -87,13 +87,13 @@ const Home = () => {
         {/* Features Grid */}
         <section id="features" className="px-6 md:px-12 max-w-[1280px] mx-auto py-32">
           <div className="mb-16 space-y-2 text-center md:text-left">
-            <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">Unmatched AI Technology</h2>
-            <p className="text-[#cfc2d7] max-w-2xl">Built for creators, filmmakers, and global brands to dissolve language barriers instantly.</p>
+            <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">{t('features.title')}</h2>
+            <p className="text-[#cfc2d7] max-w-2xl">{t('features.subtitle')}</p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             {[
-              { icon: 'translate', title: 'Instant Translation', desc: '40+ languages supported with zero delay and perfect accuracy. Localize your content in seconds.', color: 'bg-blue-500/20 text-blue-400' },
-              { icon: 'record_voice_over', title: 'Pro Voice Cloning', desc: 'Keep your unique tone and emotion across any language effortlessly. Captured with high fidelity.', color: 'bg-purple-500/20 text-purple-400' },
+              { icon: 'translate', title: t('features.feat1Title'), desc: t('features.feat1Desc'), color: 'bg-blue-500/20 text-blue-400' },
+              { icon: 'record_voice_over', title: t('features.feat2Title'), desc: t('features.feat2Desc'), color: 'bg-purple-500/20 text-purple-400' },
             ].map((f, i) => (
               <div key={i} className="bg-white/[0.03] backdrop-blur-md p-10 rounded-[40px] border border-white/5 hover:border-primary/30 transition-all group">
                 <div className={`w-14 h-14 rounded-2xl ${f.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
@@ -109,12 +109,12 @@ const Home = () => {
         {/* How It Works */}
         <section id="how-it-works" className="bg-white/[0.02] py-32">
           <div className="px-6 md:px-12 max-w-[1280px] mx-auto">
-            <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold text-center mb-24">How it Works</h2>
+            <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold text-center mb-24">{t('howItWorks.title')}</h2>
             <div className="grid md:grid-cols-3 gap-16 relative">
               {[
-                { step: '01', icon: 'shopping_cart', title: 'Purchase License', desc: 'Get your activation key via PayPal instantly after payment.' },
-                { step: '02', icon: 'download', title: 'Install the App', desc: 'Run the professional Windows installer on your PC and activate.' },
-                { step: '03', icon: 'movie_edit', title: 'Start Dubbing', desc: 'Upload a video, choose a language, and let the AI do the magic.' },
+                { step: '01', icon: 'shopping_cart', title: t('howItWorks.step1Title'), desc: t('howItWorks.step1Desc') },
+                { step: '02', icon: 'download', title: t('howItWorks.step2Title'), desc: t('howItWorks.step2Desc') },
+                { step: '03', icon: 'movie_edit', title: t('howItWorks.step3Title'), desc: t('howItWorks.step3Desc') },
               ].map((s, i) => (
                 <div key={i} className="relative flex flex-col items-center text-center">
                   <div className="absolute -top-16 text-[120px] font-black text-white/[0.03] select-none pointer-events-none">{s.step}</div>
@@ -157,7 +157,7 @@ const Home = () => {
                   <div className="text-center mb-8">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
-                      <span className="text-[#cfc2d7] opacity-50 font-bold">/ mo</span>
+                      <span className="text-[#cfc2d7] opacity-50 font-bold">{t('pricing.monthlyUnit')}</span>
                     </div>
                   </div>
                   <div className="flex justify-center max-w-[280px] mx-auto">
@@ -195,7 +195,7 @@ const Home = () => {
                   <div className="text-center mb-8">
                     <div className="flex items-baseline justify-center gap-1">
                       <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€189</span>
-                      <span className="text-[#cfc2d7] opacity-50 font-bold">/ year</span>
+                      <span className="text-[#cfc2d7] opacity-50 font-bold">{t('pricing.annualUnit')}</span>
                     </div>
                   </div>
                   <div className="flex justify-center max-w-[280px] mx-auto">
@@ -212,7 +212,7 @@ const Home = () => {
             <div className="bg-white/[0.04] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-primary/40 flex flex-col shadow-2xl relative transition-all hover:border-primary/60 scale-105 z-10">
               <div className="absolute top-6 right-8">
                 <span className="px-4 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black tracking-widest uppercase border border-primary/30">
-                  Best Value
+                  {t('pricing.bestValue')}
                 </span>
               </div>
               <div className="p-10 flex flex-col h-full">
@@ -247,7 +247,7 @@ const Home = () => {
                     <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem', width: '100%'}}>
                       <input type="hidden" name="notify_url" value="https://www.easydubbing.uk/api/paypal_ipn" />
                       <input type="hidden" name="return" value="https://www.easydubbing.uk/success" />
-                      <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Lifetime Pro" />
+                      <input className="pp-7CA9SG6NMTY3J" type="submit" value={t('pricing.title')} />
                       <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-6 opacity-70" />
                     </form>
                     <div className="text-[10px] text-center opacity-40 mt-4 uppercase tracking-[0.2em] font-bold">Powered by PayPal</div>
@@ -258,7 +258,7 @@ const Home = () => {
           </div>
           
           <div className="mt-24 text-center">
-            <p className="text-[#cfc2d7] opacity-40 text-xs uppercase tracking-widest font-bold">Trusted by 10,000+ Global Creators</p>
+            <p className="text-[#cfc2d7] opacity-40 text-xs uppercase tracking-widest font-bold">{t('footer.trusted')}</p>
           </div>
         </section>
       </main>
