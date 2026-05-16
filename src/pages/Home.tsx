@@ -112,7 +112,7 @@ const Home = () => {
             <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold text-center mb-24">How it Works</h2>
             <div className="grid md:grid-cols-3 gap-16 relative">
               {[
-                { step: '01', icon: 'shopping_cart', title: 'Purchase License', desc: 'Get your lifetime activation key via PayPal instantly after payment.' },
+                { step: '01', icon: 'shopping_cart', title: 'Purchase License', desc: 'Get your activation key via PayPal instantly after payment.' },
                 { step: '02', icon: 'download', title: 'Install the App', desc: 'Run the professional Windows installer on your PC and activate.' },
                 { step: '03', icon: 'movie_edit', title: 'Start Dubbing', desc: 'Upload a video, choose a language, and let the AI do the magic.' },
               ].map((s, i) => (
@@ -131,12 +131,12 @@ const Home = () => {
 
         {/* Pricing Section */}
         <section id="pricing" className="px-6 md:px-12 max-w-[1280px] mx-auto py-32">
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-[1200px] mx-auto items-stretch">
             {/* Monthly Pass */}
             <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-white/10 flex flex-col shadow-2xl transition-all hover:border-white/20">
-              <div className="p-10 md:p-14 flex-1">
+              <div className="p-10 flex-1">
                 <span className="text-[#cfc2d7] text-sm font-bold tracking-[0.2em] uppercase opacity-50">{t('pricing.monthlyBill')}</span>
-                <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-black mt-4 mb-8 leading-tight">{t('pricing.monthlyTitle')}</h2>
+                <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-black mt-4 mb-8 leading-tight">{t('pricing.monthlyTitle')}</h2>
                 <ul className="space-y-4 mb-12">
                   {[
                     t('pricing.monthlyFeat1'),
@@ -144,13 +144,13 @@ const Home = () => {
                     t('pricing.monthlyFeat3'),
                     t('pricing.monthlyFeat4')
                   ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-sm font-medium">
-                      <span className="material-symbols-outlined text-white/40 text-[20px]">check_circle</span>
+                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-xs font-medium">
+                      <span className="material-symbols-outlined text-white/40 text-[18px]">check_circle</span>
                       {feat}
                     </li>
                   ))}
                 </ul>
-                <div className="text-center mb-10">
+                <div className="text-center mb-10 mt-auto">
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
                     <span className="text-[#cfc2d7] opacity-50 font-bold">/ mo</span>
@@ -166,15 +166,10 @@ const Home = () => {
             </div>
 
             {/* Annual Pass */}
-            <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-primary/30 flex flex-col shadow-2xl relative transition-all hover:border-primary/50">
-              <div className="absolute top-6 right-8">
-                <span className="px-4 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black tracking-widest uppercase border border-primary/30">
-                  Popular
-                </span>
-              </div>
-              <div className="p-10 md:p-14 flex-1">
+            <div className="bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-white/10 flex flex-col shadow-2xl transition-all hover:border-white/20">
+              <div className="p-10 flex-1">
                 <span className="text-[#adc6ff] text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.annualBill')}</span>
-                <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-black mt-4 mb-8 leading-tight">{t('pricing.annualTitle')}</h2>
+                <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-black mt-4 mb-8 leading-tight">{t('pricing.annualTitle')}</h2>
                 <ul className="space-y-4 mb-12">
                   {[
                     t('pricing.annualFeat1'),
@@ -182,13 +177,13 @@ const Home = () => {
                     t('pricing.annualFeat3'),
                     t('pricing.annualFeat4')
                   ].map((feat, i) => (
-                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-sm font-medium">
-                      <span className="material-symbols-outlined text-[#adc6ff] text-[20px]">check_circle</span>
+                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-xs font-medium">
+                      <span className="material-symbols-outlined text-[#adc6ff] text-[18px]">check_circle</span>
                       {feat}
                     </li>
                   ))}
                 </ul>
-                <div className="text-center mb-10">
+                <div className="text-center mb-10 mt-auto">
                   <div className="flex items-baseline justify-center gap-1">
                     <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€189</span>
                     <span className="text-[#cfc2d7] opacity-50 font-bold">/ year</span>
@@ -199,6 +194,48 @@ const Home = () => {
                     planId="P-5DH919456T471100PNIEMRCY"
                     clientId="BAAnPQuQ8X0GMmcd0WY6kAGkXnOpmVcADNVyaSCXvckeuwda1i9Xuic7hHlX6WEjIlIgseGvESoFSb7lrY"
                   />
+                </div>
+              </div>
+            </div>
+
+            {/* Lifetime Pro */}
+            <div className="bg-white/[0.04] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-primary/40 flex flex-col shadow-2xl relative transition-all hover:border-primary/60 scale-105 z-10">
+              <div className="absolute top-6 right-8">
+                <span className="px-4 py-1 rounded-full bg-primary/20 text-primary text-[10px] font-black tracking-widest uppercase border border-primary/30">
+                  Best Value
+                </span>
+              </div>
+              <div className="p-10 flex-1">
+                <span className="text-primary text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.offer')}</span>
+                <h2 className="font-['Plus_Jakarta_Sans'] text-3xl font-black mt-4 mb-8 leading-tight">{t('pricing.title')}</h2>
+                <ul className="space-y-4 mb-12">
+                  {[
+                    t('pricing.feat1'),
+                    t('pricing.feat2'),
+                    t('pricing.feat3'),
+                    t('pricing.feat4')
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-3 text-[#cfc2d7] text-xs font-medium">
+                      <span className="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-center mb-10 mt-auto">
+                  <div className="flex items-center justify-center gap-4 mb-2">
+                    <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€169</span>
+                  </div>
+                  <p className="text-[10px] text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
+                </div>
+                
+                <div className="flex justify-center max-w-[280px] mx-auto">
+                  <style>{`.pp-7CA9SG6NMTY3J{text-align:center;border:none;border-radius:0.5rem;min-width:100%;padding:0 2rem;height:3.5rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1.1rem;line-height:1.25rem;cursor:pointer; transition: transform 0.2s;}.pp-7CA9SG6NMTY3J:hover{background-color:#ffda66; transform: scale(1.02);}`}</style>
+                  <form action="https://www.paypal.com/ncp/payment/7CA9SG6NMTY3J" method="post" target="_blank" style={{display:'inline-grid', justifyItems:'center', alignContent:'start', gap:'0.5rem', width: '100%'}}>
+                    <input type="hidden" name="notify_url" value="https://easydubbing.uk/api/paypal_ipn" />
+                    <input type="hidden" name="return" value="https://easydubbing.uk/success" />
+                    <input className="pp-7CA9SG6NMTY3J" type="submit" value="Buy Lifetime Pro" />
+                    <img src="https://www.paypalobjects.com/images/Debit_Credit_APM.svg" alt="cards" className="h-6 opacity-70" />
+                  </form>
                 </div>
               </div>
             </div>
