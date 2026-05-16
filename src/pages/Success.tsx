@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Download, CheckCircle2, ArrowRight, ShieldCheck, Video } from 'lucide-react';
+import { Download, CheckCircle2, ShieldCheck, Video } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Success = () => {
