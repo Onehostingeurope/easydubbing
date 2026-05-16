@@ -22,7 +22,7 @@ const AppGUI = () => {
   const [progressText, setProgressText] = useState('Initializing...');
 
   const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:7860';
-  const VERIFY_URL = 'https://onehostingeurope.com/verify/';
+  const VERIFY_URL = '/api/verify';
 
   useEffect(() => {
     const savedKey = localStorage.getItem('license_key');

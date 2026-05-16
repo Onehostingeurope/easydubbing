@@ -61,7 +61,7 @@ begin
       try
         // Create the connection to your website
         WinHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');
-        WinHttp.Open('POST', 'https://onehostingeurope.com/verify/', False);
+        WinHttp.Open('POST', 'https://easydubbing.uk/api/verify', False);
         WinHttp.SetRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         
         // Send Email, Key, and ComputerID to your website
