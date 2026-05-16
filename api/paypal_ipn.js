@@ -79,22 +79,26 @@ export default async function handler(req, res) {
 
       if (dbError) throw new Error('Database Error: ' + dbError.message);
 
-      // Send Email
-      await resend.emails.send({
-        from: 'Easy Dubbing <onboarding@resend.dev>',
-        to: customer_email,
-        subject: '🚀 Your Easy Dubbing Pro License Key!',
-        html: `
-          <div style="font-family: sans-serif; padding: 20px; background: #050505; color: white; border-radius: 20px;">
-            <h1 style="color: #ddb8ff;">Thank you!</h1>
-            <p>Your license key is ready:</p>
-            <div style="background: #111; padding: 20px; border-radius: 10px; border: 1px solid #333; text-align: center;">
-              <code style="font-size: 24px; color: #ddb8ff; font-weight: bold;">${new_key}</code>
+      // 4. Send Email (Non-blocking)
+      try {
+        await resend.emails.send({
+          from: 'Easy Dubbing <onboarding@resend.dev>',
+          to: customer_email,
+          subject: '🚀 Your Easy Dubbing Pro License Key!',
+          html: `
+            <div style="font-family: sans-serif; padding: 20px; background: #050505; color: white; border-radius: 20px;">
+              <h1 style="color: #ddb8ff;">Thank you!</h1>
+              <p>Your license key is ready:</p>
+              <div style="background: #111; padding: 20px; border-radius: 10px; border: 1px solid #333; text-align: center;">
+                <code style="font-size: 24px; color: #ddb8ff; font-weight: bold;">${new_key}</code>
+              </div>
+              <p>Enter this key and your email (<b>${customer_email}</b>) in the app to activate.</p>
             </div>
-            <p>Enter this key and your email (<b>${customer_email}</b>) in the app to activate.</p>
-          </div>
-        `
-      });
+          `
+        });
+      } catch (emailErr) {
+        console.error('Email Delivery Failed (Optional):', emailErr.message);
+      }
 
       return res.status(200).send('VERIFIED');
     }
