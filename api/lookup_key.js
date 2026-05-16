@@ -10,13 +10,24 @@ export default async function handler(req, res) {
   try {
     const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-    // Find the latest license for this email
-    const { data, error } = await supabase
+    // Try 'licenses' first, then 'license' if it fails
+    let { data, error } = await supabase
       .from('licenses')
       .select('license_key')
       .eq('email', email)
       .order('created_at', { ascending: false })
       .limit(1);
+
+    if (error && error.message.includes('not found')) {
+      const retry = await supabase
+        .from('license')
+        .select('license_key')
+        .eq('email', email)
+        .order('created_at', { ascending: false })
+        .limit(1);
+      data = retry.data;
+      error = retry.error;
+    }
 
     if (error) throw error;
 

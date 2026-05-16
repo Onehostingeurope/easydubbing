@@ -30,14 +30,25 @@ export default async function handler(req, res) {
     if (payment_status === 'Completed' || payment_status === 'Pending') {
       const new_key = 'EASY-' + Math.random().toString(36).substr(2, 9).toUpperCase();
 
-      // Save to Supabase
-      const { error: dbError } = await supabase
+      // Save to Supabase (Try both 'licenses' and 'license')
+      let { error: dbError } = await supabase
         .from('licenses')
         .insert([{ 
           email: customer_email, 
           license_key: new_key, 
           transaction_id: body.txn_id || 'test-' + Date.now() 
         }]);
+
+      if (dbError && dbError.message.includes('not found')) {
+        const retry = await supabase
+          .from('license')
+          .insert([{ 
+            email: customer_email, 
+            license_key: new_key, 
+            transaction_id: body.txn_id || 'test-' + Date.now() 
+          }]);
+        dbError = retry.error;
+      }
 
       if (dbError) throw new Error('Database Error: ' + dbError.message);
 
