@@ -344,8 +344,7 @@ const AppGUI = () => {
         </div>
 
         <footer className="h-12 border-t border-white/5 px-8 flex items-center justify-between text-[10px] text-gray-700 uppercase tracking-widest font-bold bg-[#080808]">
-           <span>Easy Dubbing v1.0.0</span>
-           <span>Developed by OneHostingEurope LTD</span>
+           <span>© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope</span>
         </footer>
       </main>
       </div>

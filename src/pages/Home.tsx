@@ -195,7 +195,7 @@ const Home = () => {
             </div>
             <span className="font-['Plus_Jakarta_Sans'] text-2xl font-bold">Easy Dubbing</span>
           </div>
-          <p className="text-xs text-[#cfc2d7] opacity-50">© 2024 Easy Dubbing AI. All rights reserved.</p>
+          <p className="text-xs text-[#cfc2d7] opacity-50">© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-xs font-bold text-[#cfc2d7]/50 uppercase tracking-widest">
           <a className="hover:text-primary transition-all" href="#">Privacy Policy</a>
