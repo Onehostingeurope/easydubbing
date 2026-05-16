@@ -1,17 +1,39 @@
 import { motion } from 'framer-motion';
-import { Download, CheckCircle2, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Download, CheckCircle2, ArrowRight, ShieldCheck, Video } from 'lucide-react';
 
 const Success = () => {
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center font-sans px-6 overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-white flex flex-col font-sans px-6 overflow-hidden relative">
+      {/* Global Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 h-16 bg-white/[0.02] backdrop-blur-xl border-b border-white/10">
+        <a href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Video size={20} className="text-white" />
+          </div>
+          <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
+        </a>
+        <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">Features</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">How it Works</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">Pricing</a>
+          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">Activate License</a>
+        </div>
+        <div className="flex items-center gap-4">
+          <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
+            Get Started
+          </a>
+        </div>
+      </nav>
+
       {/* Background Glows */}
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-purple-900/20 to-blue-900/20 -z-10" />
       
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="max-w-2xl w-full bg-white/[0.03] backdrop-blur-3xl p-12 md:p-16 rounded-[48px] border border-white/10 shadow-2xl relative text-center"
-      >
+      <div className="flex-1 flex items-center justify-center pt-16">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl w-full bg-white/[0.03] backdrop-blur-3xl p-12 md:p-16 rounded-[48px] border border-white/10 shadow-2xl relative text-center"
+        >
         <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-8 text-green-500 border border-green-500/20 shadow-lg shadow-green-500/10">
           <CheckCircle2 size={48} />
         </div>
@@ -120,6 +142,7 @@ const Success = () => {
           </a>
         </div>
       </motion.div>
+      </div>
     </div>
   );
 };
