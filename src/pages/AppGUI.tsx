@@ -72,13 +72,35 @@ const AppGUI = () => {
 
   if (!isActivated) {
     return (
-      <div className="min-h-screen bg-[#050505] text-white flex items-center justify-center font-sans px-6 overflow-hidden">
+      <div className="min-h-screen bg-[#050505] text-white flex flex-col font-sans px-6 overflow-hidden relative">
+        {/* Global Navigation */}
+        <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 h-16 bg-white/[0.02] backdrop-blur-xl border-b border-white/10">
+          <a href="/" className="flex items-center gap-2 group">
+            <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+              <Video size={20} className="text-white" />
+            </div>
+            <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
+          </a>
+          <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">Features</a>
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">How it Works</a>
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">Pricing</a>
+            <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">Activate License</a>
+          </div>
+          <div className="flex items-center gap-4">
+            <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
+              Get Started
+            </a>
+          </div>
+        </nav>
+
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-purple-900/20 to-blue-900/20 -z-10" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl p-10 rounded-[48px] border border-white/10 shadow-2xl relative"
-        >
+        <div className="flex-1 flex items-center justify-center pt-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-md w-full bg-white/[0.03] backdrop-blur-3xl p-10 rounded-[48px] border border-white/10 shadow-2xl relative"
+          >
           <div className="w-16 h-16 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-purple-500/20">
             <Lock size={32} />
           </div>
@@ -135,15 +157,37 @@ const AppGUI = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white flex font-sans">
-      {/* Sidebar Navigation */}
-      <nav className="w-20 md:w-64 bg-[#0a0a0a] border-r border-white/5 flex flex-col p-4">
-        <div className="flex items-center gap-3 px-4 py-8">
-          <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
-            <Video size={20} />
+    <div className="min-h-screen bg-[#050505] text-white flex flex-col font-sans">
+      {/* Global Navigation */}
+      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 h-16 bg-white/[0.02] backdrop-blur-xl border-b border-white/10">
+        <a href="/" className="flex items-center gap-2 group">
+          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+            <Video size={20} className="text-white" />
           </div>
-          <span className="font-bold text-xl hidden md:block tracking-tight">Easy Dubbing</span>
+          <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
+        </a>
+        <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">Features</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">How it Works</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">Pricing</a>
+          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">Activate License</a>
         </div>
+        <div className="flex items-center gap-4">
+          <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
+            Get Started
+          </a>
+        </div>
+      </nav>
+
+      <div className="flex flex-1 pt-16">
+        {/* Sidebar Navigation */}
+        <nav className="w-20 md:w-64 bg-[#0a0a0a] border-r border-white/5 flex flex-col p-4">
+          <div className="flex items-center gap-3 px-4 py-8">
+            <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20">
+              <Video size={20} />
+            </div>
+            <span className="font-bold text-xl hidden md:block tracking-tight">Easy Dubbing</span>
+          </div>
 
         <div className="flex-1 space-y-2 mt-8">
           {[
