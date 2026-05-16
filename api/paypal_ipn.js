@@ -50,8 +50,16 @@ export default async function handler(req, res) {
 
     const body = req.body || {};
     
-    // 3. DEBUG LOG (Black Box)
-    await supabase.from('debug_logs').insert([{ payload: body }]);
+    // 3. SUPER DEBUG LOG (Record everything)
+    await supabase.from('debug_logs').insert([{ 
+      payload: {
+        body: body,
+        headers: req.headers,
+        method: req.method,
+        query: req.query,
+        rawType: typeof body
+      }
+    }]);
 
     const customer_email = body.payer_email || body.email || body.receiver_email;
     const payment_status = body.payment_status;
