@@ -84,10 +84,26 @@ begin
 end;
 
 [Files]
-; Include all project files
-Source: "*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-; Note: We exclude large temp/models folders in the .gitignore to keep the installer size manageable, 
-; or we include them if you want a "Full Offline" installer.
+; Essential App Files
+Source: "Launch_App.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Stop_App.bat"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Install_App.ps1"; DestDir: "{app}"; Flags: ignoreversion
+Source: "README_APP.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "api_info.json"; DestDir: "{app}"; Flags: ignoreversion
+Source: "default_args.json"; DestDir: "{app}"; Flags: ignoreversion
+
+; Compiled Web Interface
+Source: "dist\*"; DestDir: "{app}\dist"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; AI Engine & Models
+Source: "SoniTranslate\*"; DestDir: "{app}\SoniTranslate"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "mdx_models\*"; DestDir: "{app}\mdx_models"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "public\*"; DestDir: "{app}\public"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+[Dirs]
+Name: "{app}\weights"
+Name: "{app}\audio"
+Name: "{app}\outputs"
 
 [Icons]
 Name: "{group}\Easy Dubbing"; Filename: "{app}\Launch_App.bat"; IconFilename: "{app}\public\favicon.ico"
