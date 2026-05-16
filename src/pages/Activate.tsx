@@ -1,33 +1,81 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Download, ShieldCheck, Video } from 'lucide-react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Activate = () => {
   const { t } = useTranslation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white flex flex-col font-sans px-6 overflow-hidden relative">
       {/* Global Navigation */}
-      <nav className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 h-16 bg-white/[0.02] backdrop-blur-xl border-b border-white/10">
-        <a href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Video size={20} className="text-white" />
+      <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between relative">
+          {/* Logo - Left Column */}
+          <div className="w-[200px] flex-shrink-0">
+            <a href="/" className="flex items-center gap-2 group">
+              <div className="w-9 h-9 bg-gradient-to-tr from-purple-600 to-blue-500 rounded-xl flex items-center justify-center group-hover:rotate-6 transition-all duration-300">
+                <Video size={20} className="text-white" />
+              </div>
+              <span className="font-['Plus_Jakarta_Sans'] text-[22px] font-bold tracking-tighter text-white">Easy Dubbing</span>
+            </a>
           </div>
-          <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
-        </a>
-        <div className="hidden md:flex gap-4 md:gap-8 items-center text-xs md:text-sm">
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
-          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/activate">{t('nav.activate')}</a>
+
+          {/* Centered Links - Middle Column (Desktop only) */}
+          <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+            <a className="text-sm font-bold text-[#cfc2d7] hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
+            <a className="text-sm font-bold text-[#cfc2d7] hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
+            <a className="text-sm font-bold text-[#cfc2d7] hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
+            <a className="text-sm font-black text-[#ddb8ff] hover:text-white transition-colors" href="/activate">{t('nav.activate')}</a>
+          </div>
+
+          {/* Actions - Right Column */}
+          <div className="w-[200px] flex items-center justify-end gap-4">
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+            <a className="hidden md:block px-6 py-2.5 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 active:scale-95 transition-all shadow-lg shadow-purple-500/20" href="/#pricing">
+              {t('nav.getStarted')}
+            </a>
+            
+            {/* Mobile Toggle */}
+            <button 
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <span className="material-symbols-outlined text-white">
+                {isMobileMenuOpen ? 'close' : 'menu'}
+              </span>
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2 md:gap-4">
-          <LanguageSwitcher />
-          <a className="hidden sm:block px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
-            {t('nav.getStarted')}
-          </a>
-        </div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="lg:hidden absolute top-20 left-0 w-full bg-[#050505] border-b border-white/10 px-6 py-8 space-y-6 z-40 shadow-2xl"
+            >
+              <div className="flex flex-col gap-6">
+                <a className="text-lg font-bold text-[#cfc2d7]" href="/#features" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.features')}</a>
+                <a className="text-lg font-bold text-[#cfc2d7]" href="/#how-it-works" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.howItWorks')}</a>
+                <a className="text-lg font-bold text-[#cfc2d7]" href="/#pricing" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.pricing')}</a>
+                <a className="text-lg font-black text-[#ddb8ff]" href="/activate" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.activate')}</a>
+                <div className="pt-6 border-t border-white/10 flex items-center justify-between">
+                  <LanguageSwitcher />
+                  <a className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm" href="/#pricing" onClick={() => setIsMobileMenuOpen(false)}>
+                    {t('nav.getStarted')}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Background Glows */}
