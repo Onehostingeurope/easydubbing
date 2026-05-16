@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   Video, Globe, Zap, Download, RefreshCw, 
   Settings, HelpCircle, AlertCircle, CheckCircle2,
   ChevronRight, Mic, Layout, Play, Lock, ShieldCheck
 } from 'lucide-react';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const AppGUI = () => {
+  const { t } = useTranslation();
   const [isActivated, setIsActivated] = useState(false);
+  // ... rest of state
   const [licenseKey, setLicenseKey] = useState('');
   const [email, setEmail] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
@@ -81,15 +85,16 @@ const AppGUI = () => {
             </div>
             <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
           </a>
-          <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
-            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">Features</a>
-            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">How it Works</a>
-            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">Pricing</a>
-            <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">Activate License</a>
+          <div className="hidden md:flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
+            <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
+            <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">{t('nav.activate')}</a>
           </div>
-          <div className="flex items-center gap-4">
-            <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
-              Get Started
+          <div className="flex items-center gap-2 md:gap-4">
+            <LanguageSwitcher />
+            <a className="hidden sm:block px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
+              {t('nav.getStarted')}
             </a>
           </div>
         </nav>
@@ -167,15 +172,16 @@ const AppGUI = () => {
           </div>
           <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-[#ddb8ff]">Easy Dubbing</span>
         </a>
-        <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">Features</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">How it Works</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">Pricing</a>
-          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">Activate License</a>
+        <div className="hidden md:flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#features">{t('nav.features')}</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#how-it-works">{t('nav.howItWorks')}</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-[#ddb8ff] transition-colors" href="/#pricing">{t('nav.pricing')}</a>
+          <a className="text-[#ddb8ff] font-black hover:text-white transition-colors" href="/app">{t('nav.activate')}</a>
         </div>
-        <div className="flex items-center gap-4">
-          <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
-            Get Started
+        <div className="flex items-center gap-2 md:gap-4">
+          <LanguageSwitcher />
+          <a className="hidden sm:block px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="/#pricing">
+            {t('nav.getStarted')}
           </a>
         </div>
       </nav>
@@ -344,7 +350,7 @@ const AppGUI = () => {
         </div>
 
         <footer className="h-12 border-t border-white/5 px-8 flex items-center justify-between text-[10px] text-gray-700 uppercase tracking-widest font-bold bg-[#080808]">
-           <span>© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope</span>
+           <span>{t('footer.copy')}</span>
         </footer>
       </main>
       </div>

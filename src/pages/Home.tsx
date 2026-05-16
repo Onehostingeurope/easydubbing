@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 const Home = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-[#050505] text-[#e5e2e1] font-['Inter'] selection:bg-purple-500/30 overflow-x-hidden">
       {/* Dynamic Background Glows */}
@@ -17,15 +21,16 @@ const Home = () => {
           </div>
           <span className="font-['Plus_Jakarta_Sans'] text-[24px] font-bold tracking-tighter text-primary">Easy Dubbing</span>
         </a>
-        <div className="flex gap-4 md:gap-8 items-center text-xs md:text-sm">
-          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">Features</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">How it Works</a>
-          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">Pricing</a>
-          <a className="text-primary font-black hover:text-white transition-colors" href="/app">Activate License</a>
+        <div className="hidden md:flex gap-4 md:gap-8 items-center text-xs md:text-sm">
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#features">{t('nav.features')}</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#how-it-works">{t('nav.howItWorks')}</a>
+          <a className="text-[#cfc2d7] font-bold hover:text-primary transition-colors" href="#pricing">{t('nav.pricing')}</a>
+          <a className="text-primary font-black hover:text-white transition-colors" href="/app">{t('nav.activate')}</a>
         </div>
-        <div className="flex items-center gap-4">
-          <a className="px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="#pricing">
-            Get Started
+        <div className="flex items-center gap-2 md:gap-4">
+          <LanguageSwitcher />
+          <a className="hidden sm:block px-5 py-2 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-bold text-sm hover:scale-105 transition-transform" href="#pricing">
+            {t('nav.getStarted')}
           </a>
         </div>
       </nav>
@@ -40,17 +45,17 @@ const Home = () => {
               className="space-y-8"
             >
               <span className="inline-block px-3 py-1 rounded-full bg-purple-500/10 text-primary text-xs font-bold border border-primary/20 tracking-widest uppercase">
-                Powered by Advanced AI
+                {t('hero.badge')}
               </span>
               <h1 className="font-['Plus_Jakarta_Sans'] text-[56px] md:text-[80px] leading-[1.1] font-extrabold tracking-tighter">
-                Translate Videos <br/>
+                {t('hero.title')} <br/>
               </h1>
               <p className="text-lg text-[#cfc2d7] max-w-lg leading-relaxed">
-                The world's most powerful AI Video Dubbing Studio. Professional voice cloning and 40+ languages in one click.
+                {t('hero.desc')}
               </p>
               <div className="flex flex-wrap items-center gap-6 pt-4">
                 <a href="#pricing" className="px-10 py-5 rounded-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black text-lg shadow-xl shadow-purple-500/20 flex items-center gap-2 hover:scale-110 transition-transform">
-                  Get Lifetime Pro
+                  {t('hero.cta')}
                   <span className="material-symbols-outlined">arrow_forward</span>
                 </a>
               </div>
@@ -127,14 +132,14 @@ const Home = () => {
         <section id="pricing" className="px-6 md:px-12 max-w-[1280px] mx-auto py-32">
           <div className="max-w-5xl mx-auto bg-white/[0.02] backdrop-blur-3xl rounded-[48px] overflow-hidden border border-white/10 grid md:grid-cols-2 shadow-2xl shadow-purple-500/5">
             <div className="p-12 md:p-16">
-              <span className="text-primary text-sm font-bold tracking-[0.2em] uppercase">Limited Time Offer</span>
-              <h2 className="font-['Plus_Jakarta_Sans'] text-5xl font-black mt-4 mb-10 leading-tight">Lifetime <br/> Pro License</h2>
+              <span className="text-primary text-sm font-bold tracking-[0.2em] uppercase">{t('pricing.offer')}</span>
+              <h2 className="font-['Plus_Jakarta_Sans'] text-5xl font-black mt-4 mb-10 leading-tight">{t('pricing.title')}</h2>
               <ul className="space-y-6">
                 {[
-                  "Unlimited Local Processing",
-                  "Hardware-Locked Security",
-                  "High-Fidelity Voice Cloning",
-                  "Lifetime Free Updates"
+                  t('pricing.feat1'),
+                  t('pricing.feat2'),
+                  t('pricing.feat3'),
+                  t('pricing.feat4')
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-4 text-[#cfc2d7] font-medium">
                     <span className="material-symbols-outlined text-primary text-[24px]">check_circle</span>
@@ -150,7 +155,7 @@ const Home = () => {
                   <span className="text-[#cfc2d7] line-through text-2xl opacity-50">€149</span>
                   <span className="text-white font-['Plus_Jakarta_Sans'] text-[64px] font-black leading-none">€69</span>
                 </div>
-                <p className="text-xs text-primary tracking-widest font-bold uppercase">🚀 LIMITED TIME LAUNCH OFFER</p>
+                <p className="text-xs text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
               </div>
               
               <div className="flex justify-center">
@@ -195,7 +200,7 @@ const Home = () => {
             </div>
             <span className="font-['Plus_Jakarta_Sans'] text-2xl font-bold">Easy Dubbing</span>
           </div>
-          <p className="text-xs text-[#cfc2d7] opacity-50">© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope</p>
+          <p className="text-xs text-[#cfc2d7] opacity-50">{t('footer.copy')}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-xs font-bold text-[#cfc2d7]/50 uppercase tracking-widest">
           <a className="hover:text-primary transition-all" href="#">Privacy Policy</a>
