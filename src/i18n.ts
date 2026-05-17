@@ -108,7 +108,7 @@ const resources = {
         fips: 'Conforme FIPS'
       },
       howItWorks: {
-        title: 'How it Works',
+        title: 'Comment ça marche',
         step1Title: 'Acheter une Licence',
         step1Desc: 'Recevez votre clé d’activation via PayPal immédiatement après le paiement.',
         step2Title: 'Installer l’App',
@@ -204,7 +204,7 @@ const resources = {
         annualFeat3: 'Más de 40 Idiomas Soportados',
         annualFeat4: 'Cancela en cualquier momento',
         annualUnit: '/ año',
-        monthlyTitle: 'Pase Pro Mensuel',
+        monthlyTitle: 'Pase Pro Mensual',
         monthlyBill: 'Facturado Mensualmente',
         monthlyFeat1: 'Procesamiento Local Ilimitado',
         monthlyFeat2: 'Soporte Básico',
@@ -431,6 +431,78 @@ const resources = {
       footer: {
         copy: '© 2026 Easy Dubbing AI. Все права защищены. Разработано OneHostingEurope',
         trusted: 'Доверяют более 10 000 авторов по всему миру'
+      }
+    }
+  }
+  ar: {
+    translation: {
+      nav: {
+        features: 'الميزات',
+        howItWorks: 'كيف يعمل',
+        pricing: 'الأسعار',
+        activate: 'تفعيل الترخيص',
+        getStarted: 'ابدأ الآن',
+        security: 'الأمان'
+      },
+      hero: {
+        badge: 'مدعوم بالذكاء الاصطناعي المتقدم',
+        title: 'ترجمة مقاطع الفيديو',
+        desc: 'أقوى استوديو دبلجة بالذكاء الاصطناعي في العالم. استنساخ الصوت الاحترافي وأكثر من 40 لغة بنقرة واحدة.',
+        cta: 'احصل على Pro مدى الحياة'
+      },
+      features: {
+        title: 'تقنية ذكاء اصطناعي لا مثيل لها',
+        subtitle: 'مصمم للمبدعين والعلامات التجارية العالمية لإزالة حواجز اللغة فورياً.',
+        feat1Title: 'ترجمة فورية',
+        feat1Desc: 'أكثر من 40 لغة مدعومة بدقة مثالية. ترجم محتواك في ثوانٍ.',
+        feat2Title: 'استنساخ الصوت الاحترافي',
+        feat2Desc: 'حافظ على نبرتك الفريدة وعواطفك في أي لغة بسهولة تامة.'
+      },
+      security: {
+        title: 'تثبيت آمن ومعتمد',
+        desc: 'تم تطوير Easy Dubbing بواسطة OneHostingEurope. بصفتنا استوديو ذكاء اصطناعي مستقلاً، قد يُطلق برنامجنا تحذير "SmartScreen" عند التثبيت الأول. هذا أمر طبيعي. الكود الخاص بنا نظيف 100٪.',
+        step1: 'إذا ظهرت النافذة الزرقاء، انقر على "مزيد من المعلومات".',
+        step2: 'انقر على "تشغيل على أي حال" للبدء.',
+        verified: 'تم التحقق',
+        ssl: 'مشفر SSL',
+        fips: 'متوافق مع FIPS'
+      },
+      howItWorks: {
+        title: 'كيف يعمل',
+        step1Title: 'شراء الترخيص',
+        step1Desc: 'احصل على مفتاح التفعيل عبر PayPal فوراً بعد الدفع.',
+        step2Title: 'تثبيت التطبيق',
+        step2Desc: 'قم بتشغيل مثبت Windows الاحترافي على جهاز الكمبيوتر وتفعيله.',
+        step3Title: 'ابدأ الدبلجة',
+        step3Desc: 'قم بتحميل فيديو، اختر لغة، ودع الذكاء الاصطناعي يصنع السحر.'
+      },
+      pricing: {
+        offer: 'عرض لفترة محدودة',
+        title: 'ترخيص Pro مدى الحياة',
+        feat1: 'معالجة محلية غير محدودة',
+        feat2: 'أمان مقيد بالجهاز',
+        feat3: 'استنساخ صوت عالي الدقة',
+        feat4: 'تحديثات مجانية مدى الحياة',
+        launch: 'عرض الإطلاق المحدود',
+        bestValue: 'أفضل قيمة',
+        annualTitle: 'باقة Pro السنوية',
+        annualBill: 'يُدفع سنوياً',
+        annualFeat1: 'معالجة محلية غير محدودة',
+        annualFeat2: 'دعم بريد إلكتروني ذو أولوية',
+        annualFeat3: 'أكثر من 40 لغة مدعومة',
+        annualFeat4: 'إلغاء في أي وقت',
+        annualUnit: '/ سنة',
+        monthlyTitle: 'باقة Pro الشهرية',
+        monthlyBill: 'يُدفع شهرياً',
+        monthlyFeat1: 'معالجة محلية غير محدودة',
+        monthlyFeat2: 'دعم أساسي',
+        monthlyFeat3: 'أكثر من 40 لغة مدعومة',
+        monthlyFeat4: 'إلغاء في أي وقت',
+        monthlyUnit: '/ شهر'
+      },
+      footer: {
+        copy: '© 2026 Easy Dubbing AI. جميع الحقوق محفوظة. تطوير OneHostingEurope',
+        trusted: 'موثوق به من أكثر من 10,000 مبدع حول العالم'
       }
     }
   }
