@@ -76,20 +76,20 @@ function HeroVideoPlayer() {
         )}
       </div>
 
-      {/* Language tabs */}
-      <div className="flex flex-wrap gap-2 justify-center">
+      {/* Language tabs — one row, 7 equal columns */}
+      <div className="grid grid-cols-7 gap-1.5 w-full">
         {LANG_TABS.map(tab => (
           <button
             key={tab.code}
             onClick={() => switchLang(tab.code)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
+            className={`flex flex-col items-center gap-1 py-2 px-1 rounded-xl text-[11px] font-bold transition-all border ${
               active === tab.code
                 ? 'bg-primary/20 border-primary/60 text-white shadow-md shadow-primary/20'
                 : 'bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white'
             }`}
           >
-            <span>{tab.flag}</span>
-            <span>{tab.label}</span>
+            <span className="text-xl leading-none">{tab.flag}</span>
+            <span className="truncate w-full text-center">{tab.label}</span>
           </button>
         ))}
       </div>
