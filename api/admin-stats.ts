@@ -41,11 +41,11 @@ export default async function handler(req: any, res: any) {
       }
     });
 
-    // Convert to array and sort
     const totalWithCountry = Object.values(countryCounts).reduce((a, b) => a + b, 0);
     const topCountries = Object.entries(countryCounts)
       .map(([code, count]) => ({
         code: getFlagEmoji(code),
+        rawCode: code.toUpperCase(),
         country: getCountryName(code) || code,
         users: count,
         percentage: totalWithCountry > 0 ? Math.round((count / totalWithCountry) * 100) : 0
@@ -54,11 +54,13 @@ export default async function handler(req: any, res: any) {
       .slice(0, 5);
 
     // 4. Recent Activity Stream
-    const recentActivity = allActivity.slice(0, 10).map(a => ({
+    const recentActivity = allActivity.slice(0, 15).map(a => ({
       time: timeAgo(new Date(a.created_at)),
       action: formatActionName(a.action),
+      rawAction: a.action,
       details: a.details || 'System',
-      country: getFlagEmoji(a.country || 'US')
+      country: getFlagEmoji(a.country || 'US'),
+      rawCode: (a.country || 'US').toUpperCase()
     }));
 
     return res.status(200).json({
