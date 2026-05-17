@@ -470,9 +470,9 @@ const Home = () => {
           <p className="text-xs text-[#cfc2d7] opacity-50">{t('footer.copy')}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-xs font-bold text-[#cfc2d7]/50 uppercase tracking-widest">
-          <a className="hover:text-primary transition-all" href="/privacy">Privacy Policy</a>
-          <a className="hover:text-primary transition-all" href="/terms">Terms of Service</a>
-          <a className="hover:text-primary transition-all" href="/contact">Contact Support</a>
+          <a className="hover:text-primary transition-all" href="/privacy">{t('footer.privacy')}</a>
+          <a className="hover:text-primary transition-all" href="/terms">{t('footer.terms')}</a>
+          <a className="hover:text-primary transition-all" href="/contact">{t('footer.contact')}</a>
         </div>
       </footer>
     </div>

@@ -1,4 +1,4 @@
-
+import { useTranslation } from 'react-i18next';
 
 interface Testimonial {
   id: number;
@@ -81,7 +81,8 @@ function StarRating({ stars }: { stars: number }) {
   );
 }
 
-function TestimonialCard({ t }: { t: Testimonial }) {
+function TestimonialCard({ item }: { item: Testimonial }) {
+  const t = item;
   return (
     <div className="flex-shrink-0 w-80 bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-5 mx-3 hover:border-purple-500/30 hover:bg-white/[0.07] transition-all duration-300 group">
       <div className="flex items-center gap-3 mb-3">
@@ -103,15 +104,15 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 }
 
 function MarqueeRow({ items, reverse = false, speed = 40 }: { items: Testimonial[]; reverse?: boolean; speed?: number }) {
-  const doubled = [...items, ...items]; // duplicate for seamless loop
+  const doubled = [...items, ...items];
   return (
     <div className="overflow-hidden relative">
       <div
         className={`flex ${reverse ? 'animate-marquee-reverse' : 'animate-marquee'}`}
         style={{ animationDuration: `${speed}s` }}
       >
-        {doubled.map((t, i) => (
-          <TestimonialCard key={`${t.id}-${i}`} t={t} />
+        {doubled.map((item, i) => (
+          <TestimonialCard key={`${item.id}-${i}`} item={item} />
         ))}
       </div>
     </div>
@@ -119,6 +120,7 @@ function MarqueeRow({ items, reverse = false, speed = 40 }: { items: Testimonial
 }
 
 export default function Testimonials() {
+  const { t } = useTranslation();
   return (
     <section className="py-32 overflow-hidden relative">
       {/* Background glow */}
@@ -126,12 +128,14 @@ export default function Testimonials() {
 
       <div className="max-w-[1280px] mx-auto px-6 md:px-12 mb-16 text-center">
         <span className="inline-block px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-bold border border-purple-500/20 tracking-widest uppercase mb-4">
-          Trusted Worldwide
+          {t('testimonials.badge')}
         </span>
         <h2 className="font-['Plus_Jakarta_Sans'] text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-          10,000+ Creators <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Love Easy Dubbing</span>
+          {t('testimonials.title').split('Love Easy Dubbing').length > 1 ? (
+            <>{t('testimonials.title').split('Love Easy Dubbing')[0]}<span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">Love Easy Dubbing</span></>
+          ) : t('testimonials.title')}
         </h2>
-        <p className="text-white/50 mt-4 text-lg max-w-2xl mx-auto">Real results from real creators around the world.</p>
+        <p className="text-white/50 mt-4 text-lg max-w-2xl mx-auto">{t('testimonials.subtitle')}</p>
       </div>
 
       {/* 3 rows of infinite scrolling */}

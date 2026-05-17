@@ -70,7 +70,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. All rights reserved. Developed by OneHostingEurope',
-        trusted: 'Trusted by 10,000+ Global Creators'
+        trusted: 'Trusted by 10,000+ Global Creators',
+        privacy: 'Privacy Policy',
+        terms: 'Terms of Service',
+        contact: 'Contact Support'
+      },
+      testimonials: {
+        badge: 'Trusted Worldwide',
+        title: '10,000+ Creators Love Easy Dubbing',
+        subtitle: 'Real results from real creators around the world.'
       }
     }
   },
@@ -142,7 +150,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tous droits réservés. Développé par OneHostingEurope',
-        trusted: 'Approuvé par plus de 10 000 créateurs mondiaux'
+        trusted: 'Approuvé par plus de 10 000 créateurs mondiaux',
+        privacy: 'Politique de Confidentialité',
+        terms: 'Conditions d\'Utilisation',
+        contact: 'Contacter le Support'
+      },
+      testimonials: {
+        badge: 'Approuvé Mondialement',
+        title: 'Plus de 10 000 Créateurs Adorent Easy Dubbing',
+        subtitle: 'Des résultats réels de vrais créateurs à travers le monde.'
       }
     }
   },
@@ -214,7 +230,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Todos los derechos reservados. Desarrollado por OneHostingEurope',
-        trusted: 'Con la confianza de más de 10.000 creadores globales'
+        trusted: 'Con la confianza de más de 10.000 creadores globales',
+        privacy: 'Política de Privacidad',
+        terms: 'Términos de Servicio',
+        contact: 'Contactar Soporte'
+      },
+      testimonials: {
+        badge: 'Confianza Mundial',
+        title: 'Más de 10.000 Creadores Aman Easy Dubbing',
+        subtitle: 'Resultados reales de creadores reales en todo el mundo.'
       }
     }
   },
@@ -286,7 +310,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Tutti i diritti riservati. Sviluppato da OneHostingEurope',
-        trusted: 'Scelto da oltre 10.000 creatori globali'
+        trusted: 'Scelto da oltre 10.000 creatori globali',
+        privacy: 'Informativa sulla Privacy',
+        terms: 'Termini di Servizio',
+        contact: 'Contatta il Supporto'
+      },
+      testimonials: {
+        badge: 'Fiducia Mondiale',
+        title: 'Oltre 10.000 Creator Amano Easy Dubbing',
+        subtitle: 'Risultati reali da veri creator in tutto il mondo.'
       }
     }
   },
@@ -358,7 +390,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Alle Rechte vorbehalten. Entwickelt von OneHostingEurope',
-        trusted: 'Vertraut von über 10.000 globalen Creatorn'
+        trusted: 'Vertraut von über 10.000 globalen Creatorn',
+        privacy: 'Datenschutzrichtlinie',
+        terms: 'Nutzungsbedingungen',
+        contact: 'Support Kontaktieren'
+      },
+      testimonials: {
+        badge: 'Weltweit Vertraut',
+        title: 'Über 10.000 Creator Lieben Easy Dubbing',
+        subtitle: 'Echte Ergebnisse von echten Creatorn weltweit.'
       }
     }
   },
@@ -430,7 +470,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. Все права защищены. Разработано OneHostingEurope',
-        trusted: 'Доверяют более 10 000 авторов по всему миру'
+        trusted: 'Доверяют более 10 000 авторов по всему миру',
+        privacy: 'Политика конфиденциальности',
+        terms: 'Условия использования',
+        contact: 'Связаться с поддержкой'
+      },
+      testimonials: {
+        badge: 'Доверяют во всём мире',
+        title: 'Более 10 000 авторов любят Easy Dubbing',
+        subtitle: 'Реальные результаты от реальных авторов по всему миру.'
       }
     }
   },
@@ -502,7 +550,15 @@ const resources = {
       },
       footer: {
         copy: '© 2026 Easy Dubbing AI. جميع الحقوق محفوظة. تطوير OneHostingEurope',
-        trusted: 'موثوق به من أكثر من 10,000 مبدع حول العالم'
+        trusted: 'موثوق به من أكثر من 10,000 مبدع حول العالم',
+        privacy: 'سياسة الخصوصية',
+        terms: 'شروط الخدمة',
+        contact: 'تواصل مع الدعم'
+      },
+      testimonials: {
+        badge: 'ثقة عالمية',
+        title: '+10,000 مبدع يعشقون Easy Dubbing',
+        subtitle: 'نتائج حقيقية من مبدعين حقيقيين حول العالم.'
       }
     }
   }
