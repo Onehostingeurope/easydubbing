@@ -1,30 +1,41 @@
-; -- Easy Dubbing Professional Installer --
-; This script generates a professional .exe installer for Windows.
+; ================================================================
+;  Easy Dubbing - Windows Installer
+;  Engine: pyvideotrans
+;  Requires: Inno Setup 6+
+;  Version: 2.1.0
+; ================================================================
 
 [Setup]
 AppName=Easy Dubbing
-AppVersion=1.0.0
+AppVersion=2.1.0
+AppPublisher=OneHostingEurope
+AppPublisherURL=https://www.easydubbing.uk
+AppSupportURL=https://www.easydubbing.uk/activate
 DefaultDirName={autopf}\Easy Dubbing
 DefaultGroupName=Easy Dubbing
-UninstallDisplayIcon={app}\Easy_Dubbing.lnk
-Compression=lzma2
-SolidCompression=yes
+UninstallDisplayIcon={app}\public\favicon.ico
 OutputDir=userdocs:Easy Dubbing Output
 OutputBaseFilename=Easy_Dubbing_Setup
 SetupIconFile=public\favicon.ico
+Compression=lzma2
+SolidCompression=yes
 PrivilegesRequired=admin
+ShowLanguageDialog=no
+WizardStyle=modern
+DisableProgramGroupPage=yes
 
 [Code]
+
 var
   LicensePage: TInputQueryWizardPage;
-  ComputerID: String;
-  LinkLabel: TNewStaticText;
+  ComputerID:  String;
+  LinkLabel:   TNewStaticText;
 
 procedure LinkClick(Sender: TObject);
 var
   ErrorCode: Integer;
 begin
-  ShellExec('open', 'https://www.easydubbing.uk/app', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+  ShellExec('open', 'https://www.easydubbing.uk/#pricing', '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
 end;
 
 function GetComputerID(): String;
@@ -47,105 +58,100 @@ end;
 procedure InitializeWizard;
 var
   RCode: Integer;
+  HwidFile: String;
+  PsCmd: String;
 begin
-  // Generate the HWID file
-  Exec('powershell.exe', '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Out-File -FilePath ''' + ExpandConstant('{tmp}\hwid.txt') + ''' -Encoding ascii"', '', SW_HIDE, ewWaitUntilTerminated, RCode);
-  
+  HwidFile := ExpandConstant('{tmp}\hwid.txt');
+  PsCmd := '-Command "(Get-CimInstance Win32_ComputerSystemProduct).UUID | Set-Content ''' + HwidFile + ''' -Encoding ascii"';
+  Exec('powershell.exe', PsCmd, '', SW_HIDE, ewWaitUntilTerminated, RCode);
   ComputerID := GetComputerID();
-  
-  // Create a custom license page
+
   LicensePage := CreateInputQueryPage(wpWelcome,
-    'Software Activation', 'Please enter your license details.',
-    'To activate, please provide your email and the license key you received.');
-  
-  LicensePage.Add('Your Computer ID (Copy this):', False);
+    'Software Activation',
+    'Please enter your license details to continue.',
+    'Your Computer ID is pre-filled. Enter the email and license key from your purchase.');
+  LicensePage.Add('Your Computer ID (copy this for activation):', False);
   LicensePage.Add('Email Address:', False);
-  LicensePage.Add('License Key:', False);
-  
-  // Set the Computer ID automatically so they can copy it
+  LicensePage.Add('License Key (format: XXXX-XXXX-XXXX-XXXX):', False);
   LicensePage.Values[0] := ComputerID;
 
-  // Add the clickable link
   LinkLabel := TNewStaticText.Create(LicensePage);
-  LinkLabel.Parent := LicensePage.Surface;
-  LinkLabel.Caption := 'Don''t have a key? Click here to Activate or Buy Online';
-  LinkLabel.Cursor := crHand;
+  LinkLabel.Parent     := LicensePage.Surface;
+  LinkLabel.Caption    := 'Don''t have a key? Click here to Buy or Activate at easydubbing.uk';
+  LinkLabel.Cursor     := crHand;
   LinkLabel.Font.Color := clBlue;
   LinkLabel.Font.Style := [fsUnderline];
-  LinkLabel.Left := 0;
-  LinkLabel.Top := LicensePage.SurfaceHeight - 30;
-  LinkLabel.OnClick := @LinkClick;
+  LinkLabel.Left       := 0;
+  LinkLabel.Top        := LicensePage.SurfaceHeight - 28;
+  LinkLabel.OnClick    := @LinkClick;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
 var
   WinHttp: Variant;
-  UserEmail, UserKey, Params: String;
+  Email, Key, Params: String;
 begin
   Result := True;
-  if CurPageID = LicensePage.ID then begin
-    UserEmail := LicensePage.Values[1];
-    UserKey := LicensePage.Values[2];
-    
-    if (UserEmail = '') or (UserKey = '') then begin
-      MsgBox('Please enter both your email and license key.', mbError, MB_OK);
-      Result := False;
+  if CurPageID <> LicensePage.ID then Exit;
+
+  Email := Trim(LicensePage.Values[1]);
+  Key   := Trim(LicensePage.Values[2]);
+
+  if (Email = '') or (Key = '') then begin
+    MsgBox('Please enter both your email address and license key.', mbError, MB_OK);
+    Result := False;
+    Exit;
+  end;
+
+  try
+    WinHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');
+    WinHttp.Open('POST', 'https://easydubbing.uk/api/verify', False);
+    WinHttp.SetRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    Params := 'email=' + Email + '&key=' + Key + '&hwid=' + ComputerID;
+    WinHttp.Send(Params);
+    if WinHttp.Status = 200 then begin
+      MsgBox('License activated successfully! Installation will now continue.', mbInformation, MB_OK);
     end else begin
-      try
-        // Create the connection to your website
-        WinHttp := CreateOleObject('WinHttp.WinHttpRequest.5.1');
-        WinHttp.Open('POST', 'https://easydubbing.uk/api/verify', False);
-        WinHttp.SetRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        
-        // Send Email, Key, and ComputerID to your website
-        Params := 'email=' + UserEmail + '&key=' + UserKey + '&hwid=' + ComputerID;
-        WinHttp.Send(Params);
-        
-        if WinHttp.Status = 200 then begin
-           MsgBox('Success! Your license has been activated.', mbInformation, MB_OK);
-           Result := True;
-        end else begin
-           MsgBox('Activation Failed: ' + WinHttp.ResponseText, mbError, MB_OK);
-           Result := False;
-        end;
-      except
-        MsgBox('Error: Could not connect to the activation server. Please check your internet connection.', mbError, MB_OK);
-        Result := False;
-      end;
+      MsgBox('Activation failed.' + #13#10 + #13#10 +
+             'Response: ' + WinHttp.ResponseText + #13#10 + #13#10 +
+             'Visit easydubbing.uk/activate for help.', mbError, MB_OK);
+      Result := False;
     end;
+  except
+    MsgBox('Could not reach the activation server.' + #13#10 +
+           'Please check your internet connection and try again.', mbError, MB_OK);
+    Result := False;
   end;
 end;
 
 [Files]
-; Essential App Files
-Source: "Launch_App.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Stop_App.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "Install_App.ps1"; DestDir: "{app}"; Flags: ignoreversion
-Source: "README_APP.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "api_info.json"; DestDir: "{app}"; Flags: ignoreversion
-Source: "default_args.json"; DestDir: "{app}"; Flags: ignoreversion
 
-; Compiled Web Interface
-Source: "dist\*"; DestDir: "{app}\dist"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-; AI Engine & Models
-Source: "SoniTranslate\*"; DestDir: "{app}\SoniTranslate"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "mdx_models\*"; DestDir: "{app}\mdx_models"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "public\*"; DestDir: "{app}\public"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-[Dirs]
-Name: "{app}\weights"
-Name: "{app}\audio"
-Name: "{app}\outputs"
+Source: "Launch_App.bat";        DestDir: "{app}"; Flags: ignoreversion
+Source: "Stop_App.bat";          DestDir: "{app}"; Flags: ignoreversion
+Source: "Repair_App.bat";        DestDir: "{app}"; Flags: ignoreversion
+Source: "Debug_App.bat";         DestDir: "{app}"; Flags: ignoreversion
+Source: "Install_App.ps1";       DestDir: "{app}"; Flags: ignoreversion
+Source: "patch_branding.py";     DestDir: "{app}"; Flags: ignoreversion
+Source: "easy_dubbing_logo.png"; DestDir: "{app}"; Flags: ignoreversion
+Source: "README_APP.txt";        DestDir: "{app}"; Flags: ignoreversion
+Source: "api_info.json";         DestDir: "{app}"; Flags: ignoreversion
+Source: "default_args.json";     DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\*";                DestDir: "{app}\dist";   Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "public\*";              DestDir: "{app}\public"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\Easy Dubbing"; Filename: "{app}\Launch_App.bat"; IconFilename: "{app}\public\favicon.ico"
-Name: "{commondesktop}\Easy Dubbing"; Filename: "{app}\Launch_App.bat"; IconFilename: "{app}\public\favicon.ico"
+
+Name: "{commondesktop}\Easy Dubbing";   Filename: "{app}\Launch_App.bat"; IconFilename: "{app}\public\favicon.ico"; Comment: "Launch Easy Dubbing AI"
+Name: "{group}\Easy Dubbing";           Filename: "{app}\Launch_App.bat"; IconFilename: "{app}\public\favicon.ico"
+Name: "{group}\Repair Easy Dubbing";    Filename: "{app}\Repair_App.bat"; Comment: "Reinstall AI libraries"
+Name: "{group}\Debug Easy Dubbing";     Filename: "{app}\Debug_App.bat";  Comment: "Diagnose problems"
+Name: "{group}\Uninstall Easy Dubbing"; Filename: "{uninstallexe}"
 
 [Run]
-; Run the dependency installer after the files are copied
-Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -File ""{app}\Install_App.ps1"""; StatusMsg: "Installing AI Dependencies (This may take a few minutes)..."; Flags: runascurrentuser
+
+Filename: "powershell.exe"; Parameters: "-ExecutionPolicy Bypass -NonInteractive -File ""{app}\Install_App.ps1"""; StatusMsg: "Installing AI Engine (10-20 min, please wait)..."; Flags: runascurrentuser waituntilterminated
 
 [Messages]
-FinishedHeadingLabel=Installation Complete
-FinishedLabel=Easy Dubbing has been successfully installed. You can now launch it from your Desktop.
+
+FinishedHeadingLabel=Easy Dubbing is Ready!
+FinishedLabel=Installation complete.%n%nDouble-click the Easy Dubbing icon on your Desktop to launch.%n%nNote: First launch will open the AI engine window. This is normal.

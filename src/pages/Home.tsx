@@ -177,13 +177,12 @@ const Home = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-90" />
               <div className="bg-white/[0.03] backdrop-blur-md p-8 rounded-[40px] border border-white/10 shadow-2xl">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a] flex items-center justify-center p-8">
-                   <div className="text-center space-y-4">
-                      <span className="material-symbols-outlined text-6xl text-blue-400">info</span>
-                      <p className="text-xs text-white/40 uppercase tracking-widest font-bold">SmartScreen Preview</p>
-                      <div className="h-2 w-32 bg-white/10 mx-auto rounded-full" />
-                      <div className="h-2 w-24 bg-white/10 mx-auto rounded-full" />
-                   </div>
+                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a]">
+                  <img
+                    src="/app-screenshot.png"
+                    alt="Easy Dubbing Application"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
                 <div className="mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#cfc2d7]/40">
                   <span>Verified Clean</span>
