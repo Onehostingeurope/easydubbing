@@ -54,7 +54,7 @@ function HeroVideoPlayer() {
       {/* Video box */}
       <div className="bg-white/[0.03] backdrop-blur-2xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
         {/* Placeholder — show until user clicks a language tab */}
-        {(!userInteracted.current || !src) && (
+        {(!userInteracted || !src) && (
           <div className="w-full h-full relative">
             <img src="/app-screenshot.png" alt="Easy Dubbing" className="w-full h-full object-cover opacity-70" />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -65,10 +65,10 @@ function HeroVideoPlayer() {
           </div>
         )}
         {/* Video — visible only after user picks a language */}
-        {userInteracted.current && src && isYT && (
+        {userInteracted && src && isYT && (
           <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
         )}
-        {userInteracted.current && src && !isYT && (
+        {userInteracted && src && !isYT && (
           <video
             ref={videoRef}
             src={src}
