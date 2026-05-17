@@ -15,9 +15,8 @@ const LANG_TABS = [
 ];
 
 function HeroVideoPlayer() {
-  const [active, setActive]     = useState('en');
-  const [videos, setVideos]     = useState<Record<string, string>>({});
-  const [playing, setPlaying]   = useState(false);
+  const [active, setActive]   = useState('en');
+  const [videos, setVideos]   = useState<Record<string, string>>({});
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -27,13 +26,26 @@ function HeroVideoPlayer() {
       .catch(() => {});
   }, []);
 
-  const src = videos[active] || '';
-  const isYT = src.includes('youtube.com') || src.includes('youtu.be');
+  const src   = videos[active] || '';
+  const isYT  = src.includes('youtube.com') || src.includes('youtu.be');
+
+  // Auto-play whenever the active language changes and has a video src
+  useEffect(() => {
+    if (!src || isYT) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.load();
+    v.play().catch(() => {
+      // Autoplay blocked by browser policy — user will see controls to play manually
+    });
+  }, [active, src]);
 
   function switchLang(code: string) {
     setActive(code);
-    setPlaying(false);
-    if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
   }
 
   return (
@@ -44,25 +56,13 @@ function HeroVideoPlayer() {
           <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
         )}
         {src && !isYT && (
-          <>
-            <video
-              ref={videoRef}
-              src={src}
-              className="w-full h-full object-cover"
-              controls={playing}
-              onPlay={() => setPlaying(true)}
-            />
-            {!playing && (
-              <div
-                className="absolute inset-0 flex items-center justify-center cursor-pointer"
-                onClick={() => { setPlaying(true); videoRef.current?.play(); }}
-              >
-                <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40 group-hover:scale-110 transition-transform">
-                  <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
-                </div>
-              </div>
-            )}
-          </>
+          <video
+            ref={videoRef}
+            src={src}
+            className="w-full h-full object-cover"
+            controls
+            playsInline
+          />
         )}
         {!src && (
           <div className="w-full h-full relative">
