@@ -109,6 +109,23 @@ export default function Analytics({ password }: { password?: string }) {
               'AE': { top: '45%', left: '62%' },
               'SA': { top: '45%', left: '58%' },
               'ZA': { top: '75%', left: '55%' },
+              // Extended global mapping
+              'IL': { top: '42%', left: '58%' }, // Israel
+              'TR': { top: '38%', left: '58%' }, // Turkey
+              'NL': { top: '29%', left: '51%' }, // Netherlands
+              'PL': { top: '30%', left: '54%' }, // Poland
+              'SE': { top: '22%', left: '53%' }, // Sweden
+              'MX': { top: '45%', left: '20%' }, // Mexico
+              'AR': { top: '75%', left: '30%' }, // Argentina
+              'ID': { top: '60%', left: '78%' }, // Indonesia
+              'MY': { top: '55%', left: '75%' }, // Malaysia
+              'PH': { top: '52%', left: '82%' }, // Philippines
+              'TH': { top: '50%', left: '76%' }, // Thailand
+              'VN': { top: '48%', left: '78%' }, // Vietnam
+              'EG': { top: '45%', left: '56%' }, // Egypt
+              'NG': { top: '55%', left: '52%' }, // Nigeria
+              'KE': { top: '60%', left: '58%' }, // Kenya
+              'KR': { top: '38%', left: '82%' }, // South Korea
             };
 
             const coords = mapCoords[act.rawCode];
