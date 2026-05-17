@@ -1,8 +1,101 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import PayPalSubscription from '../components/PayPalSubscription';
+
+const LANG_TABS = [
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'fr', label: 'French',  flag: '🇫🇷' },
+  { code: 'es', label: 'Spanish', flag: '🇪🇸' },
+  { code: 'it', label: 'Italian', flag: '🇮🇹' },
+  { code: 'ru', label: 'Russian', flag: '🇷🇺' },
+  { code: 'de', label: 'German',  flag: '🇩🇪' },
+  { code: 'ar', label: 'Arabic',  flag: '🇸🇦' },
+];
+
+function HeroVideoPlayer() {
+  const [active, setActive]     = useState('en');
+  const [videos, setVideos]     = useState<Record<string, string>>({});
+  const [playing, setPlaying]   = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    fetch('https://easydubbing.uk/api/videos.php')
+      .then(r => r.json())
+      .then(setVideos)
+      .catch(() => {});
+  }, []);
+
+  const src = videos[active] || '';
+  const isYT = src.includes('youtube.com') || src.includes('youtu.be');
+
+  function switchLang(code: string) {
+    setActive(code);
+    setPlaying(false);
+    if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0; }
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Video box */}
+      <div className="bg-white/[0.03] backdrop-blur-2xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
+        {src && isYT && (
+          <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
+        )}
+        {src && !isYT && (
+          <>
+            <video
+              ref={videoRef}
+              src={src}
+              className="w-full h-full object-cover"
+              controls={playing}
+              onPlay={() => setPlaying(true)}
+            />
+            {!playing && (
+              <div
+                className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                onClick={() => { setPlaying(true); videoRef.current?.play(); }}
+              >
+                <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40 group-hover:scale-110 transition-transform">
+                  <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+        {!src && (
+          <div className="w-full h-full relative">
+            <img src="/app-screenshot.png" alt="Easy Dubbing" className="w-full h-full object-cover opacity-70" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40">
+                <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Language tabs */}
+      <div className="flex flex-wrap gap-2 justify-center">
+        {LANG_TABS.map(tab => (
+          <button
+            key={tab.code}
+            onClick={() => switchLang(tab.code)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all border ${
+              active === tab.code
+                ? 'bg-primary/20 border-primary/60 text-white shadow-md shadow-primary/20'
+                : 'bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white'
+            }`}
+          >
+            <span>{tab.flag}</span>
+            <span>{tab.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const Home = () => {
   const { t } = useTranslation();
@@ -112,18 +205,7 @@ const Home = () => {
               className="relative"
             >
               <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full scale-75" />
-              <div className="bg-white/[0.03] backdrop-blur-2xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
-                <img 
-                  alt="AI Dubbing Preview" 
-                  className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBry8FqncP4UaBbYD7LPD285RTk7iDi42eU07OdXn-Ocq3P5GfdWdH8zyE_jQXrA7iyDJcVpIFgOkK-qLeHA8bRNO8vHW6GbisXxOq1VeG6bmZQ6fXP8wnj33LlNDGu37wFr4d0w58izy_1T1uvXzXBfGJWc73pvjsIpQnWsBepIEOjFsQ5jSc6Yv2hU1ZMx9rP17vF8v5RxGcgoslwtLFJY5OjVfQ5cNdfKaa4X4LGo1GGssCRr4wCBCW38wC_0cHkyVs0bg_BBgoL"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40 group-hover:scale-110 transition-transform cursor-pointer">
-                    <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
-                  </div>
-                </div>
-              </div>
+              <HeroVideoPlayer />
             </motion.div>
           </div>
         </section>
