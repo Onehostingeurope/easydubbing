@@ -15,9 +15,10 @@ const LANG_TABS = [
 ];
 
 function HeroVideoPlayer() {
-  const [active, setActive]   = useState('en');
-  const [videos, setVideos]   = useState<Record<string, string>>({});
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [active, setActive]       = useState('en');
+  const [videos, setVideos]       = useState<Record<string, string>>({});
+  const [userInteracted, setUserInteracted] = useState(false);
+  const videoRef                  = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     fetch('/api/videos')
@@ -26,21 +27,21 @@ function HeroVideoPlayer() {
       .catch(() => {});
   }, []);
 
-  const src   = videos[active] || '';
-  const isYT  = src.includes('youtube.com') || src.includes('youtu.be');
+  const src  = videos[active] || '';
+  const isYT = src.includes('youtube.com') || src.includes('youtu.be');
 
-  // Auto-play whenever the active language changes and has a video src
+  // Auto-play ONLY when user has clicked a language tab
   useEffect(() => {
+    if (!userInteracted) return;
     if (!src || isYT) return;
     const v = videoRef.current;
     if (!v) return;
     v.load();
-    v.play().catch(() => {
-      // Autoplay blocked by browser policy — user will see controls to play manually
-    });
+    v.play().catch(() => {});
   }, [active, src]);
 
   function switchLang(code: string) {
+    setUserInteracted(true);
     setActive(code);
     if (videoRef.current) {
       videoRef.current.pause();
@@ -52,19 +53,8 @@ function HeroVideoPlayer() {
     <div className="space-y-4">
       {/* Video box */}
       <div className="bg-white/[0.03] backdrop-blur-2xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
-        {src && isYT && (
-          <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
-        )}
-        {src && !isYT && (
-          <video
-            ref={videoRef}
-            src={src}
-            className="w-full h-full object-cover"
-            controls
-            playsInline
-          />
-        )}
-        {!src && (
+        {/* Placeholder — show until user clicks a language tab */}
+        {(!userInteracted.current || !src) && (
           <div className="w-full h-full relative">
             <img src="/app-screenshot.png" alt="Easy Dubbing" className="w-full h-full object-cover opacity-70" />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -74,6 +64,20 @@ function HeroVideoPlayer() {
             </div>
           </div>
         )}
+        {/* Video — visible only after user picks a language */}
+        {userInteracted.current && src && isYT && (
+          <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
+        )}
+        {userInteracted.current && src && !isYT && (
+          <video
+            ref={videoRef}
+            src={src}
+            className="w-full h-full object-cover"
+            controls
+            playsInline
+          />
+        )}
+
       </div>
 
       {/* Language tabs — one row, 7 equal columns */}
