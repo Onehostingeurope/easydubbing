@@ -19,9 +19,9 @@ async function readConfig(): Promise<Record<string, string>> {
   return res.json();
 }
 
-async function writeConfig(config: Record<string, string>): Promise<void> {
-  await fetch(`${STORAGE_BASE}/object/${BUCKET}/${FILE}`, {
-    method: 'PUT',
+async function writeConfig(config: Record<string, string>): Promise<{ ok: boolean; detail?: string }> {
+  const r = await fetch(`${STORAGE_BASE}/object/${BUCKET}/${FILE}`, {
+    method: 'POST',
     headers: {
       'Authorization': `Bearer ${SERVICE_ROLE_KEY}`,
       'Content-Type': 'application/json',
@@ -29,6 +29,12 @@ async function writeConfig(config: Record<string, string>): Promise<void> {
     },
     body: JSON.stringify(config),
   });
+  if (!r.ok) {
+    const detail = await r.text();
+    console.error('[writeConfig] Supabase error:', r.status, detail);
+    return { ok: false, detail };
+  }
+  return { ok: true };
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -57,7 +63,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (typeof body[lang] === 'string') updated[lang] = body[lang].trim();
     }
 
-    await writeConfig(updated);
+    const result = await writeConfig(updated);
+    if (!result.ok) {
+      return res.status(500).json({ error: 'Failed to save config', detail: result.detail });
+    }
     return res.status(200).json({ success: true, config: updated });
   }
 

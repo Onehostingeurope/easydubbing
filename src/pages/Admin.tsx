@@ -107,9 +107,22 @@ export default function Admin() {
       };
       xhr.onerror = () => reject(new Error('Network error during upload'));
       xhr.send(file);
-    }).then(() => {
-      setUpload(lang, { status: 'done', progress: 100, msg: '✅ Uploaded! Click Save to apply.' });
-      setConfig(prev => ({ ...prev, [lang]: publicUrl }));
+    }).then(async () => {
+      setUpload(lang, { status: 'done', progress: 100, msg: '✅ Uploaded! Saving...' });
+      const newConfig = { ...config, [lang]: publicUrl };
+      setConfig(newConfig);
+      // Auto-save immediately
+      const password = sessionStorage.getItem(ADMIN_PASSWORD_KEY) || '';
+      const saveRes = await fetch(API_VIDEOS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, ...newConfig }),
+      });
+      if (saveRes.ok) {
+        setUpload(lang, { status: 'done', progress: 100, msg: '✅ Uploaded & saved! Now live.' });
+      } else {
+        setUpload(lang, { status: 'done', progress: 100, msg: '✅ Uploaded — click Save to go live.' });
+      }
     }).catch((err) => {
       setUpload(lang, { status: 'error', msg: String(err) });
     });
