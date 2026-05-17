@@ -45,8 +45,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'Failed to create upload URL', detail: err });
   }
 
-  const { signedURL, token } = await signRes.json();
-  const publicUrl = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${objectPath}`;
+  const json = await signRes.json();
+  // Supabase returns a relative path — make it absolute so the browser uploads directly to Supabase
+  const signedURL  = `${SUPABASE_URL}${json.signedURL}`;
+  const publicUrl  = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${objectPath}`;
 
-  return res.status(200).json({ signedURL, token, publicUrl, objectPath });
+  return res.status(200).json({ signedURL, publicUrl, objectPath });
 }
