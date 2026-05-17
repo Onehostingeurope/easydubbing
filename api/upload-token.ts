@@ -36,6 +36,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         'Authorization': `Bearer ${SERVICE_ROLE_KEY}`,
         'Content-Type': 'application/json',
       },
+      body: '{}',
     }
   );
 
