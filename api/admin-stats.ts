@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'easydubbing2026';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'EasyDub@2025!';
 
 function getSupabase() {
   return createClient(
