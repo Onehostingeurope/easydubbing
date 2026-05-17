@@ -17,7 +17,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     await resend.emails.send({
       from: 'Easy Dubbing Contact <noreply@easydubbing.uk>',   // must match your verified domain
-      to: ['support@easydubbing.uk'],
+      to: ['contact@onehostingeurope.com'],
       replyTo: email,
       subject: `[Easy Dubbing Support] ${subject}`,
       html: `
