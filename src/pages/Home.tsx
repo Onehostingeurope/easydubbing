@@ -244,20 +244,16 @@ const Home = () => {
               <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center border border-green-500/20">
                 <span className="material-symbols-outlined text-green-400 text-3xl">verified_user</span>
               </div>
-              <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">Safe & Verified Installation</h2>
-              <p className="text-[#cfc2d7] leading-relaxed">
-                Easy Dubbing is developed by <b>OneHostingEurope</b>. As an independent AI studio, our software might trigger a Windows "SmartScreen" warning during the first installation. 
-                <br/><br/>
-                This is normal for new professional software. Our code is 100% clean, virus-free, and focused solely on your video translation performance.
-              </p>
+              <h2 className="font-['Plus_Jakarta_Sans'] text-4xl font-bold">{t('security.title')}</h2>
+              <p className="text-[#cfc2d7] leading-relaxed">{t('security.desc')}</p>
               <div className="space-y-4">
                 <div className="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
                   <span className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">1</span>
-                  <p className="text-sm text-[#cfc2d7]">If the blue window appears, click <b>"More Info"</b>.</p>
+                  <p className="text-sm text-[#cfc2d7]">{t('security.step1')}</p>
                 </div>
                 <div className="flex items-start gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
                   <span className="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">2</span>
-                  <p className="text-sm text-[#cfc2d7]">Click <b>"Run Anyway"</b> to start your Pro translation experience.</p>
+                  <p className="text-sm text-[#cfc2d7]">{t('security.step2')}</p>
                 </div>
               </div>
             </div>
@@ -272,9 +268,9 @@ const Home = () => {
                   />
                 </div>
                 <div className="mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#cfc2d7]/40">
-                  <span>Verified Clean</span>
-                  <span>SSL Encrypted</span>
-                  <span>FIPS Compliant</span>
+                  <span>{t('security.verified')}</span>
+                  <span>{t('security.ssl')}</span>
+                  <span>{t('security.fips')}</span>
                 </div>
               </div>
             </div>

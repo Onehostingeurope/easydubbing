@@ -4,12 +4,13 @@ import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const languages = [
-  { code: 'en', label: 'English', flag: 'https://flagcdn.com/w40/gb.png' },
+  { code: 'en', label: 'English',  flag: 'https://flagcdn.com/w40/gb.png' },
   { code: 'fr', label: 'Français', flag: 'https://flagcdn.com/w40/fr.png' },
-  { code: 'es', label: 'Español', flag: 'https://flagcdn.com/w40/es.png' },
+  { code: 'es', label: 'Español',  flag: 'https://flagcdn.com/w40/es.png' },
   { code: 'it', label: 'Italiano', flag: 'https://flagcdn.com/w40/it.png' },
-  { code: 'de', label: 'Deutsch', flag: 'https://flagcdn.com/w40/de.png' },
-  { code: 'ru', label: 'Русский', flag: 'https://flagcdn.com/w40/ru.png' }
+  { code: 'de', label: 'Deutsch',  flag: 'https://flagcdn.com/w40/de.png' },
+  { code: 'ru', label: 'Русский',  flag: 'https://flagcdn.com/w40/ru.png' },
+  { code: 'ar', label: 'العربية',  flag: 'https://flagcdn.com/w40/sa.png' },
 ];
 
 const LanguageSwitcher = () => {
