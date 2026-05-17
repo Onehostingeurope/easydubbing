@@ -5,13 +5,13 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import PayPalSubscription from '../components/PayPalSubscription';
 
 const LANG_TABS = [
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'fr', label: 'French',  flag: '🇫🇷' },
-  { code: 'es', label: 'Spanish', flag: '🇪🇸' },
-  { code: 'it', label: 'Italian', flag: '🇮🇹' },
-  { code: 'ru', label: 'Russian', flag: '🇷🇺' },
-  { code: 'de', label: 'German',  flag: '🇩🇪' },
-  { code: 'ar', label: 'Arabic',  flag: '🇸🇦' },
+  { code: 'en', label: 'English', country: 'gb' },
+  { code: 'fr', label: 'French',  country: 'fr' },
+  { code: 'es', label: 'Spanish', country: 'es' },
+  { code: 'it', label: 'Italian', country: 'it' },
+  { code: 'ru', label: 'Russian', country: 'ru' },
+  { code: 'de', label: 'German',  country: 'de' },
+  { code: 'ar', label: 'Arabic',  country: 'sa' },
 ];
 
 function HeroVideoPlayer() {
@@ -88,7 +88,12 @@ function HeroVideoPlayer() {
                 : 'bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white'
             }`}
           >
-            <span className="text-xl leading-none">{tab.flag}</span>
+            <img
+              src={`https://flagcdn.com/w40/${tab.country}.png`}
+              alt={tab.label}
+              className="w-7 h-auto rounded-sm"
+              loading="lazy"
+            />
             <span className="truncate w-full text-center">{tab.label}</span>
           </button>
         ))}
