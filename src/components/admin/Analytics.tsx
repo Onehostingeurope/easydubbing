@@ -1,32 +1,49 @@
+import { useState, useEffect } from 'react';
 import { BarChart3, Download, Globe2, Users, ArrowUpRight } from 'lucide-react';
 
-export default function Analytics() {
-  // Note: These are mocked for the UI until tracking is implemented in Supabase
-  const stats = [
-    { label: 'Total Downloads', value: '14,208', change: '+12%', icon: Download, color: 'text-blue-400', bg: 'bg-blue-400/10' },
-    { label: 'Active Licenses', value: '3,842', change: '+5%', icon: Key, color: 'text-purple-400', bg: 'bg-purple-400/10' },
-    { label: 'Unique Users', value: '4,102', change: '+8%', icon: Users, color: 'text-green-400', bg: 'bg-green-400/10' },
-    { label: 'Countries Reached', value: '84', change: '+2', icon: Globe2, color: 'text-amber-400', bg: 'bg-amber-400/10' },
-  ];
+export default function Analytics({ password }: { password?: string }) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  const topCountries = [
-    { country: 'United States', code: '🇺🇸', users: 1240, percentage: 32 },
-    { country: 'France', code: '🇫🇷', users: 850, percentage: 22 },
-    { country: 'Germany', code: '🇩🇪', users: 540, percentage: 14 },
-    { country: 'United Kingdom', code: '🇬🇧', users: 410, percentage: 11 },
-    { country: 'Spain', code: '🇪🇸', users: 280, percentage: 7 },
+  useEffect(() => {
+    fetch('/api/admin-stats', {
+      headers: { 'x-admin-password': password || sessionStorage.getItem('ed_admin_auth') || '' }
+    })
+      .then(res => res.json())
+      .then(json => {
+        setData(json);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [password]);
+
+  if (loading) {
+    return <div className="text-white/40 text-center py-20">Loading live analytics...</div>;
+  }
+
+  if (!data || data.error) {
+    return <div className="text-red-400 text-center py-20">Failed to load analytics.</div>;
+  }
+
+  const { stats, topCountries, recentActivity } = data;
+
+  const statCards = [
+    { label: 'Total Downloads', value: stats.downloads, change: 'Live', icon: Download, color: 'text-blue-400', bg: 'bg-blue-400/10' },
+    { label: 'Active Licenses', value: stats.activeLicenses, change: 'Live', icon: Key, color: 'text-purple-400', bg: 'bg-purple-400/10' },
+    { label: 'Unique Users', value: stats.uniqueUsers, change: 'Live', icon: Users, color: 'text-green-400', bg: 'bg-green-400/10' },
+    { label: 'Countries Reached', value: stats.countriesReached, change: 'Live', icon: Globe2, color: 'text-amber-400', bg: 'bg-amber-400/10' },
   ];
 
   return (
     <div className="animate-in fade-in duration-500">
       <div className="mb-8">
         <h2 className="font-['Plus_Jakarta_Sans'] text-2xl font-bold mb-1">Platform Analytics</h2>
-        <p className="text-white/40 text-sm">Overview of downloads, active users, and global reach.</p>
+        <p className="text-white/40 text-sm">Real-time overview of downloads, active users, and global reach.</p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {stats.map((stat, i) => {
+        {statCards.map((stat, i) => {
           const Icon = stat.icon;
           return (
             <div key={i} className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
@@ -40,9 +57,8 @@ export default function Analytics() {
                 </div>
               </div>
               <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">{stat.label}</p>
-              <h3 className="text-3xl font-black font-['Plus_Jakarta_Sans'] text-white">{stat.value}</h3>
+              <h3 className="text-3xl font-black font-['Plus_Jakarta_Sans'] text-white">{stat.value.toLocaleString()}</h3>
               
-              {/* Decorative glow */}
               <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${stat.bg} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`} />
             </div>
           );
@@ -57,7 +73,9 @@ export default function Analytics() {
             Top Demographics
           </h3>
           <div className="space-y-5">
-            {topCountries.map((c, i) => (
+            {topCountries.length === 0 ? (
+               <p className="text-white/30 text-sm">No location data yet.</p>
+            ) : topCountries.map((c: any, i: number) => (
               <div key={i}>
                 <div className="flex items-center justify-between text-sm mb-2">
                   <div className="flex items-center gap-2">
@@ -65,7 +83,7 @@ export default function Analytics() {
                     <span className="font-medium">{c.country}</span>
                   </div>
                   <div className="text-white/50 text-xs">
-                    <strong className="text-white">{c.users}</strong> users
+                    <strong className="text-white">{c.users}</strong> actions
                   </div>
                 </div>
                 <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
@@ -79,20 +97,16 @@ export default function Analytics() {
           </div>
         </div>
 
-        {/* Recent Activity (Mocked) */}
+        {/* Recent Activity */}
         <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6">
           <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
             <BarChart3 className="text-[#ddb8ff]" size={18} />
             Live Activity Stream
           </h3>
           <div className="space-y-4">
-            {[
-              { time: 'Just now', action: 'New installation', details: 'Windows 11', country: '🇫🇷' },
-              { time: '5m ago', action: 'License activated', details: 'Pro Plan', country: '🇩🇪' },
-              { time: '12m ago', action: 'Download started', details: 'Setup.exe', country: '🇺🇸' },
-              { time: '18m ago', action: 'Hardware ID reset', details: 'Admin action', country: '🇬🇧' },
-              { time: '1h ago', action: 'New purchase', details: 'Lifetime Plan', country: '🇪🇸' },
-            ].map((act, i) => (
+            {recentActivity.length === 0 ? (
+               <p className="text-white/30 text-sm">No recent activity.</p>
+            ) : recentActivity.map((act: any, i: number) => (
               <div key={i} className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/[0.02] transition-colors border border-transparent hover:border-white/5">
                 <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-lg shrink-0">
                   {act.country}
@@ -113,7 +127,7 @@ export default function Analytics() {
   );
 }
 
-// Quick mock component for Key icon since it wasn't imported from lucide-react in Analytics initially
+// Quick mock component for Key icon
 function Key(props: any) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -121,3 +135,4 @@ function Key(props: any) {
     </svg>
   );
 }
+

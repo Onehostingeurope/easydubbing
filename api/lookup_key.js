@@ -44,21 +44,34 @@ export default async function handler(req, res) {
     }
 
     // ── HWID Binding ──────────────────────────────────────────────────────
+    let actionLog = 'license_retrieved';
     if (hwid) {
       if (license.hwid && license.hwid !== hwid) {
-        // Key is already locked to a DIFFERENT machine
         return res.status(403).json({
           error: 'This license is already registered to a different computer. Contact support@easydubbing.uk to transfer it.'
         });
       }
 
       if (!license.hwid) {
-        // First time: bind the HWID now, at key retrieval time
         await supabase
           .from(tableName)
           .update({ hwid })
           .eq('id', license.id);
+        actionLog = 'hwid_bound';
       }
+    }
+    // ─────────────────────────────────────────────────────────────────────
+
+    // ── Log Activity ─────────────────────────────────────────────────────
+    try {
+      const country = req.headers['x-vercel-ip-country'] || 'US';
+      await supabase.from('activity_log').insert({
+        action: actionLog,
+        details: email,
+        country: country
+      });
+    } catch (e) {
+      console.error('Activity Log Error:', e);
     }
     // ─────────────────────────────────────────────────────────────────────
 

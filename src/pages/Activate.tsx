@@ -215,13 +215,16 @@ const Activate = () => {
         </div>
 
         <div className="space-y-6">
-          <a 
-            href="https://plqlagrioxdicdourqyl.supabase.co/storage/v1/object/sign/Download/Easy_Dubbing_Setup.exe?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jYzU4ZjdkMi1kYmZmLTQzY2ItODA2Zi0zZTdjYmQ1YWUyNzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJEb3dubG9hZC9FYXN5X0R1YmJpbmdfU2V0dXAuZXhlIiwiaWF0IjoxNzc4OTU1Njc2LCJleHAiOjE5MzY2MzU2NzZ9.oSVbRHfHzEiDkn22qPjQRaD7A4lH41Z5b-FoJJvW80M" 
+          <button 
+            onClick={() => {
+              fetch('/api/track_download', { method: 'POST' }).catch(() => {});
+              window.location.href = "https://plqlagrioxdicdourqyl.supabase.co/storage/v1/object/sign/Download/Easy_Dubbing_Setup.exe?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jYzU4ZjdkMi1kYmZmLTQzY2ItODA2Zi0zZTdjYmQ1YWUyNzYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJEb3dubG9hZC9FYXN5X0R1YmJpbmdfU2V0dXAuZXhlIiwiaWF0IjoxNzc4OTU1Njc2LCJleHAiOjE5MzY2MzU2NzZ9.oSVbRHfHzEiDkn22qPjQRaD7A4lH41Z5b-FoJJvW80M";
+            }}
             className="w-full bg-gradient-to-r from-[#adc6ff] to-[#ddb8ff] text-[#2c0051] font-black py-6 rounded-2xl shadow-[0_0_40px_rgba(173,198,255,0.3)] hover:shadow-[0_0_50px_rgba(173,198,255,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 text-xl"
           >
             <Download size={24} />
             Download Installer for Windows
-          </a>
+          </button>
         </div>
         
         <div className="mt-12 h-8" />
