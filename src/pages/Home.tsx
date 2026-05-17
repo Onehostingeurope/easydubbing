@@ -15,7 +15,7 @@ const LANG_TABS = [
 ];
 
 function HeroVideoPlayer() {
-  const [active, setActive]       = useState('en');
+  const [active, setActive]       = useState<string | null>(null);
   const [videos, setVideos]       = useState<Record<string, string>>({});
   const [userInteracted, setUserInteracted] = useState(false);
   const videoRef                  = useRef<HTMLVideoElement>(null);
@@ -27,7 +27,7 @@ function HeroVideoPlayer() {
       .catch(() => {});
   }, []);
 
-  const src  = videos[active] || '';
+  const src  = (active ? videos[active] : '') || '';
   const isYT = src.includes('youtube.com') || src.includes('youtu.be');
 
   // Auto-play ONLY when user has clicked a language tab
