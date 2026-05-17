@@ -15,7 +15,7 @@ const resources = {
       hero: {
         badge: 'Powered by Advanced AI',
         title: 'Translate Videos',
-        desc: "The world's most powerful AI Video Dubbing Studio. Professional voice cloning and 40+ languages in one click.",
+        desc: "The world's most powerful AI video dubbing studio. Clone professional voices, dub videos into 40+ languages in one click, and enjoy unlimited dubbing with no time limits.",
         cta: 'Get Lifetime Pro'
       },
       features: {
@@ -87,7 +87,7 @@ const resources = {
       hero: {
         badge: 'Propulsé par une IA Avancée',
         title: 'Traduisez vos Vidéos',
-        desc: "Le studio de doublage IA le plus puissant au monde. Clonage de voix professionnel et plus de 40 langues en un clic.",
+        desc: "Le studio de doublage vidéo IA le plus puissant au monde. Clonez des voix professionnelles, doublez des vidéos en 40+ langues en un clic et profitez d'un doublage illimité sans limite de durée.",
         cta: 'Obtenir Pro à Vie'
       },
       features: {
@@ -159,7 +159,7 @@ const resources = {
       hero: {
         badge: 'Impulsado por IA Avanzada',
         title: 'Traduce tus Videos',
-        desc: "El estudio de doblaje por IA más potente del mundo. Clonación de voz profesional y más de 40 idiomas en un clic.",
+        desc: "El estudio de doblaje de vídeo con IA más potente del mundo. Clona voces profesionales, dobla vídeos a más de 40 idiomas en un clic y disfruta de un doblaje ilimitado sin límites de tiempo.",
         cta: 'Obtener Pro de por Vida'
       },
       features: {
@@ -231,7 +231,7 @@ const resources = {
       hero: {
         badge: 'Potenziato da IA Avanzata',
         title: 'Traduci i tuoi Video',
-        desc: "Lo studio di doppiaggio IA più potente al mondo. Clonazione vocale professionale e oltre 40 lingue in un clic.",
+        desc: "Lo studio di doppiaggio video IA più potente al mondo. Clona voci professionali, doppia video in 40+ lingue in un clic e goditi un doppiaggio illimitato senza limiti di tempo.",
         cta: 'Ottieni Pro a Vita'
       },
       features: {
@@ -303,7 +303,7 @@ const resources = {
       hero: {
         badge: 'Unterstützt durch Fortgeschrittene KI',
         title: 'Videos Übersetzen',
-        desc: "Das weltweit leistungsstärkste KI-Video-Synchronstudio. Professionelles Stimmencloning und über 40 Sprachen mit einem Klick.",
+        desc: "Das weltweit leistungsstärkste KI-Video-Synchronstudio. Klone professionelle Stimmen, synchronisiere Videos in 40+ Sprachen mit einem Klick und genieße unbegrenztes Dubbing ohne Zeitlimit.",
         cta: 'Lifetime Pro Sichern'
       },
       features: {
@@ -375,7 +375,7 @@ const resources = {
       hero: {
         badge: 'На базе передового ИИ',
         title: 'Переводите видео',
-        desc: " Самая мощная в мире студия ИИ-дубляжа видео. Профессиональное клонирование голоса и 40+ языков в один клик.",
+        desc: "Самая мощная в мире студия ИИ-дубляжа видео. Клонируйте профессиональные голоса, дублируйте видео на 40+ языков в один клик и наслаждайтесь безлимитным дубляжом без ограничений по времени.",
         cta: 'Получить пожизненный Pro'
       },
       features: {
@@ -447,7 +447,7 @@ const resources = {
       hero: {
         badge: 'مدعوم بالذكاء الاصطناعي المتقدم',
         title: 'ترجمة مقاطع الفيديو',
-        desc: 'أقوى استوديو دبلجة بالذكاء الاصطناعي في العالم. استنساخ الصوت الاحترافي وأكثر من 40 لغة بنقرة واحدة.',
+        desc: 'أقوى استوديو دبلجة فيديو بالذكاء الاصطناعي في العالم. استنسخ أصواتاً احترافية، ودبلج مقاطع الفيديو بأكثر من 40 لغة بنقرة واحدة، واستمتع بدبلجة غير محدودة بدون قيود زمنية.',
         cta: 'احصل على Pro مدى الحياة'
       },
       features: {
