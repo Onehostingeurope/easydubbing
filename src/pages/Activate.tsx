@@ -96,84 +96,120 @@ const Activate = () => {
         
         {/* Serial Key Lookup Box */}
         <div className="mb-10 p-8 rounded-3xl bg-white/[0.02] border border-white/10 text-left">
-          <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4 flex items-center gap-2">
+          <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
             <ShieldCheck size={16} className="text-[#ddb8ff]" />
-            Your Serial Key
+            Retrieve &amp; Activate Your License
           </h3>
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-2">
-              <input 
-                type="email" 
+          <p className="text-white/30 text-xs mb-6 leading-relaxed">
+            Open Easy Dubbing on your PC → copy your <strong className="text-white/50">Machine ID</strong> shown in the activation screen → paste it below with your email.
+          </p>
+          <div className="flex flex-col gap-3">
+            <div>
+              <label className="text-[10px] font-bold text-white/30 uppercase tracking-widest block mb-1.5">Purchase Email *</label>
+              <input
+                type="email"
                 id="lookup-email"
-                placeholder="Enter your email"
-                className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    document.getElementById('reveal-btn')?.click();
-                  }
+                placeholder="your@email.com"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors"
+              />
+            </div>
+            <div>
+              <label className="text-[10px] font-bold text-white/30 uppercase tracking-widest block mb-1.5">Machine ID (from the app) *</label>
+              <input
+                type="text"
+                id="lookup-hwid"
+                placeholder="e.g. A1B2C3D4E5F6A1B2C3D4E5F6A1B2C3D4"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/20 focus:outline-none focus:border-[#ddb8ff]/50 transition-colors font-mono text-sm tracking-widest uppercase"
+                onInput={(e) => {
+                  const el = e.target as HTMLInputElement;
+                  el.value = el.value.toUpperCase().replace(/[^A-F0-9]/g, '').slice(0, 32);
                 }}
               />
-              <button 
-                id="reveal-btn"
-                className="bg-[#ddb8ff] text-[#2c0051] font-bold px-6 rounded-xl hover:scale-105 active:scale-95 transition-all whitespace-nowrap"
-                onClick={async () => {
-                  const target = document.getElementById('lookup-email') as HTMLInputElement;
-                  const email = target?.value;
-                  const display = document.getElementById('key-display');
-                  const text = document.getElementById('key-text');
-                  
-                  if (!email) return;
-                  
-                  const startLookup = async () => {
-                    if (target) target.disabled = true;
-                    if (text) text.innerText = 'Searching...';
-                    if (display) display.classList.remove('hidden');
+              <p className="text-[10px] text-white/20 mt-1.5">Your unique 32-character computer fingerprint. Locks the license to your machine.</p>
+            </div>
+            <button
+              id="reveal-btn"
+              className="w-full bg-[#ddb8ff] text-[#2c0051] font-bold py-3 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all mt-1"
+              onClick={async () => {
+                const emailEl  = document.getElementById('lookup-email')  as HTMLInputElement;
+                const hwidEl   = document.getElementById('lookup-hwid')   as HTMLInputElement;
+                const display  = document.getElementById('key-display');
+                const text     = document.getElementById('key-text');
+                const errBlock = document.getElementById('key-error');
 
-                    let attempts = 0;
-                    const maxAttempts = 10;
-                    
-                    const performLookup = async () => {
-                      try {
-                        const res = await fetch(`/api/lookup_key?email=${encodeURIComponent(email)}`);
-                        const data = await res.json();
-                        
-                        if (data.key) {
-                          if (text) text.innerText = data.key;
-                          if (target) target.disabled = false;
-                          return true;
-                        }
-                      } catch (err) {
-                        console.error('Lookup failed', err);
+                const email = emailEl?.value?.trim();
+                const hwid  = hwidEl?.value?.trim().toUpperCase();
+
+                if (!email) { alert('Please enter your email.'); return; }
+                if (!hwid || hwid.length < 8) { alert('Please enter your Machine ID from the app.'); return; }
+
+                if (errBlock) errBlock.classList.add('hidden');
+                if (display)  display.classList.add('hidden');
+                if (text)     text.innerText = 'Searching…';
+                emailEl.disabled = true;
+                hwidEl.disabled  = true;
+
+                let attempts = 0;
+                const poll = async () => {
+                  try {
+                    const res  = await fetch(`/api/lookup_key?email=${encodeURIComponent(email)}&hwid=${encodeURIComponent(hwid)}`);
+                    const data = await res.json();
+
+                    if (res.status === 403) {
+                      if (errBlock) {
+                        document.getElementById('err-text')!.innerText = data.error || 'License already registered to another machine.';
+                        errBlock.classList.remove('hidden');
                       }
-                      return false;
-                    };
+                      emailEl.disabled = false;
+                      hwidEl.disabled  = false;
+                      return;
+                    }
 
-                    const poll = async () => {
-                      const found = await performLookup();
-                      if (!found && attempts < maxAttempts) {
-                        attempts++;
-                        if (text) text.innerText = `Searching... (${attempts}/${maxAttempts})`;
-                        setTimeout(poll, 3000);
-                      } else if (!found) {
-                        if (text) text.innerText = 'Not found yet. Try again in 10s.';
-                        if (target) target.disabled = false;
-                      }
-                    };
+                    if (data.key) {
+                      if (text)    text.innerText = data.key;
+                      if (display) display.classList.remove('hidden');
+                      emailEl.disabled = false;
+                      hwidEl.disabled  = false;
+                      return;
+                    }
+                  } catch (_) {}
 
-                    poll();
-                  };
+                  if (attempts < 8) {
+                    attempts++;
+                    if (text) text.innerText = `Searching… (${attempts}/8)`;
+                    setTimeout(poll, 3000);
+                  } else {
+                    if (text) text.innerText = 'Not found. Check your email or contact support.';
+                    emailEl.disabled = false;
+                    hwidEl.disabled  = false;
+                  }
+                };
 
-                  startLookup();
+                poll();
+              }}
+            >
+              🔑 Get My License Key
+            </button>
+
+            {/* Error block */}
+            <div id="key-error" className="hidden p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-center">
+              <p id="err-text" className="text-red-400 text-sm font-bold">Error</p>
+              <p className="text-red-400/60 text-xs mt-1">Contact <a href="mailto:support@easydubbing.uk" className="underline">support@easydubbing.uk</a> to transfer your license.</p>
+            </div>
+
+            {/* Key display */}
+            <div id="key-display" className="hidden p-6 rounded-xl bg-[#ddb8ff]/10 border border-[#ddb8ff]/20 text-center animate-in fade-in zoom-in duration-500">
+              <p className="text-[10px] text-[#ddb8ff]/50 uppercase font-bold mb-2">Your License Key — Copy into the app</p>
+              <code id="key-text" className="text-2xl font-black text-[#ddb8ff] tracking-widest break-all">…</code>
+              <button
+                className="mt-4 block mx-auto text-xs text-[#ddb8ff]/60 hover:text-[#ddb8ff] transition-colors underline"
+                onClick={() => {
+                  const k = document.getElementById('key-text')?.innerText;
+                  if (k) navigator.clipboard.writeText(k);
                 }}
               >
-                Reveal My Key
+                📋 Copy to clipboard
               </button>
-            </div>
-            <p className="text-[10px] text-white/30 uppercase font-bold tracking-widest text-center">Enter email and click the button or press Enter</p>
-            
-            <div id="key-display" className="hidden p-6 rounded-xl bg-[#ddb8ff]/10 border border-[#ddb8ff]/20 text-center animate-in fade-in zoom-in duration-500">
-              <code id="key-text" className="text-3xl font-black text-[#ddb8ff] tracking-widest">Searching...</code>
-              <p className="text-[10px] text-[#ddb8ff]/50 mt-3 uppercase font-bold">Copy this key into the app to activate</p>
             </div>
           </div>
         </div>
