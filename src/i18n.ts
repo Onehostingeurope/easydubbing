@@ -433,7 +433,7 @@ const resources = {
         trusted: 'Доверяют более 10 000 авторов по всему миру'
       }
     }
-  }
+  },
   ar: {
     translation: {
       nav: {
