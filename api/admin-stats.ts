@@ -18,9 +18,13 @@ export default async function handler(req: any, res: any) {
   const supabase = getSupabase();
 
   try {
+    // Helper to get correct table
+    const { error: chkErr } = await supabase.from('licenses').select('id').limit(1);
+    const table = (chkErr && chkErr.message.includes('relation "licenses" does not exist')) ? 'license' : 'licenses';
+
     // 1. Get Licenses Data (Active & Unique)
-    const { data: licenses } = await supabase.from('licenses').select('email, is_active');
-    const activeLicenses = licenses?.filter(l => l.is_active).length || 0;
+    const { data: licenses } = await supabase.from(table).select('*');
+    const activeLicenses = licenses?.filter(l => l.is_active !== false).length || 0;
     const uniqueUsers = new Set(licenses?.map(l => l.email)).size;
 
     // 2. Get Downloads & Countries (from Activity Log)
