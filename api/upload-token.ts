@@ -46,9 +46,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const json = await signRes.json();
-  // Supabase returns a relative path — make it absolute so the browser uploads directly to Supabase
-  const signedURL  = `${SUPABASE_URL}${json.signedURL}`;
-  const publicUrl  = `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${objectPath}`;
+  // Supabase returns: { url: "/object/upload/sign/bucket/path?token=xxx", token: "..." }
+  // The url is relative to /storage/v1 — build the full absolute upload URL
+  const SUPA_BASE = SUPABASE_URL.replace(/\/$/, '');
+  const relativePath: string = json.url || json.signedURL || '';
+  if (!relativePath) {
+    return res.status(500).json({ error: 'No URL in Supabase response', raw: json });
+  }
+
+  // Ensure the path includes /storage/v1 prefix
+  const fullPath = relativePath.startsWith('/storage') ? relativePath : `/storage/v1${relativePath}`;
+  const signedURL = `${SUPA_BASE}${fullPath}`;
+  const publicUrl = `${SUPA_BASE}/storage/v1/object/public/${BUCKET}/${objectPath}`;
 
   return res.status(200).json({ signedURL, publicUrl, objectPath });
 }
