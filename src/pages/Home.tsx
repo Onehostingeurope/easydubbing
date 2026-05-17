@@ -28,57 +28,71 @@ function HeroVideoPlayer() {
       .catch(() => {});
   }, []);
 
-  const src  = (active ? videos[active] : '') || '';
-  const isYT = src.includes('youtube.com') || src.includes('youtu.be');
+  // First available video URL (for preview frame before user picks)
+  const firstSrc = Object.values(videos).find(v => v) || '';
+  // Active src after user picks a language
+  const activeSrc = (active ? videos[active] : '') || '';
+  // What to actually show in the video element
+  const displaySrc = userInteracted ? activeSrc : firstSrc;
+  const isYT = displaySrc.includes('youtube.com') || displaySrc.includes('youtu.be');
 
-  // Auto-play ONLY when user has clicked a language tab
+  // Preload first frame on load (before any click)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !firstSrc || userInteracted) return;
+    v.currentTime = 0.001;      // seek to first frame
+  }, [firstSrc]);
+
+  // Auto-play after user clicks a tab
   useEffect(() => {
     if (!userInteracted) return;
-    if (!src || isYT) return;
     const v = videoRef.current;
-    if (!v) return;
+    if (!v || !activeSrc || isYT) return;
     v.load();
     v.play().catch(() => {});
-  }, [active, src]);
+  }, [active, activeSrc, userInteracted]);
 
   function switchLang(code: string) {
     setUserInteracted(true);
     setActive(code);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   }
 
   return (
     <div className="space-y-4">
       {/* Video box */}
-      <div className="bg-white/[0.03] backdrop-blur-2xl aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative group">
-        {/* Placeholder — show until user clicks a language tab */}
-        {(!userInteracted || !src) && (
-          <div className="w-full h-full relative">
-            <img src="/app-screenshot.png" alt="Easy Dubbing" className="w-full h-full object-cover opacity-70" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md flex items-center justify-center border border-primary/40">
-                <span className="material-symbols-outlined text-primary text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
-              </div>
-            </div>
-          </div>
+      <div className="bg-black aspect-video rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+
+        {/* YouTube embed */}
+        {userInteracted && displaySrc && isYT && (
+          <iframe src={displaySrc} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
         )}
-        {/* Video — visible only after user picks a language */}
-        {userInteracted && src && isYT && (
-          <iframe src={src} className="w-full h-full" allowFullScreen title="Easy Dubbing Demo" />
-        )}
-        {userInteracted && src && !isYT && (
+
+        {/* MP4 video — one element for both preview (paused frame 0) and playback */}
+        {displaySrc && !isYT && (
           <video
             ref={videoRef}
-            src={src}
+            src={displaySrc}
             className="w-full h-full object-cover"
-            controls
+            controls={userInteracted}
+            preload="metadata"
             playsInline
+            muted={!userInteracted}
           />
         )}
 
+        {/* Fallback: if no video URL at all */}
+        {!displaySrc && (
+          <img src="/app-screenshot.png" alt="Easy Dubbing" className="w-full h-full object-cover opacity-60" />
+        )}
+
+        {/* Play overlay — shown until user clicks a tab */}
+        {!userInteracted && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-20 h-20 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/30">
+              <span className="material-symbols-outlined text-white text-5xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Language tabs — one row, 7 equal columns */}
