@@ -21,7 +21,7 @@ function HeroVideoPlayer() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    fetch('https://easydubbing.uk/api/videos.php')
+    fetch('/api/videos')
       .then(r => r.json())
       .then(setVideos)
       .catch(() => {});

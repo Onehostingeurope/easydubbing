@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API = 'https://easydubbing.uk/api/videos.php';
+const API = '/api/videos';
 const ADMIN_PASSWORD_KEY = 'ed_admin_auth';
 
 const LANGUAGES = [
