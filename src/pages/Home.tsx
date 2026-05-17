@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import PayPalSubscription from '../components/PayPalSubscription';
 import SEO from '../components/SEO';
+import Testimonials from '../components/Testimonials';
 
 const LANG_TABS = [
   { code: 'en', label: 'English', country: 'gb' },
@@ -454,6 +455,9 @@ const Home = () => {
         </section>
       </main>
 
+      {/* Testimonials */}
+      <Testimonials />
+
       {/* Footer */}
       <footer className="w-full py-16 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center max-w-[1280px] mx-auto border-t border-white/5 mt-32">
         <div className="flex flex-col items-center md:items-start gap-4 mb-12 md:mb-0">
@@ -466,9 +470,9 @@ const Home = () => {
           <p className="text-xs text-[#cfc2d7] opacity-50">{t('footer.copy')}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-8 text-xs font-bold text-[#cfc2d7]/50 uppercase tracking-widest">
-          <a className="hover:text-primary transition-all" href="#">Privacy Policy</a>
-          <a className="hover:text-primary transition-all" href="#">Terms of Service</a>
-          <a className="hover:text-primary transition-all" href="#">Contact Support</a>
+          <a className="hover:text-primary transition-all" href="/privacy">Privacy Policy</a>
+          <a className="hover:text-primary transition-all" href="/terms">Terms of Service</a>
+          <a className="hover:text-primary transition-all" href="/contact">Contact Support</a>
         </div>
       </footer>
     </div>
