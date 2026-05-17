@@ -47,3 +47,5 @@ SoniTranslate/**/*.json
 *.bat
 *.ps1
 *.lnk
+
+.vercel

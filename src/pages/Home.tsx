@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import PayPalSubscription from '../components/PayPalSubscription';
+import SEO from '../components/SEO';
 
 const LANG_TABS = [
   { code: 'en', label: 'English', country: 'gb' },
@@ -112,6 +113,7 @@ const Home = () => {
 
   return (
     <div className="bg-[#050505] text-[#e5e2e1] font-['Inter'] selection:bg-purple-500/30 overflow-x-hidden">
+      <SEO />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
         <div className="max-w-[1280px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between relative">
