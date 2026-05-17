@@ -28,10 +28,10 @@ export default function Admin() {
   // Check remembered session
   useEffect(() => {
     const saved = sessionStorage.getItem(ADMIN_PASSWORD_KEY);
-    if (saved) { setAuthed(true); fetchConfig(saved); }
+    if (saved) { setAuthed(true); fetchConfig(); }
   }, []);
 
-  async function fetchConfig(password: string) {
+  async function fetchConfig() {
     setLoading(true);
     try {
       const res = await fetch(API);
@@ -47,7 +47,6 @@ export default function Admin() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setPwError('');
-    // Quick pre-check
     const res = await fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -56,7 +55,7 @@ export default function Admin() {
     if (res.ok) {
       sessionStorage.setItem(ADMIN_PASSWORD_KEY, pw);
       setAuthed(true);
-      fetchConfig(pw);
+      fetchConfig();
     } else {
       setPwError('Incorrect password. Try again.');
     }
