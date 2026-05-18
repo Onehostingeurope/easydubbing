@@ -6,6 +6,7 @@ import PayPalSubscription from '../components/PayPalSubscription';
 import SEO from '../components/SEO';
 import Testimonials from '../components/Testimonials';
 import Partners from '../components/Partners';
+import { Video, Camera, Music } from 'lucide-react';
 
 const LANG_TABS = [
   { code: 'en', label: 'English', country: 'gb' },
@@ -462,8 +463,35 @@ const Home = () => {
       {/* Partners Marquee */}
       <Partners />
 
+      {/* Social Follow */}
+      <section className="w-full py-16 flex flex-col items-center justify-center border-t border-white/5 mt-16 max-w-[1280px] mx-auto px-6">
+        <h3 className="text-[#cfc2d7] opacity-60 text-xs font-bold uppercase tracking-[0.3em] mb-8">Follow us on</h3>
+        <div className="flex items-center gap-8 md:gap-16">
+          <a href="#" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
+            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FF0000]/50 group-hover:bg-[#FF0000]/10 transition-colors">
+              <Video className="w-5 h-5 text-white group-hover:text-[#FF0000] transition-colors" />
+            </div>
+            <span className="text-xs font-bold tracking-widest uppercase group-hover:text-[#FF0000] transition-colors">YouTube</span>
+          </a>
+          
+          <a href="#" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
+            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#E1306C]/50 group-hover:bg-[#E1306C]/10 transition-colors">
+              <Camera className="w-5 h-5 text-white group-hover:text-[#E1306C] transition-colors" />
+            </div>
+            <span className="text-xs font-bold tracking-widest uppercase group-hover:text-[#E1306C] transition-colors">Instagram</span>
+          </a>
+
+          <a href="#" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
+            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#00f2fe]/50 group-hover:bg-[#00f2fe]/10 transition-colors">
+              <Music className="w-5 h-5 text-white group-hover:text-[#00f2fe] transition-colors" />
+            </div>
+            <span className="text-xs font-bold tracking-widest uppercase group-hover:text-[#00f2fe] transition-colors">TikTok</span>
+          </a>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="w-full py-16 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center max-w-[1280px] mx-auto border-t border-white/5 mt-32">
+      <footer className="w-full py-16 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center max-w-[1280px] mx-auto border-t border-white/5 mt-0">
         <div className="flex flex-col items-center md:items-start gap-4 mb-12 md:mb-0">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
