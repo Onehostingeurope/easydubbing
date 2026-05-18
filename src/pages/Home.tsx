@@ -6,6 +6,7 @@ import PayPalSubscription from '../components/PayPalSubscription';
 import SEO from '../components/SEO';
 import Testimonials from '../components/Testimonials';
 import Partners from '../components/Partners';
+import ComparisonTable from '../components/ComparisonTable';
 import { Video, Camera, Music } from 'lucide-react';
 
 const LANG_TABS = [
@@ -459,6 +460,9 @@ const Home = () => {
 
       {/* Testimonials */}
       <Testimonials />
+
+      {/* Comparison Table */}
+      <ComparisonTable />
 
       {/* Partners Marquee */}
       <Partners />
