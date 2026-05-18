@@ -125,6 +125,49 @@ function HeroVideoPlayer() {
   );
 }
 
+function InstallationVideoPlayer() {
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/videos')
+      .then(r => r.json())
+      .then(data => {
+        if (data.installation_video) {
+          setVideoUrl(data.installation_video);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  if (!videoUrl) {
+    return (
+      <img
+        src="/app-screenshot.png"
+        alt="Easy Dubbing Application"
+        className="w-full h-full object-cover object-top"
+      />
+    );
+  }
+
+  const isYT = videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be');
+
+  if (isYT) {
+    return <iframe src={videoUrl} className="w-full h-full" allowFullScreen title="Installation Video" />;
+  }
+
+  return (
+    <video
+      src={videoUrl}
+      className="w-full h-full object-cover object-top"
+      controls
+      playsInline
+      autoPlay
+      muted
+      loop
+    />
+  );
+}
+
 const Home = () => {
   const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -285,11 +328,7 @@ const Home = () => {
               <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-90" />
               <div className="bg-white/[0.03] backdrop-blur-md p-8 rounded-[40px] border border-white/10 shadow-2xl">
                 <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a]">
-                  <img
-                    src="/app-screenshot.png"
-                    alt="Easy Dubbing Application"
-                    className="w-full h-full object-cover object-top"
-                  />
+                  <InstallationVideoPlayer />
                 </div>
                 <div className="mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#cfc2d7]/40">
                   <span>{t('security.verified')}</span>

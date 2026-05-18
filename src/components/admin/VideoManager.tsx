@@ -4,6 +4,7 @@ const API_VIDEOS = '/api/videos';
 const API_TOKEN  = '/api/upload-token';
 
 const LANGUAGES = [
+  { code: 'installation_video', label: 'Installation Section Video', flag: '🛡️' },
   { code: 'en', label: 'English',  flag: '🇬🇧' },
   { code: 'fr', label: 'French',   flag: '🇫🇷' },
   { code: 'es', label: 'Spanish',  flag: '🇪🇸' },

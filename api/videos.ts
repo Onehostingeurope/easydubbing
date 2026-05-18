@@ -62,6 +62,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     for (const lang of LANGS) {
       if (typeof body[lang] === 'string') updated[lang] = body[lang].trim();
     }
+    if (typeof body['installation_video'] === 'string') {
+      updated['installation_video'] = body['installation_video'].trim();
+    }
 
     const result = await writeConfig(updated);
     if (!result.ok) {
