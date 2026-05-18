@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { BarChart3, Download, Globe2, Users, ArrowUpRight } from 'lucide-react';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 export default function Analytics({ password }: { password?: string }) {
   const [data, setData] = useState<any>(null);
@@ -79,87 +81,77 @@ export default function Analytics({ password }: { password?: string }) {
           </span>
         </h3>
         
-        <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing">
-          <TransformWrapper initialScale={1} minScale={1} maxScale={8} wheel={{ step: 0.5 }} doubleClick={{ step: 1 }}>
-            <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }} contentStyle={{ width: '100%', height: '100%', position: 'relative' }}>
-              {/* Reliable World Map Image */}
-              <div className="w-full h-full p-4 pointer-events-none">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
-                  alt="World Map" 
-                  className="w-full h-full object-contain opacity-[0.15] invert drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] pointer-events-none select-none" 
-                  draggable="false"
-                />
-              </div>          
-              {/* Glowing Dots from Live Activity */}
-              {recentActivity.map((act: any, i: number) => {
-                if (!act.rawCode) return null;
-                
-                // Define mapped coordinates (approximate % from top/left for top countries)
-                const mapCoords: Record<string, { top: string, left: string }> = {
-                  'US': { top: '35%', left: '22%' },
-                  'CA': { top: '25%', left: '22%' },
-                  'GB': { top: '28%', left: '48%' },
-                  'FR': { top: '33%', left: '50%' },
-                  'DE': { top: '30%', left: '52%' },
-                  'ES': { top: '36%', left: '48%' },
-                  'IT': { top: '35%', left: '53%' },
-                  'RU': { top: '25%', left: '65%' },
-                  'CN': { top: '40%', left: '75%' },
-                  'JP': { top: '38%', left: '85%' },
-                  'IN': { top: '45%', left: '70%' },
-                  'BR': { top: '65%', left: '32%' },
-                  'AU': { top: '75%', left: '85%' },
-                  'AE': { top: '45%', left: '62%' },
-                  'SA': { top: '45%', left: '58%' },
-                  'ZA': { top: '75%', left: '55%' },
-                  // Extended global mapping
-                  'IL': { top: '42%', left: '58%' }, // Israel
-                  'TR': { top: '38%', left: '58%' }, // Turkey
-                  'NL': { top: '29%', left: '51%' }, // Netherlands
-                  'PL': { top: '30%', left: '54%' }, // Poland
-                  'SE': { top: '22%', left: '53%' }, // Sweden
-                  'MX': { top: '45%', left: '20%' }, // Mexico
-                  'AR': { top: '75%', left: '30%' }, // Argentina
-                  'ID': { top: '60%', left: '78%' }, // Indonesia
-                  'MY': { top: '55%', left: '75%' }, // Malaysia
-                  'PH': { top: '52%', left: '82%' }, // Philippines
-                  'TH': { top: '50%', left: '76%' }, // Thailand
-                  'VN': { top: '48%', left: '78%' }, // Vietnam
-                  'EG': { top: '45%', left: '56%' }, // Egypt
-                  'NG': { top: '55%', left: '52%' }, // Nigeria
-                  'KE': { top: '60%', left: '58%' }, // Kenya
-                  'KR': { top: '38%', left: '82%' }, // South Korea
-                };
+        <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden">
+          <MapContainer 
+            center={[20, 0]} 
+            zoom={2} 
+            minZoom={2} 
+            maxZoom={18}
+            style={{ height: '100%', width: '100%', background: '#09090b' }}
+            zoomControl={false}
+          >
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              attribution='&copy; OpenStreetMap contributors &copy; CARTO'
+            />
+            {recentActivity.map((act: any, i: number) => {
+              if (!act.rawCode) return null;
+              
+              // Real Latitude/Longitude mapping
+              const mapCoords: Record<string, [number, number]> = {
+                'US': [37.0902, -95.7129], 'CA': [56.1304, -106.3468],
+                'GB': [55.3781, -3.4360],  'FR': [46.2276, 2.2137],
+                'DE': [51.1657, 10.4515],  'ES': [40.4637, -3.7492],
+                'IT': [41.8719, 12.5674],  'RU': [61.5240, 105.3188],
+                'CN': [35.8617, 104.1954], 'JP': [36.2048, 138.2529],
+                'IN': [20.5937, 78.9629],  'BR': [-14.2350, -51.9253],
+                'AU': [-25.2744, 133.7751],'AE': [23.4241, 53.8478],
+                'SA': [23.8859, 45.0792],  'ZA': [-30.5595, 22.9375],
+                'IL': [31.0461, 34.8516],  'TR': [38.9637, 35.2433],
+                'NL': [52.1326, 5.2913],   'PL': [51.9194, 19.1451],
+                'SE': [60.1282, 18.6435],  'MX': [23.6345, -102.5528],
+                'AR': [-38.4161, -63.6167],'ID': [-0.7893, 113.9213],
+                'MY': [4.2105, 101.9758],  'PH': [12.8797, 121.7740],
+                'TH': [15.8700, 100.9925], 'VN': [14.0583, 108.2772],
+                'EG': [26.8206, 30.8025],  'NG': [9.0820, 8.6753],
+                'KE': [-0.0236, 37.9062],  'KR': [35.9078, 127.7669]
+              };
 
-                const coords = mapCoords[act.rawCode];
-                if (!coords) return null;
+              // Add a tiny random offset so dots in the same country don't overlap completely
+              const baseCoords = mapCoords[act.rawCode];
+              if (!baseCoords) return null;
+              const offsetLat = baseCoords[0] + (Math.random() - 0.5) * 2;
+              const offsetLng = baseCoords[1] + (Math.random() - 0.5) * 2;
 
-                // Green for hwid_bound (installs), red for downloads/retrievals
-                const isInstall = act.rawAction === 'hwid_bound';
-                const colorClass = isInstall ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-red-500 shadow-[0_0_15px_#ef4444]';
-                const ringClass = isInstall ? 'bg-green-500' : 'bg-red-500';
+              const isInstall = act.rawAction === 'hwid_bound';
+              const colorClass = isInstall ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-red-500 shadow-[0_0_15px_#ef4444]';
+              const ringClass = isInstall ? 'bg-green-500' : 'bg-red-500';
 
-                return (
-                  <div 
-                    key={`dot-${i}`}
-                    className="absolute flex items-center justify-center group z-10"
-                    style={{ top: coords.top, left: coords.left }}
-                  >
-                    {/* Ping animation ring */}
-                    <div className={`absolute w-4 h-4 rounded-full opacity-75 animate-ping ${ringClass}`} style={{ animationDuration: '3s', animationDelay: `${i * 0.2}s` }} />
-                    {/* Core dot */}
-                    <div className={`w-2 h-2 rounded-full relative z-10 ${colorClass}`} />
-                    
-                    {/* Hover Tooltip */}
-                    <div className="absolute bottom-full mb-2 bg-black/80 backdrop-blur-md border border-white/10 text-white text-[10px] px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
-                      {act.country} {act.details} • {act.time}
-                    </div>
+              const customIcon = new L.DivIcon({
+                className: 'bg-transparent border-none',
+                html: `
+                  <div style="position: relative; width: 12px; height: 12px; display: flex; align-items: center; justify-content: center;">
+                    <div class="absolute w-6 h-6 rounded-full opacity-75 animate-ping ${ringClass}" style="animation-duration: 3s; animation-delay: ${i * 0.2}s"></div>
+                    <div class="w-3 h-3 rounded-full relative z-10 ${colorClass}"></div>
                   </div>
-                );
-              })}
-            </TransformComponent>
-          </TransformWrapper>
+                `,
+                iconSize: [12, 12],
+                iconAnchor: [6, 6]
+              });
+
+              return (
+                <Marker key={`dot-${i}`} position={[offsetLat, offsetLng]} icon={customIcon}>
+                  <Popup className="custom-popup">
+                    <div className="font-sans text-xs bg-black text-white p-1 rounded">
+                      <strong className="text-[#ddb8ff]">{act.country}</strong><br/>
+                      {act.details}<br/>
+                      <span className="text-white/40">{act.time}</span>
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
         </div>
       </div>
 
