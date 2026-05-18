@@ -327,7 +327,7 @@ const Home = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full scale-90" />
               <div className="bg-white/[0.03] backdrop-blur-md p-8 rounded-[40px] border border-white/10 shadow-2xl">
-                <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a]">
+                <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 bg-[#1a1a1a]">
                   <InstallationVideoPlayer />
                 </div>
                 <div className="mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#cfc2d7]/40">
