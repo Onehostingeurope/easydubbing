@@ -213,6 +213,15 @@ export default function LicenseManager({ password }: { password: string }) {
                   >
                     {lic.is_active ? "Revoke" : "Restore"}
                   </button>
+                  {lic.hwid && (
+                    <button 
+                      onClick={() => handleAction('reset_hwid', lic.id)}
+                      className="px-3 py-1.5 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 border border-blue-500/20 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-colors"
+                      title="Unbind this license from its current computer"
+                    >
+                      Reset Device
+                    </button>
+                  )}
                   <button 
                     onClick={() => handleAction('delete', lic.id)}
                     title="Delete User"
