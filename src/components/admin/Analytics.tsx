@@ -81,9 +81,9 @@ export default function Analytics({ password }: { password?: string }) {
         
         <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing">
           <TransformWrapper initialScale={1} minScale={1} maxScale={8} wheel={{ step: 0.1 }}>
-            <TransformComponent wrapperClass="w-full h-full" contentClass="w-full h-full relative">
+            <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }} contentStyle={{ width: '100%', height: '100%', position: 'relative' }}>
               {/* Reliable World Map Image */}
-              <div className="absolute inset-0 w-full h-full p-4 pointer-events-none">
+              <div className="w-full h-full p-4 pointer-events-none">
                 <img 
                   src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
                   alt="World Map" 
