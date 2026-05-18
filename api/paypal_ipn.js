@@ -63,7 +63,18 @@ export default async function handler(req, res) {
         throw new Error('Database Error: ' + dbError.message);
       }
 
-      console.log('License Created Successfully:', { customer_email, new_key });
+      const amount = body.mc_gross || body.payment_gross || '0.00';
+      const currency = body.mc_currency || 'USD';
+      
+      try {
+        await supabase.from('activity_log').insert({
+          action: 'purchase',
+          details: `${amount}|${currency}`,
+          country: body.residence_country || 'US'
+        });
+      } catch(e) {}
+
+      console.log('License Created Successfully:', { customer_email, new_key, amount });
 
       // 3. Send Email via Resend
       try {

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BarChart3, Download, Globe2, Users, ArrowUpRight } from 'lucide-react';
+import { BarChart3, Download, Globe2, Users, ArrowUpRight, DollarSign } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -37,6 +37,13 @@ export default function Analytics({ password }: { password?: string }) {
     { label: 'Countries Reached', value: stats.countriesReached, change: 'Live', icon: Globe2, color: 'text-amber-400', bg: 'bg-amber-400/10' },
   ];
 
+  const revenueCards = stats.revenue ? [
+    { label: "Today's Revenue", value: `$${stats.revenue.day.toFixed(2)}`, change: 'Daily', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+    { label: 'This Month', value: `$${stats.revenue.month.toFixed(2)}`, change: 'Monthly', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+    { label: 'This Year', value: `$${stats.revenue.year.toFixed(2)}`, change: 'Yearly', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+    { label: 'Total Revenue', value: `$${stats.revenue.total.toFixed(2)}`, change: 'All Time', icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-400/10' },
+  ] : [];
+
   return (
     <div className="animate-in fade-in duration-500">
       <div className="mb-8">
@@ -45,7 +52,7 @@ export default function Analytics({ password }: { password?: string }) {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         {statCards.map((stat, i) => {
           const Icon = stat.icon;
           return (
@@ -60,13 +67,39 @@ export default function Analytics({ password }: { password?: string }) {
                 </div>
               </div>
               <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">{stat.label}</p>
-              <h3 className="text-3xl font-black font-['Plus_Jakarta_Sans'] text-white">{stat.value.toLocaleString()}</h3>
+              <h3 className="text-3xl font-black font-['Plus_Jakarta_Sans'] text-white">{typeof stat.value === 'number' ? stat.value.toLocaleString() : stat.value}</h3>
               
               <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${stat.bg} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`} />
             </div>
           );
         })}
       </div>
+
+      {/* Revenue Cards */}
+      {revenueCards.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {revenueCards.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <div key={`rev-${i}`} className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 relative overflow-hidden group">
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`p-3 rounded-xl ${stat.bg} ${stat.color}`}>
+                    <Icon size={20} />
+                  </div>
+                  <div className="flex items-center gap-1 text-emerald-400 text-xs font-bold bg-emerald-400/10 px-2 py-1 rounded-full">
+                    <ArrowUpRight size={12} />
+                    {stat.change}
+                  </div>
+                </div>
+                <p className="text-white/40 text-xs font-bold uppercase tracking-widest mb-1">{stat.label}</p>
+                <h3 className="text-3xl font-black font-['Plus_Jakarta_Sans'] text-white">{stat.value}</h3>
+                
+                <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${stat.bg} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full`} />
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* World Map Live View */}
       <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 mb-8 relative overflow-hidden">

@@ -57,7 +57,29 @@ export default async function handler(req: any, res: any) {
       .sort((a, b) => b.users - a.users)
       .slice(0, 5);
 
-    // 4. Recent Activity Stream
+    // 4. Calculate Revenue
+    let revDay = 0;
+    let revMonth = 0;
+    let revYear = 0;
+    let revTotal = 0;
+
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    const thisMonth = now.toISOString().slice(0, 7);
+    const thisYear = now.toISOString().slice(0, 4);
+
+    allActivity.filter(a => a.action === 'purchase').forEach(a => {
+      const dt = a.created_at; // e.g. 2026-05-18T...
+      const amountParts = (a.details || '0').split('|');
+      const amount = parseFloat(amountParts[0]) || 0;
+
+      revTotal += amount;
+      if (dt.startsWith(today)) revDay += amount;
+      if (dt.startsWith(thisMonth)) revMonth += amount;
+      if (dt.startsWith(thisYear)) revYear += amount;
+    });
+
+    // 5. Recent Activity Stream
     const recentActivity = allActivity.slice(0, 15).map(a => ({
       time: timeAgo(new Date(a.created_at)),
       action: formatActionName(a.action),
@@ -72,7 +94,8 @@ export default async function handler(req: any, res: any) {
         downloads,
         activeLicenses,
         uniqueUsers,
-        countriesReached
+        countriesReached,
+        revenue: { day: revDay, month: revMonth, year: revYear, total: revTotal }
       },
       topCountries,
       recentActivity
@@ -120,6 +143,7 @@ function formatActionName(action: string) {
     case 'hwid_bound': return 'App Activated (HWID Locked)';
     case 'page_view': return 'Website Visitor';
     case 'admin_action': return 'Admin Action';
+    case 'purchase': return 'New Payment ($)';
     default: return action;
   }
 }
