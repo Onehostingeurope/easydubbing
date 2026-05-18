@@ -164,7 +164,7 @@ export default function LicenseManager({ password }: { password: string }) {
       )}
 
       <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-x-auto">
-        <table className="w-full text-left text-sm min-w-[1000px]">
+        <table className="w-full text-left text-sm">
           <thead className="bg-white/[0.02] border-b border-white/10 text-white/40 uppercase tracking-widest text-[10px] font-bold">
             <tr>
               <th className="p-4">User</th>

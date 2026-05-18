@@ -139,7 +139,7 @@ export default function Admin() {
           </button>
         </header>
 
-        <div className="max-w-5xl mx-auto p-6 md:p-12 pb-24">
+        <div className="max-w-[1400px] mx-auto p-6 md:p-12 pb-24">
           {activeTab === 'analytics' && <Analytics />}
           {activeTab === 'users' && <LicenseManager password={password} />}
           {activeTab === 'videos' && <VideoManager password={password} />}
