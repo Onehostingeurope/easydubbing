@@ -5,6 +5,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import PayPalSubscription from '../components/PayPalSubscription';
 import SEO from '../components/SEO';
 import Testimonials from '../components/Testimonials';
+import Partners from '../components/Partners';
 
 const LANG_TABS = [
   { code: 'en', label: 'English', country: 'gb' },
@@ -457,6 +458,9 @@ const Home = () => {
 
       {/* Testimonials */}
       <Testimonials />
+
+      {/* Partners Marquee */}
+      <Partners />
 
       {/* Footer */}
       <footer className="w-full py-16 px-6 md:px-12 flex flex-col md:flex-row justify-between items-center max-w-[1280px] mx-auto border-t border-white/5 mt-32">
