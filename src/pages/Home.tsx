@@ -510,7 +510,7 @@ const Home = () => {
       <section className="w-full py-16 flex flex-col items-center justify-center border-t border-white/5 mt-16 max-w-[1280px] mx-auto px-6">
         <h3 className="text-[#cfc2d7] opacity-60 text-xs font-bold uppercase tracking-[0.3em] mb-8">Follow us on</h3>
         <div className="flex items-center gap-8 md:gap-16">
-          <a href="#" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
+          <a href="https://www.youtube.com/watch?v=ZyLyLY-PUKk" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
             <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#FF0000]/50 group-hover:bg-[#FF0000]/10 transition-colors">
               <Video className="w-5 h-5 text-white group-hover:text-[#FF0000] transition-colors" />
             </div>
