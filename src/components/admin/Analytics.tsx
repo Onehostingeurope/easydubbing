@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BarChart3, Download, Globe2, Users, ArrowUpRight } from 'lucide-react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 export default function Analytics({ password }: { password?: string }) {
   const [data, setData] = useState<any>(null);
@@ -78,82 +79,87 @@ export default function Analytics({ password }: { password?: string }) {
           </span>
         </h3>
         
-        <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden flex items-center justify-center">
-          {/* Reliable World Map Image */}
-          <div className="absolute inset-0 w-full h-full p-4 pointer-events-none">
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
-              alt="World Map" 
-              className="w-full h-full object-contain opacity-[0.15] invert drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" 
-            />
-          </div>          
-          {/* Glowing Dots from Live Activity */}
-          {recentActivity.map((act: any, i: number) => {
-            if (!act.rawCode) return null;
-            
-            // Define mapped coordinates (approximate % from top/left for top countries)
-            const mapCoords: Record<string, { top: string, left: string }> = {
-              'US': { top: '35%', left: '22%' },
-              'CA': { top: '25%', left: '22%' },
-              'GB': { top: '28%', left: '48%' },
-              'FR': { top: '33%', left: '50%' },
-              'DE': { top: '30%', left: '52%' },
-              'ES': { top: '36%', left: '48%' },
-              'IT': { top: '35%', left: '53%' },
-              'RU': { top: '25%', left: '65%' },
-              'CN': { top: '40%', left: '75%' },
-              'JP': { top: '38%', left: '85%' },
-              'IN': { top: '45%', left: '70%' },
-              'BR': { top: '65%', left: '32%' },
-              'AU': { top: '75%', left: '85%' },
-              'AE': { top: '45%', left: '62%' },
-              'SA': { top: '45%', left: '58%' },
-              'ZA': { top: '75%', left: '55%' },
-              // Extended global mapping
-              'IL': { top: '42%', left: '58%' }, // Israel
-              'TR': { top: '38%', left: '58%' }, // Turkey
-              'NL': { top: '29%', left: '51%' }, // Netherlands
-              'PL': { top: '30%', left: '54%' }, // Poland
-              'SE': { top: '22%', left: '53%' }, // Sweden
-              'MX': { top: '45%', left: '20%' }, // Mexico
-              'AR': { top: '75%', left: '30%' }, // Argentina
-              'ID': { top: '60%', left: '78%' }, // Indonesia
-              'MY': { top: '55%', left: '75%' }, // Malaysia
-              'PH': { top: '52%', left: '82%' }, // Philippines
-              'TH': { top: '50%', left: '76%' }, // Thailand
-              'VN': { top: '48%', left: '78%' }, // Vietnam
-              'EG': { top: '45%', left: '56%' }, // Egypt
-              'NG': { top: '55%', left: '52%' }, // Nigeria
-              'KE': { top: '60%', left: '58%' }, // Kenya
-              'KR': { top: '38%', left: '82%' }, // South Korea
-            };
-
-            const coords = mapCoords[act.rawCode];
-            if (!coords) return null;
-
-            // Green for hwid_bound (installs), red for downloads/retrievals
-            const isInstall = act.rawAction === 'hwid_bound';
-            const colorClass = isInstall ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-red-500 shadow-[0_0_15px_#ef4444]';
-            const ringClass = isInstall ? 'bg-green-500' : 'bg-red-500';
-
-            return (
-              <div 
-                key={`dot-${i}`}
-                className="absolute flex items-center justify-center group z-10"
-                style={{ top: coords.top, left: coords.left }}
-              >
-                {/* Ping animation ring */}
-                <div className={`absolute w-4 h-4 rounded-full opacity-75 animate-ping ${ringClass}`} style={{ animationDuration: '3s', animationDelay: `${i * 0.2}s` }} />
-                {/* Core dot */}
-                <div className={`w-2 h-2 rounded-full relative z-10 ${colorClass}`} />
+        <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing">
+          <TransformWrapper initialScale={1} minScale={1} maxScale={8} wheel={{ step: 0.1 }}>
+            <TransformComponent wrapperClass="w-full h-full" contentClass="w-full h-full relative">
+              {/* Reliable World Map Image */}
+              <div className="absolute inset-0 w-full h-full p-4 pointer-events-none">
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg" 
+                  alt="World Map" 
+                  className="w-full h-full object-contain opacity-[0.15] invert drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] pointer-events-none select-none" 
+                  draggable="false"
+                />
+              </div>          
+              {/* Glowing Dots from Live Activity */}
+              {recentActivity.map((act: any, i: number) => {
+                if (!act.rawCode) return null;
                 
-                {/* Hover Tooltip */}
-                <div className="absolute bottom-full mb-2 bg-black/80 backdrop-blur-md border border-white/10 text-white text-[10px] px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
-                  {act.country} {act.details} • {act.time}
-                </div>
-              </div>
-            );
-          })}
+                // Define mapped coordinates (approximate % from top/left for top countries)
+                const mapCoords: Record<string, { top: string, left: string }> = {
+                  'US': { top: '35%', left: '22%' },
+                  'CA': { top: '25%', left: '22%' },
+                  'GB': { top: '28%', left: '48%' },
+                  'FR': { top: '33%', left: '50%' },
+                  'DE': { top: '30%', left: '52%' },
+                  'ES': { top: '36%', left: '48%' },
+                  'IT': { top: '35%', left: '53%' },
+                  'RU': { top: '25%', left: '65%' },
+                  'CN': { top: '40%', left: '75%' },
+                  'JP': { top: '38%', left: '85%' },
+                  'IN': { top: '45%', left: '70%' },
+                  'BR': { top: '65%', left: '32%' },
+                  'AU': { top: '75%', left: '85%' },
+                  'AE': { top: '45%', left: '62%' },
+                  'SA': { top: '45%', left: '58%' },
+                  'ZA': { top: '75%', left: '55%' },
+                  // Extended global mapping
+                  'IL': { top: '42%', left: '58%' }, // Israel
+                  'TR': { top: '38%', left: '58%' }, // Turkey
+                  'NL': { top: '29%', left: '51%' }, // Netherlands
+                  'PL': { top: '30%', left: '54%' }, // Poland
+                  'SE': { top: '22%', left: '53%' }, // Sweden
+                  'MX': { top: '45%', left: '20%' }, // Mexico
+                  'AR': { top: '75%', left: '30%' }, // Argentina
+                  'ID': { top: '60%', left: '78%' }, // Indonesia
+                  'MY': { top: '55%', left: '75%' }, // Malaysia
+                  'PH': { top: '52%', left: '82%' }, // Philippines
+                  'TH': { top: '50%', left: '76%' }, // Thailand
+                  'VN': { top: '48%', left: '78%' }, // Vietnam
+                  'EG': { top: '45%', left: '56%' }, // Egypt
+                  'NG': { top: '55%', left: '52%' }, // Nigeria
+                  'KE': { top: '60%', left: '58%' }, // Kenya
+                  'KR': { top: '38%', left: '82%' }, // South Korea
+                };
+
+                const coords = mapCoords[act.rawCode];
+                if (!coords) return null;
+
+                // Green for hwid_bound (installs), red for downloads/retrievals
+                const isInstall = act.rawAction === 'hwid_bound';
+                const colorClass = isInstall ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-red-500 shadow-[0_0_15px_#ef4444]';
+                const ringClass = isInstall ? 'bg-green-500' : 'bg-red-500';
+
+                return (
+                  <div 
+                    key={`dot-${i}`}
+                    className="absolute flex items-center justify-center group z-10"
+                    style={{ top: coords.top, left: coords.left }}
+                  >
+                    {/* Ping animation ring */}
+                    <div className={`absolute w-4 h-4 rounded-full opacity-75 animate-ping ${ringClass}`} style={{ animationDuration: '3s', animationDelay: `${i * 0.2}s` }} />
+                    {/* Core dot */}
+                    <div className={`w-2 h-2 rounded-full relative z-10 ${colorClass}`} />
+                    
+                    {/* Hover Tooltip */}
+                    <div className="absolute bottom-full mb-2 bg-black/80 backdrop-blur-md border border-white/10 text-white text-[10px] px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+                      {act.country} {act.details} • {act.time}
+                    </div>
+                  </div>
+                );
+              })}
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </div>
 
