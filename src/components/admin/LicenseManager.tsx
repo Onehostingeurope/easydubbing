@@ -184,9 +184,9 @@ export default function LicenseManager({ password }: { password: string }) {
                 <td className="p-4">
                   <div className="flex items-center gap-2">
                     {lic.hwid ? (
-                      <span className="flex items-center gap-1.5 text-white/50 font-mono text-xs cursor-pointer hover:text-white" onClick={() => handleManualHWID(lic.id)} title="Click to edit HWID">
-                        <ShieldCheck size={14} className="text-green-400" />
-                        {lic.hwid.substring(0, 16)}...
+                      <span className="flex items-center gap-1.5 text-white/50 font-mono text-xs cursor-pointer hover:text-white select-all" onClick={() => handleManualHWID(lic.id)} title="Click to edit HWID">
+                        <ShieldCheck size={14} className="text-green-400 shrink-0" />
+                        {lic.hwid}
                       </span>
                     ) : (
                       <span className="text-white/20 text-xs italic cursor-pointer hover:text-white hover:underline" onClick={() => handleManualHWID(lic.id)} title="Click to manually enter HWID">
@@ -202,7 +202,7 @@ export default function LicenseManager({ password }: { password: string }) {
                     <span className="bg-red-500/10 text-red-400 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider border border-red-500/20">Revoked</span>
                   )}
                 </td>
-                <td className="p-4 text-right space-x-2">
+                <td className="p-4 text-right whitespace-nowrap space-x-2">
                   <button 
                     onClick={() => handleAction('toggle_active', lic.id, { is_active: !lic.is_active })}
                     className={`px-3 py-1.5 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-colors ${
