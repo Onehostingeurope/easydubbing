@@ -236,7 +236,7 @@ export default function Analytics({ password }: { password?: string }) {
             <BarChart3 className="text-[#ddb8ff]" size={18} />
             Live Activity Stream
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
             {recentActivity.length === 0 ? (
                <p className="text-white/30 text-sm">No recent activity.</p>
             ) : recentActivity.map((act: any, i: number) => (
