@@ -118,6 +118,7 @@ function formatActionName(action: string) {
     case 'download': return 'App Downloaded';
     case 'license_retrieved': return 'License Retrieved';
     case 'hwid_bound': return 'App Activated (HWID Locked)';
+    case 'page_view': return 'Website Visitor';
     case 'admin_action': return 'Admin Action';
     default: return action;
   }

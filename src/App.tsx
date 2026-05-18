@@ -8,7 +8,17 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Contact from './pages/Contact';
 
+import { useEffect } from 'react';
+
 function App() {
+  useEffect(() => {
+    // Only track once per session
+    if (!sessionStorage.getItem('ed_visited')) {
+      fetch('/api/track_visit', { method: 'POST' }).catch(() => {});
+      sessionStorage.setItem('ed_visited', 'true');
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>
