@@ -97,6 +97,7 @@ export default function LicenseManager({ password }: { password: string }) {
           setLicenses(licenses.map(l => {
             if (l.id === id) {
               if (action === 'reset_hwid') return { ...l, hwid: null };
+              if (action === 'update_hwid') return { ...l, hwid: extra.hwid };
               if (action === 'toggle_active') return { ...l, is_active: extra.is_active };
             }
             return l;
@@ -107,6 +108,13 @@ export default function LicenseManager({ password }: { password: string }) {
       }
     } catch (err) {
       alert('Network error');
+    }
+  }
+
+  function handleManualHWID(id: number) {
+    const hwid = prompt('Enter the new Machine ID (HWID):');
+    if (hwid !== null) {
+      handleAction('update_hwid', id, { hwid });
     }
   }
 
@@ -168,14 +176,18 @@ export default function LicenseManager({ password }: { password: string }) {
                   <code className="text-[#ddb8ff] font-bold tracking-widest">{lic.license_key}</code>
                 </td>
                 <td className="p-4">
-                  {lic.hwid ? (
-                    <span className="flex items-center gap-1.5 text-white/50 font-mono text-xs">
-                      <ShieldCheck size={14} className="text-green-400" />
-                      {lic.hwid.substring(0, 8)}...
-                    </span>
-                  ) : (
-                    <span className="text-white/20 text-xs italic">Not activated yet</span>
-                  )}
+                  <div className="flex items-center gap-2">
+                    {lic.hwid ? (
+                      <span className="flex items-center gap-1.5 text-white/50 font-mono text-xs cursor-pointer hover:text-white" onClick={() => handleManualHWID(lic.id)} title="Click to edit HWID">
+                        <ShieldCheck size={14} className="text-green-400" />
+                        {lic.hwid.substring(0, 16)}...
+                      </span>
+                    ) : (
+                      <span className="text-white/20 text-xs italic cursor-pointer hover:text-white hover:underline" onClick={() => handleManualHWID(lic.id)} title="Click to manually enter HWID">
+                        Not activated yet (Click to edit)
+                      </span>
+                    )}
+                  </div>
                 </td>
                 <td className="p-4">
                   {lic.is_active ? (
@@ -185,28 +197,22 @@ export default function LicenseManager({ password }: { password: string }) {
                   )}
                 </td>
                 <td className="p-4 text-right space-x-2">
-                  {lic.hwid && (
-                    <button 
-                      onClick={() => handleAction('reset_hwid', lic.id)}
-                      title="Reset Machine ID (Allow new PC)"
-                      className="p-2 text-white/30 hover:text-blue-400 hover:bg-blue-400/10 rounded-lg transition"
-                    >
-                      <Key size={16} />
-                    </button>
-                  )}
                   <button 
                     onClick={() => handleAction('toggle_active', lic.id, { is_active: !lic.is_active })}
-                    title={lic.is_active ? "Revoke License" : "Restore License"}
-                    className="p-2 text-white/30 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-lg transition"
+                    className={`px-3 py-1.5 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-colors ${
+                      lic.is_active 
+                        ? 'bg-yellow-500/10 text-yellow-400 hover:bg-yellow-500/20 border border-yellow-500/20' 
+                        : 'bg-green-500/10 text-green-400 hover:bg-green-500/20 border border-green-500/20'
+                    }`}
                   >
-                    <ShieldAlert size={16} />
+                    {lic.is_active ? "Revoke" : "Restore"}
                   </button>
                   <button 
                     onClick={() => handleAction('delete', lic.id)}
                     title="Delete User"
-                    className="p-2 text-white/30 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition"
+                    className="px-3 py-1.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/20 rounded-lg font-bold text-[10px] uppercase tracking-wider transition-colors"
                   >
-                    <Trash2 size={16} />
+                    Delete
                   </button>
                 </td>
               </tr>

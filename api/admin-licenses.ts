@@ -76,6 +76,18 @@ export default async function handler(req: any, res: any) {
     return res.status(200).json({ success: true });
   }
 
+  // ── POST: manually update HWID ────────────────────────────────────────────
+  if (req.method === 'POST' && action === 'update_hwid') {
+    const { id, hwid } = body;
+    const { error } = await supabase
+      .from(table)
+      .update({ hwid: hwid ? hwid.trim().toUpperCase() : null })
+      .eq('id', id);
+
+    if (error) return res.status(500).json({ error: error.message });
+    return res.status(200).json({ success: true, hwid: hwid.trim().toUpperCase() });
+  }
+
   // ── POST: toggle active status ────────────────────────────────────────────
   if (req.method === 'POST' && action === 'toggle_active') {
     const { id, is_active } = body;
