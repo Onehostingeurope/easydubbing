@@ -9,15 +9,34 @@ export default function Analytics({ password }: { password?: string }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/admin-stats', {
-      headers: { 'x-admin-password': password || sessionStorage.getItem('ed_admin_auth') || '' }
-    })
-      .then(res => res.json())
-      .then(json => {
-        setData(json);
-        setLoading(false);
+    let mounted = true;
+    
+    const fetchData = () => {
+      fetch('/api/admin-stats', {
+        headers: { 'x-admin-password': password || sessionStorage.getItem('ed_admin_auth') || '' }
       })
-      .catch(() => setLoading(false));
+        .then(res => res.json())
+        .then(json => {
+          if (mounted) {
+            setData(json);
+            setLoading(false);
+          }
+        })
+        .catch(() => {
+          if (mounted) setLoading(false);
+        });
+    };
+
+    // Initial fetch
+    fetchData();
+
+    // Auto-refresh every 5 seconds
+    const interval = setInterval(fetchData, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, [password]);
 
   if (loading) {
