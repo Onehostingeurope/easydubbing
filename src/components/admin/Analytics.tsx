@@ -120,8 +120,17 @@ export default function Analytics({ password }: { password?: string }) {
               // Add a tiny random offset so dots in the same country don't overlap completely
               const baseCoords = mapCoords[act.rawCode];
               if (!baseCoords) return null;
-              const offsetLat = baseCoords[0] + (Math.random() - 0.5) * 2;
-              const offsetLng = baseCoords[1] + (Math.random() - 0.5) * 2;
+              // Extract real coords if backend provided them in details string
+              let finalLat = baseCoords[0] + (Math.random() - 0.5) * 2;
+              let finalLng = baseCoords[1] + (Math.random() - 0.5) * 2;
+              let cleanDetails = act.details;
+
+              const geoMatch = typeof act.details === 'string' ? act.details.match(/\|GEO:([^,]+),([^|]+)/) : null;
+              if (geoMatch) {
+                finalLat = parseFloat(geoMatch[1]);
+                finalLng = parseFloat(geoMatch[2]);
+                cleanDetails = act.details.replace(/\|GEO:[^|]+/, '');
+              }
 
               const isInstall = act.rawAction === 'hwid_bound';
               const colorClass = isInstall ? 'bg-green-500 shadow-[0_0_15px_#22c55e]' : 'bg-red-500 shadow-[0_0_15px_#ef4444]';
@@ -140,11 +149,11 @@ export default function Analytics({ password }: { password?: string }) {
               });
 
               return (
-                <Marker key={`dot-${i}`} position={[offsetLat, offsetLng]} icon={customIcon}>
+                <Marker key={`dot-${i}`} position={[finalLat, finalLng]} icon={customIcon}>
                   <Popup className="custom-popup">
                     <div className="font-sans text-xs bg-black text-white p-1 rounded">
                       <strong className="text-[#ddb8ff]">{act.country}</strong><br/>
-                      {act.details}<br/>
+                      {cleanDetails}<br/>
                       <span className="text-white/40">{act.time}</span>
                     </div>
                   </Popup>
@@ -204,7 +213,7 @@ export default function Analytics({ password }: { password?: string }) {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-sm text-white truncate">{act.action}</p>
-                  <p className="text-xs text-white/40 truncate">{act.details}</p>
+                  <p className="text-xs text-white/40 truncate">{typeof act.details === 'string' ? act.details.replace(/\|GEO:[^|]+/, '') : act.details}</p>
                 </div>
                 <div className="text-xs font-mono text-white/30 whitespace-nowrap">
                   {act.time}

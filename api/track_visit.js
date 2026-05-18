@@ -14,11 +14,14 @@ export default async function handler(req, res) {
     );
 
     const country = req.headers['x-vercel-ip-country'] || 'US';
+    const city = req.headers['x-vercel-ip-city'] || '';
+    const lat = req.headers['x-vercel-ip-latitude'] || '';
+    const lng = req.headers['x-vercel-ip-longitude'] || '';
 
     // Only log the visit, don't throw if it fails
     await supabase.from('activity_log').insert({
       action: 'page_view',
-      details: 'Website Visitor',
+      details: `Website Visitor${city ? ` - ${decodeURIComponent(city)}` : ''}${lat ? `|GEO:${lat},${lng}` : ''}`,
       country: country
     });
 

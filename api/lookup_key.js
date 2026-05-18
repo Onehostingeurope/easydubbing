@@ -65,9 +65,13 @@ export default async function handler(req, res) {
     // ── Log Activity ─────────────────────────────────────────────────────
     try {
       const country = req.headers['x-vercel-ip-country'] || 'US';
+      const city = req.headers['x-vercel-ip-city'] || '';
+      const lat = req.headers['x-vercel-ip-latitude'] || '';
+      const lng = req.headers['x-vercel-ip-longitude'] || '';
+
       await supabase.from('activity_log').insert({
         action: actionLog,
-        details: email,
+        details: `${email}${city ? ` - ${decodeURIComponent(city)}` : ''}${lat ? `|GEO:${lat},${lng}` : ''}`,
         country: country
       });
     } catch (e) {
