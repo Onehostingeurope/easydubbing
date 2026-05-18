@@ -7,14 +7,6 @@ import L from 'leaflet';
 export default function Analytics({ password }: { password?: string }) {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [onlineCount, setOnlineCount] = useState(Math.floor(Math.random() * (75 - 25 + 1) + 25));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOnlineCount(prev => Math.max(15, prev + Math.floor(Math.random() * 5) - 2));
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
 
   useEffect(() => {
     fetch('/api/admin-stats', {
@@ -125,7 +117,7 @@ export default function Analytics({ password }: { password?: string }) {
           <div className="flex items-center gap-3 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
             <span className="w-2.5 h-2.5 rounded-full bg-[#22c55e] shadow-[0_0_10px_#22c55e] animate-pulse"></span>
             <span className="text-[10px] uppercase tracking-[0.2em] text-white/60 font-bold">Online Now:</span>
-            <span className="text-white font-mono font-bold text-sm w-6 text-right">{onlineCount}</span>
+            <span className="text-white font-mono font-bold text-sm w-6 text-right">{stats.onlineNow || 0}</span>
           </div>
         </div>
         
@@ -144,6 +136,12 @@ export default function Analytics({ password }: { password?: string }) {
             />
             {recentActivity.map((act: any, i: number) => {
               if (!act.rawCode) return null;
+              
+              // Only show markers for users who are TRULY online (active within the last 5 minutes)
+              if (act.rawTime) {
+                const diffMins = (Date.now() - new Date(act.rawTime).getTime()) / 60000;
+                if (diffMins > 5) return null;
+              }
               
               // Real Latitude/Longitude mapping
               const mapCoords: Record<string, [number, number]> = {

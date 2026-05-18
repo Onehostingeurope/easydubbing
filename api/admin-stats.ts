@@ -79,9 +79,17 @@ export default async function handler(req: any, res: any) {
       if (dt.startsWith(thisYear)) revYear += amount;
     });
 
+    const fiveMinsAgo = new Date(now.getTime() - 5 * 60 * 1000).toISOString();
+    // Count unique recent activities or just the number of recent actions (approximate online users)
+    const onlineNowCount = allActivity.filter(a => a.created_at >= fiveMinsAgo).length;
+    // To make it slightly more "active" looking but still real, if there is recent activity we can add a small multiplier, or just keep it 1:1. 
+    // The user requested "real online" so we keep it strictly 1:1.
+    const onlineNow = onlineNowCount;
+
     // 5. Recent Activity Stream
     const recentActivity = allActivity.slice(0, 15).map(a => ({
       time: timeAgo(new Date(a.created_at)),
+      rawTime: a.created_at,
       action: formatActionName(a.action),
       rawAction: a.action,
       details: a.details || 'System',
@@ -95,7 +103,8 @@ export default async function handler(req: any, res: any) {
         activeLicenses,
         uniqueUsers,
         countriesReached,
-        revenue: { day: revDay, month: revMonth, year: revYear, total: revTotal }
+        revenue: { day: revDay, month: revMonth, year: revYear, total: revTotal },
+        onlineNow
       },
       topCountries,
       recentActivity
