@@ -102,7 +102,7 @@ const ComparisonTable = () => {
             <div className="grid grid-cols-4 items-center">
               <div className="p-5 flex items-center gap-3 text-sm font-medium text-gray-300"><span className="material-symbols-outlined text-gray-500 text-[18px]">payments</span>{t('comparison.pricing')}</div>
               <div className="p-5 text-center bg-purple-900/10">
-                <span className="block font-black text-xl text-white">€69<span className="text-sm font-medium text-gray-400">{t('comparison.perMonth')}</span></span>
+                <span className="block font-black text-xl text-white">€19<span className="text-sm font-medium text-gray-400">{t('comparison.perMonth')}</span></span>
                 <span className="text-[10px] text-purple-300 font-bold uppercase mt-1 block">{t('comparison.orLifetime')}</span>
               </div>
               <div className="p-5 text-center">

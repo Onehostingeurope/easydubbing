@@ -390,7 +390,7 @@ const Home = () => {
                 <div className="mt-auto">
                   <div className="text-center mb-8">
                     <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
+                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€19</span>
                       <span className="text-[#cfc2d7] opacity-50 font-bold">{t('pricing.monthlyUnit')}</span>
                     </div>
                   </div>
@@ -428,7 +428,7 @@ const Home = () => {
                 <div className="mt-auto">
                   <div className="text-center mb-8">
                     <div className="flex items-baseline justify-center gap-1">
-                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€189</span>
+                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€69</span>
                       <span className="text-[#cfc2d7] opacity-50 font-bold">{t('pricing.annualUnit')}</span>
                     </div>
                   </div>
@@ -471,7 +471,7 @@ const Home = () => {
                 <div className="mt-auto">
                   <div className="text-center mb-8">
                     <div className="flex items-center justify-center gap-4 mb-2">
-                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€315</span>
+                      <span className="text-white font-['Plus_Jakarta_Sans'] text-5xl font-black">€99</span>
                     </div>
                     <p className="text-[10px] text-primary tracking-widest font-bold uppercase">{t('pricing.launch')}</p>
                   </div>

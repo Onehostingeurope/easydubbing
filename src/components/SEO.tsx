@@ -75,19 +75,19 @@ const jsonLd = {
   offers: [
     {
       '@type': 'Offer',
-      price: '69',
+      price: '19',
       priceCurrency: 'EUR',
       name: 'Monthly Pro Pass',
     },
     {
       '@type': 'Offer',
-      price: '189',
+      price: '69',
       priceCurrency: 'EUR',
       name: 'Annual Pro Pass',
     },
     {
       '@type': 'Offer',
-      price: '315',
+      price: '99',
       priceCurrency: 'EUR',
       name: 'Lifetime Pro License',
     },
