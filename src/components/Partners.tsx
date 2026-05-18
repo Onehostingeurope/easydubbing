@@ -24,8 +24,8 @@ export default function Partners() {
         <div className="absolute top-0 left-0 w-32 md:w-[25vw] h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-32 md:w-[25vw] h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
 
-        <div className="animate-marquee flex items-center gap-32 md:gap-[15vw] shrink-0 whitespace-nowrap pl-32 md:pl-[15vw]">
-          {[...logos, ...logos, ...logos, ...logos].map((logo, i) => (
+        <div className="animate-marquee flex items-center gap-16 md:gap-24 shrink-0 whitespace-nowrap pl-16 md:pl-24">
+          {[...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos].map((logo, i) => (
             <div key={i} className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-all duration-500 hover:scale-110 shrink-0 group cursor-default">
               <logo.Icon className={`w-8 h-8 transition-colors duration-500 text-white ${logo.color}`} />
               <span className={`text-xl font-bold tracking-tight text-white transition-colors duration-500 ${logo.color}`}>{logo.name}</span>
