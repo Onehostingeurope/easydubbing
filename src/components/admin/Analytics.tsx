@@ -80,7 +80,7 @@ export default function Analytics({ password }: { password?: string }) {
         </h3>
         
         <div className="relative w-full aspect-[2/1] bg-black/20 rounded-xl border border-white/5 overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing">
-          <TransformWrapper initialScale={1} minScale={1} maxScale={8} wheel={{ step: 0.5 }} panning={{ velocityMultiplier: 0.8 }} doubleClick={{ step: 1 }}>
+          <TransformWrapper initialScale={1} minScale={1} maxScale={8} wheel={{ step: 0.5 }} doubleClick={{ step: 1 }}>
             <TransformComponent wrapperStyle={{ width: '100%', height: '100%' }} contentStyle={{ width: '100%', height: '100%', position: 'relative' }}>
               {/* Reliable World Map Image */}
               <div className="w-full h-full p-4 pointer-events-none">
