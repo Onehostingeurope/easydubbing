@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShieldCheck, UserPlus, ShieldAlert, Trash2, Key } from 'lucide-react';
+import { ShieldCheck, UserPlus } from 'lucide-react';
 
 const API_LICENSES = '/api/admin-licenses';
 
