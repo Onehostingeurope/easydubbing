@@ -1,15 +1,17 @@
+import { Play, Music, Video, Laptop, MessageSquare, Cloud, Smartphone, Globe2, Share2, Cpu } from 'lucide-react';
+
 export default function Partners() {
   const logos = [
-    { name: 'Spotify', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/spotify.svg' },
-    { name: 'Netflix', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/netflix.svg' },
-    { name: 'YouTube', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/youtube.svg' },
-    { name: 'Microsoft', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/microsoft.svg' },
-    { name: 'Twitch', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/twitch.svg' },
-    { name: 'Adobe', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/adobe.svg' },
-    { name: 'TikTok', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/tiktok.svg' },
-    { name: 'Google', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/google.svg' },
-    { name: 'Meta', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/meta.svg' },
-    { name: 'Amazon', img: 'https://cdn.jsdelivr.net/gh/gilbarbara/logos@2024.04/logos/amazon.svg' },
+    { name: 'Netflix', Icon: Play, color: 'group-hover:text-[#E50914]' },
+    { name: 'Spotify', Icon: Music, color: 'group-hover:text-[#1ED760]' },
+    { name: 'YouTube', Icon: Video, color: 'group-hover:text-[#FF0000]' },
+    { name: 'Microsoft', Icon: Laptop, color: 'group-hover:text-[#00A4EF]' },
+    { name: 'Twitch', Icon: MessageSquare, color: 'group-hover:text-[#9146FF]' },
+    { name: 'Adobe', Icon: Cloud, color: 'group-hover:text-[#FF0000]' },
+    { name: 'TikTok', Icon: Smartphone, color: 'group-hover:text-[#00f2fe]' },
+    { name: 'Google', Icon: Globe2, color: 'group-hover:text-[#4285F4]' },
+    { name: 'Meta', Icon: Share2, color: 'group-hover:text-[#0668E1]' },
+    { name: 'Amazon', Icon: Cpu, color: 'group-hover:text-[#FF9900]' },
   ];
 
   return (
@@ -22,19 +24,16 @@ export default function Partners() {
       </div>
 
       {/* Marquee Wrapper */}
-      <div className="relative w-full flex overflow-hidden group">
+      <div className="relative w-full flex overflow-hidden">
         {/* Gradient Fades for Smooth Edges */}
         <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
 
         <div className="animate-marquee flex items-center gap-24 shrink-0 whitespace-nowrap pl-24">
           {[...logos, ...logos, ...logos].map((logo, i) => (
-            <div key={i} className="flex items-center justify-center grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500 hover:scale-110 shrink-0">
-              <img 
-                src={logo.img} 
-                alt={logo.name} 
-                className="h-8 md:h-10 w-auto object-contain brightness-0 invert hover:brightness-100 hover:invert-0 transition-all duration-500"
-              />
+            <div key={i} className="flex items-center gap-3 opacity-40 hover:opacity-100 transition-all duration-500 hover:scale-110 shrink-0 group cursor-default">
+              <logo.Icon className={`w-8 h-8 transition-colors duration-500 text-white ${logo.color}`} />
+              <span className={`text-xl font-bold tracking-tight text-white transition-colors duration-500 ${logo.color}`}>{logo.name}</span>
             </div>
           ))}
         </div>
