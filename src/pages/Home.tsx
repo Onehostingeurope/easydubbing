@@ -478,7 +478,7 @@ const Home = () => {
             <span className="text-xs font-bold tracking-widest uppercase group-hover:text-[#FF0000] transition-colors">YouTube</span>
           </a>
           
-          <a href="#" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
+          <a href="https://www.instagram.com/easy.dubbing" target="_blank" rel="noopener noreferrer" className="group flex flex-col items-center gap-3 opacity-50 hover:opacity-100 transition-all duration-300 hover:scale-110">
             <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[#E1306C]/50 group-hover:bg-[#E1306C]/10 transition-colors">
               <Camera className="w-5 h-5 text-white group-hover:text-[#E1306C] transition-colors" />
             </div>
