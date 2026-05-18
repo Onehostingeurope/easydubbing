@@ -79,6 +79,9 @@ export default function LicenseManager({ password }: { password: string }) {
   }
 
   async function handleAction(action: string, id: number, extra?: any) {
+    // Yield to main thread to fix INP (Interaction to Next Paint) issues before native dialogs
+    await new Promise(resolve => setTimeout(resolve, 50));
+
     if (action === 'delete' && !confirm('Are you sure you want to delete this license?')) return;
     if (action === 'reset_hwid' && !confirm('Reset Hardware ID? This allows the user to activate on a new PC.')) return;
     
@@ -111,7 +114,10 @@ export default function LicenseManager({ password }: { password: string }) {
     }
   }
 
-  function handleManualHWID(id: number) {
+  async function handleManualHWID(id: number) {
+    // Yield to main thread to fix INP (Interaction to Next Paint) before native prompt
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
     const hwid = prompt('Enter the new Machine ID (HWID):');
     if (hwid !== null) {
       handleAction('update_hwid', id, { hwid });
