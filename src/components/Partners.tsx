@@ -18,11 +18,11 @@ export default function Partners() {
         <p className="text-[#cfc2d7] opacity-50 text-sm uppercase tracking-[0.3em] font-bold">Trusted by creators & teams at</p>
       </div>
 
-      {/* Marquee Wrapper */}
-      <div className="relative w-full flex overflow-hidden">
-        {/* Massive Gradient Fades for Amazing Smooth Edges */}
-        <div className="absolute top-0 left-0 w-32 md:w-[25vw] h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-32 md:w-[25vw] h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+      {/* Marquee Wrapper - Contained Box */}
+      <div className="max-w-[900px] mx-auto relative w-full flex overflow-hidden">
+        {/* Gradient Fades for Smooth Box Edges */}
+        <div className="absolute top-0 left-0 w-24 md:w-32 h-full bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-24 md:w-32 h-full bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
 
         <div className="animate-marquee flex items-center gap-16 md:gap-24 shrink-0 whitespace-nowrap pl-16 md:pl-24">
           {[...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos, ...logos].map((logo, i) => (
