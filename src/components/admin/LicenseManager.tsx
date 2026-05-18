@@ -163,12 +163,12 @@ export default function LicenseManager({ password }: { password: string }) {
         </form>
       )}
 
-      <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-white/[0.02] border border-white/10 rounded-2xl overflow-x-auto">
+        <table className="w-full text-left text-sm min-w-[1000px]">
           <thead className="bg-white/[0.02] border-b border-white/10 text-white/40 uppercase tracking-widest text-[10px] font-bold">
             <tr>
               <th className="p-4">User</th>
-              <th className="p-4">License Key</th>
+              <th className="p-4 whitespace-nowrap">License Key</th>
               <th className="p-4">Machine ID (HWID)</th>
               <th className="p-4">Status</th>
               <th className="p-4 text-right">Actions</th>
@@ -178,7 +178,7 @@ export default function LicenseManager({ password }: { password: string }) {
             {licenses.map(lic => (
               <tr key={lic.id} className="hover:bg-white/[0.02] transition-colors group">
                 <td className="p-4 font-medium">{lic.email}</td>
-                <td className="p-4">
+                <td className="p-4 whitespace-nowrap">
                   <code className="text-[#ddb8ff] font-bold tracking-widest">{lic.license_key}</code>
                 </td>
                 <td className="p-4">
