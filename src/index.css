@@ -41,3 +41,31 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Leaflet Dark Theme Overrides */
+.leaflet-popup-content-wrapper {
+  background: rgba(10, 10, 10, 0.85) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8) !important;
+  border-radius: 12px !important;
+}
+.leaflet-popup-tip {
+  background: rgba(10, 10, 10, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-top: none !important;
+  border-left: none !important;
+}
+.leaflet-popup-content {
+  margin: 10px 14px !important;
+}
+.leaflet-container a.leaflet-popup-close-button {
+  color: rgba(255, 255, 255, 0.5) !important;
+  padding: 4px !important;
+}
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: white !important;
+  background: transparent !important;
+}
